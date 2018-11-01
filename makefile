@@ -10,7 +10,7 @@ CFLAGS = -Wall -O0 -g -I. \
 
 CXXFLAGS = -std=c++11
 
-all: tsn
+all: exe
 
 
 IDL_GENERATED_H= \
@@ -33,13 +33,19 @@ DEBUG= -g
 ${IDL_GENERATED}: idl/tsn.idl
 	${OSPL_HOME}/bin/idlpp -l cpp idl/tsn.idl
 
-COMMON_CPP= src/CheckStatus.cpp src/DDSEntityManager.cpp src/user.cpp src/post.cpp src/system.cpp src/view.cpp src/controller.cpp
+COMMON_CPP= src/CheckStatus.cpp src/DDSEntityManager.cpp src/user.cpp src/post.cpp src/io.cpp
 
-COMMON_H= src/CheckStatus.h src/DDSEntityManager.h src/user.h src/post.h src/system.h src/view.h src/controller.h
+COMMON_H= src/CheckStatus.h src/DDSEntityManager.h src/user.h src/post.h src/io.h
 
 
-tsn: ${IDL_GENERATED_H} ${IDL_GENERATED_CPP} ${COMMON_H} ${COMMON_CPP} src/main.cpp
+exe: ${IDL_GENERATED_H} ${IDL_GENERATED_CPP} ${COMMON_H} ${COMMON_CPP} src/main.cpp
 	g++ -o $@ ${CFLAGS} ${CXXFLAGS} ${DEBUG} $^ ${LIBS}
+
+#Dealer: ${IDL_GENERATED_H} ${IDL_GENERATED_CPP} src/Dealer.cpp ${DEALER_FILES} ${DEALER_H_FILES}  ${COMMON_H} ${COMMON_CPP}
+#	g++ -o $@ ${CFLAGS} ${CXXFLAGS} $^ ${LIBS}
+
+#Player: ${IDL_GENERATED_H} ${IDL_GENERATED_CPP} src/Player.cpp ${PLAYER_FILES} ${PLAYER_H_FILES} ${COMMON_H} ${COMMON_CPP}
+#	g++ -o $@ ${CFLAGS} ${CXXFLAGS} $^ ${LIBS}
 
 clean:
 	-rm -f exe

@@ -1,21 +1,7 @@
 #include "user.h"
 #include <cstring>
-#include <vector>
 
-user::user()
-{
-    first_name = "fname";
-    last_name = "lname";
-    date_of_birth = 0;
-
-    std::vector<std::string> i;
-    interests = i;
-
-    std::vector<post> p;
-    posts = p;
-
-    highest_pnum = 0;
-}
+#include <iostream> //debug info
 user::user(std::string fname, std::string lname, long dob, char *id, std::vector<std::string> &i, std::vector<post> &p, unsigned long long hp)
 {
     first_name = fname;
@@ -38,7 +24,6 @@ unsigned long long user::get_highest_pnum()
     return highest_pnum;
 }
 
-//assignment operator overload
 user &user::operator=(const user &rhs)
 {
     first_name = rhs.first_name;
