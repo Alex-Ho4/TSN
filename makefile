@@ -1,4 +1,4 @@
-#makefile taken from class github 
+#makefile taken from class github
 
 OSPL_LIBS = -lpthread -lddskernel -ldcpssacpp
 LIBS=-L${OSPL_HOME}/lib ${OSPL_LIBS} -lboost_system -lboost_thread
@@ -18,7 +18,7 @@ IDL_GENERATED_H= \
                  tsnDcps.h \
                  tsnDcps_impl.h \
                  tsn.h \
-                 tsnSplDcps.h 
+                 tsnSplDcps.h
 
 IDL_GENERATED_CPP=\
                  tsn.cpp \
@@ -33,9 +33,9 @@ DEBUG= -g
 ${IDL_GENERATED}: idl/tsn.idl
 	${OSPL_HOME}/bin/idlpp -l cpp idl/tsn.idl
 
-COMMON_CPP= src/CheckStatus.cpp src/DDSEntityManager.cpp src/user.cpp src/post.cpp src/system.cpp src/view.cpp src/controller.cpp
+COMMON_CPP= src/CheckStatus.cpp src/DDSEntityManager.cpp src/user.cpp src/post.cpp src/message.cpp src/system.cpp src/view.cpp src/controller.cpp
 
-COMMON_H= src/CheckStatus.h src/DDSEntityManager.h src/user.h src/post.h src/system.h src/view.h src/controller.h
+COMMON_H= src/CheckStatus.h src/DDSEntityManager.h src/user.h src/post.h src/message.h src/system.h src/view.h src/controller.h
 
 
 tsn: ${IDL_GENERATED_H} ${IDL_GENERATED_CPP} ${COMMON_H} ${COMMON_CPP} src/main.cpp

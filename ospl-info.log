@@ -1,0 +1,1734 @@
+========================================================================================
+Report      : INFO
+Date        : Fri Nov 02 02:42:20 CDT 2018
+Description : u_domainNew:Database allocated on heap
+Node        : cse1325
+Process     : tsn <22033>
+Thread      : spliced 7fae9b73b700
+Internals   : V6.4.140320OSS/24b1387/24b1387/user::u_domain::u_domainNew/u_domain.c/706/0/1541144540.032241229
+========================================================================================
+Report      : INFO
+Date        : Fri Nov 02 02:42:20 CDT 2018
+Description : ---------------------------------------------------------------
+              -- The service is using the following configuration settings --
+              ---------------------------------------------------------------
+              Domain (id)          : ospl_sp_ddsi (0)
+              Storage              : 10240 Kbytes
+              Storage threshold    : 1024 Kbytes
+              Storage address      : Not available
+              Locking              : default
+              Memory mode          : Heap memory
+              Builtin topics       : true
+              Priority inheritance : false
+Node        : cse1325
+Process     : tsn <22033>
+Thread      : spliced 7fae9b73b700
+Internals   : V6.4.140320OSS/24b1387/24b1387/The OpenSplice domain service/u_domain.c/827/0/1541144540.049839994
+========================================================================================
+Report      : INFO
+Date        : Fri Nov 02 02:42:20 CDT 2018
+Description : ++++++++++++++++++++++++++++++++++++++++++++++++
+              ++ The service 'splicedaemon' is now operational. 
+              ++++++++++++++++++++++++++++++++++++++++++++++++
+Node        : cse1325
+Process     : tsn <22033>
+Thread      : spliced 7fae9b73b700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_serviceChangeState/v_service.c/329/0/1541144540.054244125
+========================================================================================
+Report      : INFO
+Date        : Fri Nov 02 02:42:20 CDT 2018
+Description : SOAP service is reachable via port 41059
+Node        : cse1325
+Process     : tsn <22033>
+Thread      : cmsoap 7fae99091700
+Internals   : V6.4.140320OSS/24b1387/24b1387/CM SOAP Service/cms_service.c/410/0/1541144540.060998738
+========================================================================================
+Report      : INFO
+Date        : Fri Nov 02 02:42:20 CDT 2018
+Description : ++++++++++++++++++++++++++++++++++++++++++++++++
+              ++ The service 'cmsoap' is now operational. 
+              ++++++++++++++++++++++++++++++++++++++++++++++++
+Node        : cse1325
+Process     : tsn <22033>
+Thread      : cmsoap 7fae99091700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_serviceChangeState/v_service.c/329/0/1541144540.061209770
+========================================================================================
+Report      : INFO
+Date        : Fri Nov 02 02:42:20 CDT 2018
+Description : ++++++++++++++++++++++++++++++++++++++++++++++++
+              ++ The service 'ddsi2' is now operational. 
+              ++++++++++++++++++++++++++++++++++++++++++++++++
+Node        : cse1325
+Process     : tsn <22033>
+Thread      : ddsi2 7fae989c2700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_serviceChangeState/v_service.c/329/0/1541144540.084292364
+========================================================================================
+Report      : INFO
+Date        : Fri Nov 02 02:42:20 CDT 2018
+Description : The durability service can by identified by ID: 1660769971
+Node        : cse1325
+Process     : tsn <22033>
+Thread      : durability 7fae98d31700
+Internals   : V6.4.140320OSS/24b1387/24b1387/DurabilityService/d_durability.c/476/0/1541144540.099931678
+========================================================================================
+Report      : INFO
+Date        : Fri Nov 02 02:42:27 CDT 2018
+Description : ++++++++++++++++++++++++++++++++++++++++++++++++
+              ++ The service 'durability' is now operational. 
+              ++++++++++++++++++++++++++++++++++++++++++++++++
+Node        : cse1325
+Process     : tsn <22033>
+Thread      : durability 7fae98d31700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_serviceChangeState/v_service.c/329/0/1541144547.115033432
+========================================================================================
+Report      : INFO
+Date        : Fri Nov 02 02:42:32 CDT 2018
+Description : u_domainNew:Database allocated on heap
+Node        : cse1325
+Process     : tsn <22102>
+Thread      : spliced 7f76a372d700
+Internals   : V6.4.140320OSS/24b1387/24b1387/user::u_domain::u_domainNew/u_domain.c/706/0/1541144552.572619231
+========================================================================================
+Report      : INFO
+Date        : Fri Nov 02 02:42:32 CDT 2018
+Description : ---------------------------------------------------------------
+              -- The service is using the following configuration settings --
+              ---------------------------------------------------------------
+              Domain (id)          : ospl_sp_ddsi (0)
+              Storage              : 10240 Kbytes
+              Storage threshold    : 1024 Kbytes
+              Storage address      : Not available
+              Locking              : default
+              Memory mode          : Heap memory
+              Builtin topics       : true
+              Priority inheritance : false
+Node        : cse1325
+Process     : tsn <22102>
+Thread      : spliced 7f76a372d700
+Internals   : V6.4.140320OSS/24b1387/24b1387/The OpenSplice domain service/u_domain.c/827/0/1541144552.589797379
+========================================================================================
+Report      : INFO
+Date        : Fri Nov 02 02:42:32 CDT 2018
+Description : ++++++++++++++++++++++++++++++++++++++++++++++++
+              ++ The service 'splicedaemon' is now operational. 
+              ++++++++++++++++++++++++++++++++++++++++++++++++
+Node        : cse1325
+Process     : tsn <22102>
+Thread      : spliced 7f76a372d700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_serviceChangeState/v_service.c/329/0/1541144552.591324051
+========================================================================================
+Report      : INFO
+Date        : Fri Nov 02 02:42:32 CDT 2018
+Description : SOAP service is reachable via port 46717
+Node        : cse1325
+Process     : tsn <22102>
+Thread      : cmsoap 7f76a1083700
+Internals   : V6.4.140320OSS/24b1387/24b1387/CM SOAP Service/cms_service.c/410/0/1541144552.599818897
+========================================================================================
+Report      : INFO
+Date        : Fri Nov 02 02:42:32 CDT 2018
+Description : ++++++++++++++++++++++++++++++++++++++++++++++++
+              ++ The service 'cmsoap' is now operational. 
+              ++++++++++++++++++++++++++++++++++++++++++++++++
+Node        : cse1325
+Process     : tsn <22102>
+Thread      : cmsoap 7f76a1083700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_serviceChangeState/v_service.c/329/0/1541144552.600046978
+========================================================================================
+Report      : INFO
+Date        : Fri Nov 02 02:42:32 CDT 2018
+Description : ++++++++++++++++++++++++++++++++++++++++++++++++
+              ++ The service 'ddsi2' is now operational. 
+              ++++++++++++++++++++++++++++++++++++++++++++++++
+Node        : cse1325
+Process     : tsn <22102>
+Thread      : ddsi2 7f76a09b4700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_serviceChangeState/v_service.c/329/0/1541144552.625813498
+========================================================================================
+Report      : INFO
+Date        : Fri Nov 02 02:42:32 CDT 2018
+Description : The durability service can by identified by ID: 595613090
+Node        : cse1325
+Process     : tsn <22102>
+Thread      : durability 7f76a0d23700
+Internals   : V6.4.140320OSS/24b1387/24b1387/DurabilityService/d_durability.c/476/0/1541144552.662217277
+========================================================================================
+Report      : INFO
+Date        : Fri Nov 02 02:42:40 CDT 2018
+Description : ++++++++++++++++++++++++++++++++++++++++++++++++
+              ++ The service 'durability' is now operational. 
+              ++++++++++++++++++++++++++++++++++++++++++++++++
+Node        : cse1325
+Process     : tsn <22102>
+Thread      : durability 7f76a0d23700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_serviceChangeState/v_service.c/329/0/1541144560.185970759
+========================================================================================
+Report      : INFO
+Date        : Fri Nov 02 02:42:55 CDT 2018
+Description : Exception (signal 6) occurred in process
+Node        : cse1325
+Process     : tsn <22033>
+Thread      : signalHandler 7fae99ba8700
+Internals   : V6.4.140320OSS/24b1387/24b1387/signalHandlerThread/os_signalHandler.c/447/0/1541144575.408166353
+========================================================================================
+Report      : WARNING
+Date        : Fri Nov 02 02:43:04 CDT 2018
+Description : Missed heartbeat for node - heartbeat id : 1660769971. (DCPSPublication state 1)
+Node        : cse1325
+Process     : tsn <22102>
+Thread      : OSPL Garbage Collector 7f76a158c700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_spliced/v_spliced.c/2439/0/1541144584.600190410
+========================================================================================
+Report      : INFO
+Date        : Fri Nov 02 02:43:34 CDT 2018
+Description : Termination request (signal 2) received from PID 22102 (self), UID 1000
+Node        : cse1325
+Process     : tsn <22102>
+Thread      : signalHandler 7f76a1b9a700
+Internals   : V6.4.140320OSS/24b1387/24b1387/signalHandlerThread/os_signalHandler.c/503/0/1541144614.233823598
+========================================================================================
+Report      : INFO
+Date        : Fri Nov 02 02:45:36 CDT 2018
+Description : u_domainNew:Database allocated on heap
+Node        : cse1325
+Process     : tsn <22221>
+Thread      : spliced 7f43beb80700
+Internals   : V6.4.140320OSS/24b1387/24b1387/user::u_domain::u_domainNew/u_domain.c/706/0/1541144736.084063768
+========================================================================================
+Report      : INFO
+Date        : Fri Nov 02 02:45:36 CDT 2018
+Description : ---------------------------------------------------------------
+              -- The service is using the following configuration settings --
+              ---------------------------------------------------------------
+              Domain (id)          : ospl_sp_ddsi (0)
+              Storage              : 10240 Kbytes
+              Storage threshold    : 1024 Kbytes
+              Storage address      : Not available
+              Locking              : default
+              Memory mode          : Heap memory
+              Builtin topics       : true
+              Priority inheritance : false
+Node        : cse1325
+Process     : tsn <22221>
+Thread      : spliced 7f43beb80700
+Internals   : V6.4.140320OSS/24b1387/24b1387/The OpenSplice domain service/u_domain.c/827/0/1541144736.100742216
+========================================================================================
+Report      : INFO
+Date        : Fri Nov 02 02:45:36 CDT 2018
+Description : ++++++++++++++++++++++++++++++++++++++++++++++++
+              ++ The service 'splicedaemon' is now operational. 
+              ++++++++++++++++++++++++++++++++++++++++++++++++
+Node        : cse1325
+Process     : tsn <22221>
+Thread      : spliced 7f43beb80700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_serviceChangeState/v_service.c/329/0/1541144736.102154486
+========================================================================================
+Report      : INFO
+Date        : Fri Nov 02 02:45:36 CDT 2018
+Description : SOAP service is reachable via port 37761
+Node        : cse1325
+Process     : tsn <22221>
+Thread      : cmsoap 7f43bc4d6700
+Internals   : V6.4.140320OSS/24b1387/24b1387/CM SOAP Service/cms_service.c/410/0/1541144736.111554549
+========================================================================================
+Report      : INFO
+Date        : Fri Nov 02 02:45:36 CDT 2018
+Description : ++++++++++++++++++++++++++++++++++++++++++++++++
+              ++ The service 'cmsoap' is now operational. 
+              ++++++++++++++++++++++++++++++++++++++++++++++++
+Node        : cse1325
+Process     : tsn <22221>
+Thread      : cmsoap 7f43bc4d6700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_serviceChangeState/v_service.c/329/0/1541144736.111920780
+========================================================================================
+Report      : INFO
+Date        : Fri Nov 02 02:45:36 CDT 2018
+Description : ++++++++++++++++++++++++++++++++++++++++++++++++
+              ++ The service 'ddsi2' is now operational. 
+              ++++++++++++++++++++++++++++++++++++++++++++++++
+Node        : cse1325
+Process     : tsn <22221>
+Thread      : ddsi2 7f439fd91700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_serviceChangeState/v_service.c/329/0/1541144736.135706310
+========================================================================================
+Report      : INFO
+Date        : Fri Nov 02 02:45:36 CDT 2018
+Description : The durability service can by identified by ID: 1713389238
+Node        : cse1325
+Process     : tsn <22221>
+Thread      : durability 7f43bc176700
+Internals   : V6.4.140320OSS/24b1387/24b1387/DurabilityService/d_durability.c/476/0/1541144736.149969222
+========================================================================================
+Report      : INFO
+Date        : Fri Nov 02 02:45:43 CDT 2018
+Description : ++++++++++++++++++++++++++++++++++++++++++++++++
+              ++ The service 'durability' is now operational. 
+              ++++++++++++++++++++++++++++++++++++++++++++++++
+Node        : cse1325
+Process     : tsn <22221>
+Thread      : durability 7f43bc176700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_serviceChangeState/v_service.c/329/0/1541144743.158768860
+========================================================================================
+Report      : INFO
+Date        : Fri Nov 02 02:45:51 CDT 2018
+Description : u_domainNew:Database allocated on heap
+Node        : cse1325
+Process     : tsn <22290>
+Thread      : spliced 7fe89fcd3700
+Internals   : V6.4.140320OSS/24b1387/24b1387/user::u_domain::u_domainNew/u_domain.c/706/0/1541144751.828456931
+========================================================================================
+Report      : INFO
+Date        : Fri Nov 02 02:45:51 CDT 2018
+Description : ---------------------------------------------------------------
+              -- The service is using the following configuration settings --
+              ---------------------------------------------------------------
+              Domain (id)          : ospl_sp_ddsi (0)
+              Storage              : 10240 Kbytes
+              Storage threshold    : 1024 Kbytes
+              Storage address      : Not available
+              Locking              : default
+              Memory mode          : Heap memory
+              Builtin topics       : true
+              Priority inheritance : false
+Node        : cse1325
+Process     : tsn <22290>
+Thread      : spliced 7fe89fcd3700
+Internals   : V6.4.140320OSS/24b1387/24b1387/The OpenSplice domain service/u_domain.c/827/0/1541144751.845888992
+========================================================================================
+Report      : INFO
+Date        : Fri Nov 02 02:45:51 CDT 2018
+Description : ++++++++++++++++++++++++++++++++++++++++++++++++
+              ++ The service 'splicedaemon' is now operational. 
+              ++++++++++++++++++++++++++++++++++++++++++++++++
+Node        : cse1325
+Process     : tsn <22290>
+Thread      : spliced 7fe89fcd3700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_serviceChangeState/v_service.c/329/0/1541144751.849849217
+========================================================================================
+Report      : INFO
+Date        : Fri Nov 02 02:45:51 CDT 2018
+Description : SOAP service is reachable via port 38427
+Node        : cse1325
+Process     : tsn <22290>
+Thread      : cmsoap 7fe89d629700
+Internals   : V6.4.140320OSS/24b1387/24b1387/CM SOAP Service/cms_service.c/410/0/1541144751.859289675
+========================================================================================
+Report      : INFO
+Date        : Fri Nov 02 02:45:51 CDT 2018
+Description : ++++++++++++++++++++++++++++++++++++++++++++++++
+              ++ The service 'cmsoap' is now operational. 
+              ++++++++++++++++++++++++++++++++++++++++++++++++
+Node        : cse1325
+Process     : tsn <22290>
+Thread      : cmsoap 7fe89d629700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_serviceChangeState/v_service.c/329/0/1541144751.860346869
+========================================================================================
+Report      : INFO
+Date        : Fri Nov 02 02:45:51 CDT 2018
+Description : ++++++++++++++++++++++++++++++++++++++++++++++++
+              ++ The service 'ddsi2' is now operational. 
+              ++++++++++++++++++++++++++++++++++++++++++++++++
+Node        : cse1325
+Process     : tsn <22290>
+Thread      : ddsi2 7fe89cf5a700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_serviceChangeState/v_service.c/329/0/1541144751.883205561
+========================================================================================
+Report      : INFO
+Date        : Fri Nov 02 02:45:51 CDT 2018
+Description : The durability service can by identified by ID: 1804937173
+Node        : cse1325
+Process     : tsn <22290>
+Thread      : durability 7fe89d2c9700
+Internals   : V6.4.140320OSS/24b1387/24b1387/DurabilityService/d_durability.c/476/0/1541144751.921390226
+========================================================================================
+Report      : INFO
+Date        : Fri Nov 02 02:46:00 CDT 2018
+Description : ++++++++++++++++++++++++++++++++++++++++++++++++
+              ++ The service 'durability' is now operational. 
+              ++++++++++++++++++++++++++++++++++++++++++++++++
+Node        : cse1325
+Process     : tsn <22290>
+Thread      : durability 7fe89d2c9700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_serviceChangeState/v_service.c/329/0/1541144760.940091935
+========================================================================================
+Report      : INFO
+Date        : Fri Nov 02 02:46:15 CDT 2018
+Description : Exception (signal 6) occurred in process
+Node        : cse1325
+Process     : tsn <22221>
+Thread      : signalHandler 7f43bcfed700
+Internals   : V6.4.140320OSS/24b1387/24b1387/signalHandlerThread/os_signalHandler.c/447/0/1541144775.418306702
+========================================================================================
+Report      : WARNING
+Date        : Fri Nov 02 02:46:25 CDT 2018
+Description : Missed heartbeat for node - heartbeat id : 1713389238. (DCPSPublication state 1)
+Node        : cse1325
+Process     : tsn <22290>
+Thread      : OSPL Garbage Collector 7fe89db32700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_spliced/v_spliced.c/2439/0/1541144785.857756368
+========================================================================================
+Report      : INFO
+Date        : Fri Nov 02 02:47:11 CDT 2018
+Description : Termination request (signal 2) received from PID 22290 (self), UID 1000
+Node        : cse1325
+Process     : tsn <22290>
+Thread      : signalHandler 7fe89e140700
+Internals   : V6.4.140320OSS/24b1387/24b1387/signalHandlerThread/os_signalHandler.c/503/0/1541144831.575928281
+========================================================================================
+Report      : INFO
+Date        : Fri Nov 02 02:48:59 CDT 2018
+Description : u_domainNew:Database allocated on heap
+Node        : cse1325
+Process     : tsn <22415>
+Thread      : spliced 7fc50bb8f700
+Internals   : V6.4.140320OSS/24b1387/24b1387/user::u_domain::u_domainNew/u_domain.c/706/0/1541144939.354450892
+========================================================================================
+Report      : INFO
+Date        : Fri Nov 02 02:48:59 CDT 2018
+Description : ---------------------------------------------------------------
+              -- The service is using the following configuration settings --
+              ---------------------------------------------------------------
+              Domain (id)          : ospl_sp_ddsi (0)
+              Storage              : 10240 Kbytes
+              Storage threshold    : 1024 Kbytes
+              Storage address      : Not available
+              Locking              : default
+              Memory mode          : Heap memory
+              Builtin topics       : true
+              Priority inheritance : false
+Node        : cse1325
+Process     : tsn <22415>
+Thread      : spliced 7fc50bb8f700
+Internals   : V6.4.140320OSS/24b1387/24b1387/The OpenSplice domain service/u_domain.c/827/0/1541144939.372284896
+========================================================================================
+Report      : INFO
+Date        : Fri Nov 02 02:48:59 CDT 2018
+Description : ++++++++++++++++++++++++++++++++++++++++++++++++
+              ++ The service 'splicedaemon' is now operational. 
+              ++++++++++++++++++++++++++++++++++++++++++++++++
+Node        : cse1325
+Process     : tsn <22415>
+Thread      : spliced 7fc50bb8f700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_serviceChangeState/v_service.c/329/0/1541144939.374336666
+========================================================================================
+Report      : INFO
+Date        : Fri Nov 02 02:48:59 CDT 2018
+Description : SOAP service is reachable via port 41623
+Node        : cse1325
+Process     : tsn <22415>
+Thread      : cmsoap 7fc5094e5700
+Internals   : V6.4.140320OSS/24b1387/24b1387/CM SOAP Service/cms_service.c/410/0/1541144939.381286242
+========================================================================================
+Report      : INFO
+Date        : Fri Nov 02 02:48:59 CDT 2018
+Description : ++++++++++++++++++++++++++++++++++++++++++++++++
+              ++ The service 'cmsoap' is now operational. 
+              ++++++++++++++++++++++++++++++++++++++++++++++++
+Node        : cse1325
+Process     : tsn <22415>
+Thread      : cmsoap 7fc5094e5700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_serviceChangeState/v_service.c/329/0/1541144939.381621761
+========================================================================================
+Report      : INFO
+Date        : Fri Nov 02 02:48:59 CDT 2018
+Description : ++++++++++++++++++++++++++++++++++++++++++++++++
+              ++ The service 'ddsi2' is now operational. 
+              ++++++++++++++++++++++++++++++++++++++++++++++++
+Node        : cse1325
+Process     : tsn <22415>
+Thread      : ddsi2 7fc508e16700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_serviceChangeState/v_service.c/329/0/1541144939.406613493
+========================================================================================
+Report      : INFO
+Date        : Fri Nov 02 02:48:59 CDT 2018
+Description : The durability service can by identified by ID: 1229308499
+Node        : cse1325
+Process     : tsn <22415>
+Thread      : durability 7fc509185700
+Internals   : V6.4.140320OSS/24b1387/24b1387/DurabilityService/d_durability.c/476/0/1541144939.420502862
+========================================================================================
+Report      : INFO
+Date        : Fri Nov 02 02:49:06 CDT 2018
+Description : ++++++++++++++++++++++++++++++++++++++++++++++++
+              ++ The service 'durability' is now operational. 
+              ++++++++++++++++++++++++++++++++++++++++++++++++
+Node        : cse1325
+Process     : tsn <22415>
+Thread      : durability 7fc509185700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_serviceChangeState/v_service.c/329/0/1541144946.437160517
+========================================================================================
+Report      : INFO
+Date        : Fri Nov 02 02:49:16 CDT 2018
+Description : u_domainNew:Database allocated on heap
+Node        : cse1325
+Process     : tsn <22484>
+Thread      : spliced 7fd1dab4d700
+Internals   : V6.4.140320OSS/24b1387/24b1387/user::u_domain::u_domainNew/u_domain.c/706/0/1541144956.126179146
+========================================================================================
+Report      : INFO
+Date        : Fri Nov 02 02:49:16 CDT 2018
+Description : ---------------------------------------------------------------
+              -- The service is using the following configuration settings --
+              ---------------------------------------------------------------
+              Domain (id)          : ospl_sp_ddsi (0)
+              Storage              : 10240 Kbytes
+              Storage threshold    : 1024 Kbytes
+              Storage address      : Not available
+              Locking              : default
+              Memory mode          : Heap memory
+              Builtin topics       : true
+              Priority inheritance : false
+Node        : cse1325
+Process     : tsn <22484>
+Thread      : spliced 7fd1dab4d700
+Internals   : V6.4.140320OSS/24b1387/24b1387/The OpenSplice domain service/u_domain.c/827/0/1541144956.145846596
+========================================================================================
+Report      : INFO
+Date        : Fri Nov 02 02:49:16 CDT 2018
+Description : ++++++++++++++++++++++++++++++++++++++++++++++++
+              ++ The service 'splicedaemon' is now operational. 
+              ++++++++++++++++++++++++++++++++++++++++++++++++
+Node        : cse1325
+Process     : tsn <22484>
+Thread      : spliced 7fd1dab4d700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_serviceChangeState/v_service.c/329/0/1541144956.147448590
+========================================================================================
+Report      : INFO
+Date        : Fri Nov 02 02:49:16 CDT 2018
+Description : SOAP service is reachable via port 34103
+Node        : cse1325
+Process     : tsn <22484>
+Thread      : cmsoap 7fd1d84a3700
+Internals   : V6.4.140320OSS/24b1387/24b1387/CM SOAP Service/cms_service.c/410/0/1541144956.156285898
+========================================================================================
+Report      : INFO
+Date        : Fri Nov 02 02:49:16 CDT 2018
+Description : ++++++++++++++++++++++++++++++++++++++++++++++++
+              ++ The service 'cmsoap' is now operational. 
+              ++++++++++++++++++++++++++++++++++++++++++++++++
+Node        : cse1325
+Process     : tsn <22484>
+Thread      : cmsoap 7fd1d84a3700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_serviceChangeState/v_service.c/329/0/1541144956.156560334
+========================================================================================
+Report      : INFO
+Date        : Fri Nov 02 02:49:16 CDT 2018
+Description : ++++++++++++++++++++++++++++++++++++++++++++++++
+              ++ The service 'ddsi2' is now operational. 
+              ++++++++++++++++++++++++++++++++++++++++++++++++
+Node        : cse1325
+Process     : tsn <22484>
+Thread      : ddsi2 7fd1bbd91700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_serviceChangeState/v_service.c/329/0/1541144956.181902407
+========================================================================================
+Report      : INFO
+Date        : Fri Nov 02 02:49:16 CDT 2018
+Description : The durability service can by identified by ID: 1825837756
+Node        : cse1325
+Process     : tsn <22484>
+Thread      : durability 7fd1d8143700
+Internals   : V6.4.140320OSS/24b1387/24b1387/DurabilityService/d_durability.c/476/0/1541144956.220906575
+========================================================================================
+Report      : INFO
+Date        : Fri Nov 02 02:49:25 CDT 2018
+Description : ++++++++++++++++++++++++++++++++++++++++++++++++
+              ++ The service 'durability' is now operational. 
+              ++++++++++++++++++++++++++++++++++++++++++++++++
+Node        : cse1325
+Process     : tsn <22484>
+Thread      : durability 7fd1d8143700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_serviceChangeState/v_service.c/329/0/1541144965.245903229
+========================================================================================
+Report      : INFO
+Date        : Fri Nov 02 02:49:53 CDT 2018
+Description : Exception (signal 6) occurred in process
+Node        : cse1325
+Process     : tsn <22415>
+Thread      : signalHandler 7fc509ffc700
+Internals   : V6.4.140320OSS/24b1387/24b1387/signalHandlerThread/os_signalHandler.c/447/0/1541144993.316864667
+========================================================================================
+Report      : WARNING
+Date        : Fri Nov 02 02:50:02 CDT 2018
+Description : Missed heartbeat for node - heartbeat id : 1229308499. (DCPSPublication state 1)
+Node        : cse1325
+Process     : tsn <22484>
+Thread      : OSPL Garbage Collector 7fd1d89ac700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_spliced/v_spliced.c/2439/0/1541145002.171850100
+========================================================================================
+Report      : INFO
+Date        : Fri Nov 02 02:55:59 CDT 2018
+Description : u_domainNew:Database allocated on heap
+Node        : cse1325
+Process     : tsn <22629>
+Thread      : spliced 7fea29a20700
+Internals   : V6.4.140320OSS/24b1387/24b1387/user::u_domain::u_domainNew/u_domain.c/706/0/1541145359.219762415
+========================================================================================
+Report      : INFO
+Date        : Fri Nov 02 02:55:59 CDT 2018
+Description : ---------------------------------------------------------------
+              -- The service is using the following configuration settings --
+              ---------------------------------------------------------------
+              Domain (id)          : ospl_sp_ddsi (0)
+              Storage              : 10240 Kbytes
+              Storage threshold    : 1024 Kbytes
+              Storage address      : Not available
+              Locking              : default
+              Memory mode          : Heap memory
+              Builtin topics       : true
+              Priority inheritance : false
+Node        : cse1325
+Process     : tsn <22629>
+Thread      : spliced 7fea29a20700
+Internals   : V6.4.140320OSS/24b1387/24b1387/The OpenSplice domain service/u_domain.c/827/0/1541145359.236886500
+========================================================================================
+Report      : INFO
+Date        : Fri Nov 02 02:55:59 CDT 2018
+Description : ++++++++++++++++++++++++++++++++++++++++++++++++
+              ++ The service 'splicedaemon' is now operational. 
+              ++++++++++++++++++++++++++++++++++++++++++++++++
+Node        : cse1325
+Process     : tsn <22629>
+Thread      : spliced 7fea29a20700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_serviceChangeState/v_service.c/329/0/1541145359.238366044
+========================================================================================
+Report      : INFO
+Date        : Fri Nov 02 02:55:59 CDT 2018
+Description : SOAP service is reachable via port 34403
+Node        : cse1325
+Process     : tsn <22629>
+Thread      : cmsoap 7fea27376700
+Internals   : V6.4.140320OSS/24b1387/24b1387/CM SOAP Service/cms_service.c/410/0/1541145359.247328824
+========================================================================================
+Report      : INFO
+Date        : Fri Nov 02 02:55:59 CDT 2018
+Description : ++++++++++++++++++++++++++++++++++++++++++++++++
+              ++ The service 'cmsoap' is now operational. 
+              ++++++++++++++++++++++++++++++++++++++++++++++++
+Node        : cse1325
+Process     : tsn <22629>
+Thread      : cmsoap 7fea27376700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_serviceChangeState/v_service.c/329/0/1541145359.247680750
+========================================================================================
+Report      : INFO
+Date        : Fri Nov 02 02:55:59 CDT 2018
+Description : ++++++++++++++++++++++++++++++++++++++++++++++++
+              ++ The service 'ddsi2' is now operational. 
+              ++++++++++++++++++++++++++++++++++++++++++++++++
+Node        : cse1325
+Process     : tsn <22629>
+Thread      : ddsi2 7fea26ca7700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_serviceChangeState/v_service.c/329/0/1541145359.272304839
+========================================================================================
+Report      : INFO
+Date        : Fri Nov 02 02:55:59 CDT 2018
+Description : The durability service can by identified by ID: 126930222
+Node        : cse1325
+Process     : tsn <22629>
+Thread      : durability 7fea27016700
+Internals   : V6.4.140320OSS/24b1387/24b1387/DurabilityService/d_durability.c/476/0/1541145359.286708805
+========================================================================================
+Report      : INFO
+Date        : Fri Nov 02 02:56:06 CDT 2018
+Description : ++++++++++++++++++++++++++++++++++++++++++++++++
+              ++ The service 'durability' is now operational. 
+              ++++++++++++++++++++++++++++++++++++++++++++++++
+Node        : cse1325
+Process     : tsn <22629>
+Thread      : durability 7fea27016700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_serviceChangeState/v_service.c/329/0/1541145366.306136579
+========================================================================================
+Report      : INFO
+Date        : Fri Nov 02 02:56:08 CDT 2018
+Description : u_domainNew:Database allocated on heap
+Node        : cse1325
+Process     : tsn <22698>
+Thread      : spliced 7f15ce66f700
+Internals   : V6.4.140320OSS/24b1387/24b1387/user::u_domain::u_domainNew/u_domain.c/706/0/1541145368.558003591
+========================================================================================
+Report      : INFO
+Date        : Fri Nov 02 02:56:08 CDT 2018
+Description : ---------------------------------------------------------------
+              -- The service is using the following configuration settings --
+              ---------------------------------------------------------------
+              Domain (id)          : ospl_sp_ddsi (0)
+              Storage              : 10240 Kbytes
+              Storage threshold    : 1024 Kbytes
+              Storage address      : Not available
+              Locking              : default
+              Memory mode          : Heap memory
+              Builtin topics       : true
+              Priority inheritance : false
+Node        : cse1325
+Process     : tsn <22698>
+Thread      : spliced 7f15ce66f700
+Internals   : V6.4.140320OSS/24b1387/24b1387/The OpenSplice domain service/u_domain.c/827/0/1541145368.578088615
+========================================================================================
+Report      : INFO
+Date        : Fri Nov 02 02:56:08 CDT 2018
+Description : ++++++++++++++++++++++++++++++++++++++++++++++++
+              ++ The service 'splicedaemon' is now operational. 
+              ++++++++++++++++++++++++++++++++++++++++++++++++
+Node        : cse1325
+Process     : tsn <22698>
+Thread      : spliced 7f15ce66f700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_serviceChangeState/v_service.c/329/0/1541145368.579717612
+========================================================================================
+Report      : INFO
+Date        : Fri Nov 02 02:56:08 CDT 2018
+Description : SOAP service is reachable via port 40727
+Node        : cse1325
+Process     : tsn <22698>
+Thread      : cmsoap 7f15cc1d5700
+Internals   : V6.4.140320OSS/24b1387/24b1387/CM SOAP Service/cms_service.c/410/0/1541145368.585028692
+========================================================================================
+Report      : INFO
+Date        : Fri Nov 02 02:56:08 CDT 2018
+Description : ++++++++++++++++++++++++++++++++++++++++++++++++
+              ++ The service 'cmsoap' is now operational. 
+              ++++++++++++++++++++++++++++++++++++++++++++++++
+Node        : cse1325
+Process     : tsn <22698>
+Thread      : cmsoap 7f15cc1d5700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_serviceChangeState/v_service.c/329/0/1541145368.585297528
+========================================================================================
+Report      : INFO
+Date        : Fri Nov 02 02:56:08 CDT 2018
+Description : ++++++++++++++++++++++++++++++++++++++++++++++++
+              ++ The service 'ddsi2' is now operational. 
+              ++++++++++++++++++++++++++++++++++++++++++++++++
+Node        : cse1325
+Process     : tsn <22698>
+Thread      : ddsi2 7f15af821700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_serviceChangeState/v_service.c/329/0/1541145368.611935775
+========================================================================================
+Report      : INFO
+Date        : Fri Nov 02 02:56:08 CDT 2018
+Description : The durability service can by identified by ID: 1347911051
+Node        : cse1325
+Process     : tsn <22698>
+Thread      : durability 7f15afb90700
+Internals   : V6.4.140320OSS/24b1387/24b1387/DurabilityService/d_durability.c/476/0/1541145368.650924417
+========================================================================================
+Report      : INFO
+Date        : Fri Nov 02 02:56:16 CDT 2018
+Description : ++++++++++++++++++++++++++++++++++++++++++++++++
+              ++ The service 'durability' is now operational. 
+              ++++++++++++++++++++++++++++++++++++++++++++++++
+Node        : cse1325
+Process     : tsn <22698>
+Thread      : durability 7f15afb90700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_serviceChangeState/v_service.c/329/0/1541145376.161490704
+========================================================================================
+Report      : INFO
+Date        : Fri Nov 02 02:56:35 CDT 2018
+Description : Exception (signal 6) occurred in process
+Node        : cse1325
+Process     : tsn <22629>
+Thread      : signalHandler 7fea27e8d700
+Internals   : V6.4.140320OSS/24b1387/24b1387/signalHandlerThread/os_signalHandler.c/447/0/1541145395.769041521
+========================================================================================
+Report      : WARNING
+Date        : Fri Nov 02 02:56:46 CDT 2018
+Description : Missed heartbeat for node - heartbeat id : 126930222. (DCPSPublication state 1)
+Node        : cse1325
+Process     : tsn <22698>
+Thread      : OSPL Garbage Collector 7f15cc4ce700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_spliced/v_spliced.c/2439/0/1541145406.605455330
+========================================================================================
+Report      : INFO
+Date        : Fri Nov 02 03:03:38 CDT 2018
+Description : u_domainNew:Database allocated on heap
+Node        : cse1325
+Process     : tsn <22843>
+Thread      : spliced 7fdf285c5700
+Internals   : V6.4.140320OSS/24b1387/24b1387/user::u_domain::u_domainNew/u_domain.c/706/0/1541145818.119907594
+========================================================================================
+Report      : INFO
+Date        : Fri Nov 02 03:03:38 CDT 2018
+Description : ---------------------------------------------------------------
+              -- The service is using the following configuration settings --
+              ---------------------------------------------------------------
+              Domain (id)          : ospl_sp_ddsi (0)
+              Storage              : 10240 Kbytes
+              Storage threshold    : 1024 Kbytes
+              Storage address      : Not available
+              Locking              : default
+              Memory mode          : Heap memory
+              Builtin topics       : true
+              Priority inheritance : false
+Node        : cse1325
+Process     : tsn <22843>
+Thread      : spliced 7fdf285c5700
+Internals   : V6.4.140320OSS/24b1387/24b1387/The OpenSplice domain service/u_domain.c/827/0/1541145818.137064593
+========================================================================================
+Report      : INFO
+Date        : Fri Nov 02 03:03:38 CDT 2018
+Description : ++++++++++++++++++++++++++++++++++++++++++++++++
+              ++ The service 'splicedaemon' is now operational. 
+              ++++++++++++++++++++++++++++++++++++++++++++++++
+Node        : cse1325
+Process     : tsn <22843>
+Thread      : spliced 7fdf285c5700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_serviceChangeState/v_service.c/329/0/1541145818.138466183
+========================================================================================
+Report      : INFO
+Date        : Fri Nov 02 03:03:38 CDT 2018
+Description : SOAP service is reachable via port 40575
+Node        : cse1325
+Process     : tsn <22843>
+Thread      : cmsoap 7fdf25f1b700
+Internals   : V6.4.140320OSS/24b1387/24b1387/CM SOAP Service/cms_service.c/410/0/1541145818.147423609
+========================================================================================
+Report      : INFO
+Date        : Fri Nov 02 03:03:38 CDT 2018
+Description : ++++++++++++++++++++++++++++++++++++++++++++++++
+              ++ The service 'cmsoap' is now operational. 
+              ++++++++++++++++++++++++++++++++++++++++++++++++
+Node        : cse1325
+Process     : tsn <22843>
+Thread      : cmsoap 7fdf25f1b700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_serviceChangeState/v_service.c/329/0/1541145818.148059818
+========================================================================================
+Report      : INFO
+Date        : Fri Nov 02 03:03:38 CDT 2018
+Description : ++++++++++++++++++++++++++++++++++++++++++++++++
+              ++ The service 'ddsi2' is now operational. 
+              ++++++++++++++++++++++++++++++++++++++++++++++++
+Node        : cse1325
+Process     : tsn <22843>
+Thread      : ddsi2 7fdf2584c700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_serviceChangeState/v_service.c/329/0/1541145818.170782547
+========================================================================================
+Report      : INFO
+Date        : Fri Nov 02 03:03:38 CDT 2018
+Description : The durability service can by identified by ID: 1400378224
+Node        : cse1325
+Process     : tsn <22843>
+Thread      : durability 7fdf25bbb700
+Internals   : V6.4.140320OSS/24b1387/24b1387/DurabilityService/d_durability.c/476/0/1541145818.185869173
+========================================================================================
+Report      : INFO
+Date        : Fri Nov 02 03:03:45 CDT 2018
+Description : ++++++++++++++++++++++++++++++++++++++++++++++++
+              ++ The service 'durability' is now operational. 
+              ++++++++++++++++++++++++++++++++++++++++++++++++
+Node        : cse1325
+Process     : tsn <22843>
+Thread      : durability 7fdf25bbb700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_serviceChangeState/v_service.c/329/0/1541145825.202121932
+========================================================================================
+Report      : INFO
+Date        : Fri Nov 02 03:03:49 CDT 2018
+Description : u_domainNew:Database allocated on heap
+Node        : cse1325
+Process     : tsn <22912>
+Thread      : spliced 7f7e994fa700
+Internals   : V6.4.140320OSS/24b1387/24b1387/user::u_domain::u_domainNew/u_domain.c/706/0/1541145829.898406952
+========================================================================================
+Report      : INFO
+Date        : Fri Nov 02 03:03:49 CDT 2018
+Description : ---------------------------------------------------------------
+              -- The service is using the following configuration settings --
+              ---------------------------------------------------------------
+              Domain (id)          : ospl_sp_ddsi (0)
+              Storage              : 10240 Kbytes
+              Storage threshold    : 1024 Kbytes
+              Storage address      : Not available
+              Locking              : default
+              Memory mode          : Heap memory
+              Builtin topics       : true
+              Priority inheritance : false
+Node        : cse1325
+Process     : tsn <22912>
+Thread      : spliced 7f7e994fa700
+Internals   : V6.4.140320OSS/24b1387/24b1387/The OpenSplice domain service/u_domain.c/827/0/1541145829.917944966
+========================================================================================
+Report      : INFO
+Date        : Fri Nov 02 03:03:49 CDT 2018
+Description : ++++++++++++++++++++++++++++++++++++++++++++++++
+              ++ The service 'splicedaemon' is now operational. 
+              ++++++++++++++++++++++++++++++++++++++++++++++++
+Node        : cse1325
+Process     : tsn <22912>
+Thread      : spliced 7f7e994fa700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_serviceChangeState/v_service.c/329/0/1541145829.919452673
+========================================================================================
+Report      : INFO
+Date        : Fri Nov 02 03:03:49 CDT 2018
+Description : SOAP service is reachable via port 33953
+Node        : cse1325
+Process     : tsn <22912>
+Thread      : cmsoap 7f7e96e50700
+Internals   : V6.4.140320OSS/24b1387/24b1387/CM SOAP Service/cms_service.c/410/0/1541145829.924830933
+========================================================================================
+Report      : INFO
+Date        : Fri Nov 02 03:03:49 CDT 2018
+Description : ++++++++++++++++++++++++++++++++++++++++++++++++
+              ++ The service 'cmsoap' is now operational. 
+              ++++++++++++++++++++++++++++++++++++++++++++++++
+Node        : cse1325
+Process     : tsn <22912>
+Thread      : cmsoap 7f7e96e50700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_serviceChangeState/v_service.c/329/0/1541145829.925060763
+========================================================================================
+Report      : INFO
+Date        : Fri Nov 02 03:03:49 CDT 2018
+Description : ++++++++++++++++++++++++++++++++++++++++++++++++
+              ++ The service 'ddsi2' is now operational. 
+              ++++++++++++++++++++++++++++++++++++++++++++++++
+Node        : cse1325
+Process     : tsn <22912>
+Thread      : ddsi2 7f7e96781700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_serviceChangeState/v_service.c/329/0/1541145829.952281448
+========================================================================================
+Report      : INFO
+Date        : Fri Nov 02 03:03:49 CDT 2018
+Description : The durability service can by identified by ID: 1287287308
+Node        : cse1325
+Process     : tsn <22912>
+Thread      : durability 7f7e96af0700
+Internals   : V6.4.140320OSS/24b1387/24b1387/DurabilityService/d_durability.c/476/0/1541145829.989380011
+========================================================================================
+Report      : INFO
+Date        : Fri Nov 02 03:03:59 CDT 2018
+Description : ++++++++++++++++++++++++++++++++++++++++++++++++
+              ++ The service 'durability' is now operational. 
+              ++++++++++++++++++++++++++++++++++++++++++++++++
+Node        : cse1325
+Process     : tsn <22912>
+Thread      : durability 7f7e96af0700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_serviceChangeState/v_service.c/329/0/1541145839.007461471
+========================================================================================
+Report      : INFO
+Date        : Fri Nov 02 03:04:20 CDT 2018
+Description : Exception (signal 6) occurred in process
+Node        : cse1325
+Process     : tsn <22843>
+Thread      : signalHandler 7fdf26a32700
+Internals   : V6.4.140320OSS/24b1387/24b1387/signalHandlerThread/os_signalHandler.c/447/0/1541145860.888520010
+========================================================================================
+Report      : WARNING
+Date        : Fri Nov 02 03:04:31 CDT 2018
+Description : Missed heartbeat for node - heartbeat id : 1400378224. (DCPSPublication state 1)
+Node        : cse1325
+Process     : tsn <22912>
+Thread      : OSPL Garbage Collector 7f7e97359700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_spliced/v_spliced.c/2439/0/1541145871.938902321
+========================================================================================
+Report      : INFO
+Date        : Fri Nov 02 03:06:25 CDT 2018
+Description : u_domainNew:Database allocated on heap
+Node        : cse1325
+Process     : tsn <22991>
+Thread      : spliced 7f81f3845700
+Internals   : V6.4.140320OSS/24b1387/24b1387/user::u_domain::u_domainNew/u_domain.c/706/0/1541145985.201238331
+========================================================================================
+Report      : INFO
+Date        : Fri Nov 02 03:06:25 CDT 2018
+Description : ---------------------------------------------------------------
+              -- The service is using the following configuration settings --
+              ---------------------------------------------------------------
+              Domain (id)          : ospl_sp_ddsi (0)
+              Storage              : 10240 Kbytes
+              Storage threshold    : 1024 Kbytes
+              Storage address      : Not available
+              Locking              : default
+              Memory mode          : Heap memory
+              Builtin topics       : true
+              Priority inheritance : false
+Node        : cse1325
+Process     : tsn <22991>
+Thread      : spliced 7f81f3845700
+Internals   : V6.4.140320OSS/24b1387/24b1387/The OpenSplice domain service/u_domain.c/827/0/1541145985.221161761
+========================================================================================
+Report      : INFO
+Date        : Fri Nov 02 03:06:25 CDT 2018
+Description : ++++++++++++++++++++++++++++++++++++++++++++++++
+              ++ The service 'splicedaemon' is now operational. 
+              ++++++++++++++++++++++++++++++++++++++++++++++++
+Node        : cse1325
+Process     : tsn <22991>
+Thread      : spliced 7f81f3845700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_serviceChangeState/v_service.c/329/0/1541145985.222645214
+========================================================================================
+Report      : INFO
+Date        : Fri Nov 02 03:06:25 CDT 2018
+Description : SOAP service is reachable via port 41669
+Node        : cse1325
+Process     : tsn <22991>
+Thread      : cmsoap 7f81f119b700
+Internals   : V6.4.140320OSS/24b1387/24b1387/CM SOAP Service/cms_service.c/410/0/1541145985.227128169
+========================================================================================
+Report      : INFO
+Date        : Fri Nov 02 03:06:25 CDT 2018
+Description : ++++++++++++++++++++++++++++++++++++++++++++++++
+              ++ The service 'cmsoap' is now operational. 
+              ++++++++++++++++++++++++++++++++++++++++++++++++
+Node        : cse1325
+Process     : tsn <22991>
+Thread      : cmsoap 7f81f119b700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_serviceChangeState/v_service.c/329/0/1541145985.231848149
+========================================================================================
+Report      : INFO
+Date        : Fri Nov 02 03:06:25 CDT 2018
+Description : ++++++++++++++++++++++++++++++++++++++++++++++++
+              ++ The service 'ddsi2' is now operational. 
+              ++++++++++++++++++++++++++++++++++++++++++++++++
+Node        : cse1325
+Process     : tsn <22991>
+Thread      : ddsi2 7f81f0acc700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_serviceChangeState/v_service.c/329/0/1541145985.252416183
+========================================================================================
+Report      : INFO
+Date        : Fri Nov 02 03:06:25 CDT 2018
+Description : The durability service can by identified by ID: 430901097
+Node        : cse1325
+Process     : tsn <22991>
+Thread      : durability 7f81f0e3b700
+Internals   : V6.4.140320OSS/24b1387/24b1387/DurabilityService/d_durability.c/476/0/1541145985.268640426
+========================================================================================
+Report      : INFO
+Date        : Fri Nov 02 03:06:32 CDT 2018
+Description : ++++++++++++++++++++++++++++++++++++++++++++++++
+              ++ The service 'durability' is now operational. 
+              ++++++++++++++++++++++++++++++++++++++++++++++++
+Node        : cse1325
+Process     : tsn <22991>
+Thread      : durability 7f81f0e3b700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_serviceChangeState/v_service.c/329/0/1541145992.282145758
+========================================================================================
+Report      : INFO
+Date        : Fri Nov 02 03:06:43 CDT 2018
+Description : u_domainNew:Database allocated on heap
+Node        : cse1325
+Process     : tsn <23060>
+Thread      : spliced 7fcd57e15700
+Internals   : V6.4.140320OSS/24b1387/24b1387/user::u_domain::u_domainNew/u_domain.c/706/0/1541146003.172431109
+========================================================================================
+Report      : INFO
+Date        : Fri Nov 02 03:06:43 CDT 2018
+Description : ---------------------------------------------------------------
+              -- The service is using the following configuration settings --
+              ---------------------------------------------------------------
+              Domain (id)          : ospl_sp_ddsi (0)
+              Storage              : 10240 Kbytes
+              Storage threshold    : 1024 Kbytes
+              Storage address      : Not available
+              Locking              : default
+              Memory mode          : Heap memory
+              Builtin topics       : true
+              Priority inheritance : false
+Node        : cse1325
+Process     : tsn <23060>
+Thread      : spliced 7fcd57e15700
+Internals   : V6.4.140320OSS/24b1387/24b1387/The OpenSplice domain service/u_domain.c/827/0/1541146003.190010429
+========================================================================================
+Report      : INFO
+Date        : Fri Nov 02 03:06:43 CDT 2018
+Description : ++++++++++++++++++++++++++++++++++++++++++++++++
+              ++ The service 'splicedaemon' is now operational. 
+              ++++++++++++++++++++++++++++++++++++++++++++++++
+Node        : cse1325
+Process     : tsn <23060>
+Thread      : spliced 7fcd57e15700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_serviceChangeState/v_service.c/329/0/1541146003.191625883
+========================================================================================
+Report      : INFO
+Date        : Fri Nov 02 03:06:43 CDT 2018
+Description : SOAP service is reachable via port 46435
+Node        : cse1325
+Process     : tsn <23060>
+Thread      : cmsoap 7fcd5576b700
+Internals   : V6.4.140320OSS/24b1387/24b1387/CM SOAP Service/cms_service.c/410/0/1541146003.198983220
+========================================================================================
+Report      : INFO
+Date        : Fri Nov 02 03:06:43 CDT 2018
+Description : ++++++++++++++++++++++++++++++++++++++++++++++++
+              ++ The service 'cmsoap' is now operational. 
+              ++++++++++++++++++++++++++++++++++++++++++++++++
+Node        : cse1325
+Process     : tsn <23060>
+Thread      : cmsoap 7fcd5576b700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_serviceChangeState/v_service.c/329/0/1541146003.199218559
+========================================================================================
+Report      : INFO
+Date        : Fri Nov 02 03:06:43 CDT 2018
+Description : ++++++++++++++++++++++++++++++++++++++++++++++++
+              ++ The service 'ddsi2' is now operational. 
+              ++++++++++++++++++++++++++++++++++++++++++++++++
+Node        : cse1325
+Process     : tsn <23060>
+Thread      : ddsi2 7fcd5509c700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_serviceChangeState/v_service.c/329/0/1541146003.223690037
+========================================================================================
+Report      : INFO
+Date        : Fri Nov 02 03:06:43 CDT 2018
+Description : The durability service can by identified by ID: 278345323
+Node        : cse1325
+Process     : tsn <23060>
+Thread      : durability 7fcd5540b700
+Internals   : V6.4.140320OSS/24b1387/24b1387/DurabilityService/d_durability.c/476/0/1541146003.261512504
+========================================================================================
+Report      : INFO
+Date        : Fri Nov 02 03:06:50 CDT 2018
+Description : ++++++++++++++++++++++++++++++++++++++++++++++++
+              ++ The service 'durability' is now operational. 
+              ++++++++++++++++++++++++++++++++++++++++++++++++
+Node        : cse1325
+Process     : tsn <23060>
+Thread      : durability 7fcd5540b700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_serviceChangeState/v_service.c/329/0/1541146010.774499026
+========================================================================================
+Report      : INFO
+Date        : Fri Nov 02 03:06:58 CDT 2018
+Description : Exception (signal 6) occurred in process
+Node        : cse1325
+Process     : tsn <23060>
+Thread      : signalHandler 7fcd56282700
+Internals   : V6.4.140320OSS/24b1387/24b1387/signalHandlerThread/os_signalHandler.c/447/0/1541146018.613750506
+========================================================================================
+Report      : WARNING
+Date        : Fri Nov 02 03:07:07 CDT 2018
+Description : Missed heartbeat for node - heartbeat id : 278345323. (DCPSPublication state 1)
+Node        : cse1325
+Process     : tsn <22991>
+Thread      : OSPL Garbage Collector 7f81f16a4700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_spliced/v_spliced.c/2439/0/1541146027.230104492
+========================================================================================
+Report      : INFO
+Date        : Fri Nov 02 03:07:22 CDT 2018
+Description : u_domainNew:Database allocated on heap
+Node        : cse1325
+Process     : tsn <23138>
+Thread      : spliced 7fc153ea5700
+Internals   : V6.4.140320OSS/24b1387/24b1387/user::u_domain::u_domainNew/u_domain.c/706/0/1541146042.027027391
+========================================================================================
+Report      : INFO
+Date        : Fri Nov 02 03:07:22 CDT 2018
+Description : ---------------------------------------------------------------
+              -- The service is using the following configuration settings --
+              ---------------------------------------------------------------
+              Domain (id)          : ospl_sp_ddsi (0)
+              Storage              : 10240 Kbytes
+              Storage threshold    : 1024 Kbytes
+              Storage address      : Not available
+              Locking              : default
+              Memory mode          : Heap memory
+              Builtin topics       : true
+              Priority inheritance : false
+Node        : cse1325
+Process     : tsn <23138>
+Thread      : spliced 7fc153ea5700
+Internals   : V6.4.140320OSS/24b1387/24b1387/The OpenSplice domain service/u_domain.c/827/0/1541146042.044294518
+========================================================================================
+Report      : INFO
+Date        : Fri Nov 02 03:07:22 CDT 2018
+Description : ++++++++++++++++++++++++++++++++++++++++++++++++
+              ++ The service 'splicedaemon' is now operational. 
+              ++++++++++++++++++++++++++++++++++++++++++++++++
+Node        : cse1325
+Process     : tsn <23138>
+Thread      : spliced 7fc153ea5700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_serviceChangeState/v_service.c/329/0/1541146042.045717407
+========================================================================================
+Report      : INFO
+Date        : Fri Nov 02 03:07:22 CDT 2018
+Description : SOAP service is reachable via port 46347
+Node        : cse1325
+Process     : tsn <23138>
+Thread      : cmsoap 7fc1517fb700
+Internals   : V6.4.140320OSS/24b1387/24b1387/CM SOAP Service/cms_service.c/410/0/1541146042.055602417
+========================================================================================
+Report      : INFO
+Date        : Fri Nov 02 03:07:22 CDT 2018
+Description : ++++++++++++++++++++++++++++++++++++++++++++++++
+              ++ The service 'cmsoap' is now operational. 
+              ++++++++++++++++++++++++++++++++++++++++++++++++
+Node        : cse1325
+Process     : tsn <23138>
+Thread      : cmsoap 7fc1517fb700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_serviceChangeState/v_service.c/329/0/1541146042.055984945
+========================================================================================
+Report      : INFO
+Date        : Fri Nov 02 03:07:22 CDT 2018
+Description : ++++++++++++++++++++++++++++++++++++++++++++++++
+              ++ The service 'ddsi2' is now operational. 
+              ++++++++++++++++++++++++++++++++++++++++++++++++
+Node        : cse1325
+Process     : tsn <23138>
+Thread      : ddsi2 7fc15112c700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_serviceChangeState/v_service.c/329/0/1541146042.082750476
+========================================================================================
+Report      : INFO
+Date        : Fri Nov 02 03:07:22 CDT 2018
+Description : The durability service can by identified by ID: 1465491157
+Node        : cse1325
+Process     : tsn <23138>
+Thread      : durability 7fc15149b700
+Internals   : V6.4.140320OSS/24b1387/24b1387/DurabilityService/d_durability.c/476/0/1541146042.120985153
+========================================================================================
+Report      : INFO
+Date        : Fri Nov 02 03:07:29 CDT 2018
+Description : ++++++++++++++++++++++++++++++++++++++++++++++++
+              ++ The service 'durability' is now operational. 
+              ++++++++++++++++++++++++++++++++++++++++++++++++
+Node        : cse1325
+Process     : tsn <23138>
+Thread      : durability 7fc15149b700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_serviceChangeState/v_service.c/329/0/1541146049.637210183
+========================================================================================
+Report      : INFO
+Date        : Fri Nov 02 04:00:19 CDT 2018
+Description : u_domainNew:Database allocated on heap
+Node        : cse1325
+Process     : tsn <23546>
+Thread      : spliced 7fa0de856700
+Internals   : V6.4.140320OSS/24b1387/24b1387/user::u_domain::u_domainNew/u_domain.c/706/0/1541149219.767999916
+========================================================================================
+Report      : INFO
+Date        : Fri Nov 02 04:00:19 CDT 2018
+Description : ---------------------------------------------------------------
+              -- The service is using the following configuration settings --
+              ---------------------------------------------------------------
+              Domain (id)          : ospl_sp_ddsi (0)
+              Storage              : 10240 Kbytes
+              Storage threshold    : 1024 Kbytes
+              Storage address      : Not available
+              Locking              : default
+              Memory mode          : Heap memory
+              Builtin topics       : true
+              Priority inheritance : false
+Node        : cse1325
+Process     : tsn <23546>
+Thread      : spliced 7fa0de856700
+Internals   : V6.4.140320OSS/24b1387/24b1387/The OpenSplice domain service/u_domain.c/827/0/1541149219.785134293
+========================================================================================
+Report      : INFO
+Date        : Fri Nov 02 04:00:19 CDT 2018
+Description : ++++++++++++++++++++++++++++++++++++++++++++++++
+              ++ The service 'splicedaemon' is now operational. 
+              ++++++++++++++++++++++++++++++++++++++++++++++++
+Node        : cse1325
+Process     : tsn <23546>
+Thread      : spliced 7fa0de856700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_serviceChangeState/v_service.c/329/0/1541149219.788441544
+========================================================================================
+Report      : INFO
+Date        : Fri Nov 02 04:00:19 CDT 2018
+Description : SOAP service is reachable via port 34163
+Node        : cse1325
+Process     : tsn <23546>
+Thread      : cmsoap 7fa0dc1ac700
+Internals   : V6.4.140320OSS/24b1387/24b1387/CM SOAP Service/cms_service.c/410/0/1541149219.794886068
+========================================================================================
+Report      : INFO
+Date        : Fri Nov 02 04:00:19 CDT 2018
+Description : ++++++++++++++++++++++++++++++++++++++++++++++++
+              ++ The service 'cmsoap' is now operational. 
+              ++++++++++++++++++++++++++++++++++++++++++++++++
+Node        : cse1325
+Process     : tsn <23546>
+Thread      : cmsoap 7fa0dc1ac700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_serviceChangeState/v_service.c/329/0/1541149219.795112895
+========================================================================================
+Report      : INFO
+Date        : Fri Nov 02 04:00:19 CDT 2018
+Description : ++++++++++++++++++++++++++++++++++++++++++++++++
+              ++ The service 'ddsi2' is now operational. 
+              ++++++++++++++++++++++++++++++++++++++++++++++++
+Node        : cse1325
+Process     : tsn <23546>
+Thread      : ddsi2 7fa0bfa31700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_serviceChangeState/v_service.c/329/0/1541149219.820169257
+========================================================================================
+Report      : INFO
+Date        : Fri Nov 02 04:00:19 CDT 2018
+Description : The durability service can by identified by ID: 730046576
+Node        : cse1325
+Process     : tsn <23546>
+Thread      : durability 7fa0bfda0700
+Internals   : V6.4.140320OSS/24b1387/24b1387/DurabilityService/d_durability.c/476/0/1541149219.834936759
+========================================================================================
+Report      : INFO
+Date        : Fri Nov 02 04:00:26 CDT 2018
+Description : ++++++++++++++++++++++++++++++++++++++++++++++++
+              ++ The service 'durability' is now operational. 
+              ++++++++++++++++++++++++++++++++++++++++++++++++
+Node        : cse1325
+Process     : tsn <23546>
+Thread      : durability 7fa0bfda0700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_serviceChangeState/v_service.c/329/0/1541149226.849591470
+========================================================================================
+Report      : INFO
+Date        : Fri Nov 02 04:00:28 CDT 2018
+Description : u_domainNew:Database allocated on heap
+Node        : cse1325
+Process     : tsn <23600>
+Thread      : spliced 7f09dc7b2700
+Internals   : V6.4.140320OSS/24b1387/24b1387/user::u_domain::u_domainNew/u_domain.c/706/0/1541149228.360398967
+========================================================================================
+Report      : INFO
+Date        : Fri Nov 02 04:00:28 CDT 2018
+Description : ---------------------------------------------------------------
+              -- The service is using the following configuration settings --
+              ---------------------------------------------------------------
+              Domain (id)          : ospl_sp_ddsi (0)
+              Storage              : 10240 Kbytes
+              Storage threshold    : 1024 Kbytes
+              Storage address      : Not available
+              Locking              : default
+              Memory mode          : Heap memory
+              Builtin topics       : true
+              Priority inheritance : false
+Node        : cse1325
+Process     : tsn <23600>
+Thread      : spliced 7f09dc7b2700
+Internals   : V6.4.140320OSS/24b1387/24b1387/The OpenSplice domain service/u_domain.c/827/0/1541149228.377295039
+========================================================================================
+Report      : INFO
+Date        : Fri Nov 02 04:00:28 CDT 2018
+Description : ++++++++++++++++++++++++++++++++++++++++++++++++
+              ++ The service 'splicedaemon' is now operational. 
+              ++++++++++++++++++++++++++++++++++++++++++++++++
+Node        : cse1325
+Process     : tsn <23600>
+Thread      : spliced 7f09dc7b2700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_serviceChangeState/v_service.c/329/0/1541149228.381496949
+========================================================================================
+Report      : INFO
+Date        : Fri Nov 02 04:00:28 CDT 2018
+Description : SOAP service is reachable via port 36423
+Node        : cse1325
+Process     : tsn <23600>
+Thread      : cmsoap 7f09da108700
+Internals   : V6.4.140320OSS/24b1387/24b1387/CM SOAP Service/cms_service.c/410/0/1541149228.385864000
+========================================================================================
+Report      : INFO
+Date        : Fri Nov 02 04:00:28 CDT 2018
+Description : ++++++++++++++++++++++++++++++++++++++++++++++++
+              ++ The service 'cmsoap' is now operational. 
+              ++++++++++++++++++++++++++++++++++++++++++++++++
+Node        : cse1325
+Process     : tsn <23600>
+Thread      : cmsoap 7f09da108700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_serviceChangeState/v_service.c/329/0/1541149228.386106974
+========================================================================================
+Report      : INFO
+Date        : Fri Nov 02 04:00:28 CDT 2018
+Description : ++++++++++++++++++++++++++++++++++++++++++++++++
+              ++ The service 'ddsi2' is now operational. 
+              ++++++++++++++++++++++++++++++++++++++++++++++++
+Node        : cse1325
+Process     : tsn <23600>
+Thread      : ddsi2 7f09d9a39700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_serviceChangeState/v_service.c/329/0/1541149228.414420943
+========================================================================================
+Report      : INFO
+Date        : Fri Nov 02 04:00:28 CDT 2018
+Description : The durability service can by identified by ID: 1848644221
+Node        : cse1325
+Process     : tsn <23600>
+Thread      : durability 7f09d9da8700
+Internals   : V6.4.140320OSS/24b1387/24b1387/DurabilityService/d_durability.c/476/0/1541149228.452180087
+========================================================================================
+Report      : INFO
+Date        : Fri Nov 02 04:00:35 CDT 2018
+Description : ++++++++++++++++++++++++++++++++++++++++++++++++
+              ++ The service 'durability' is now operational. 
+              ++++++++++++++++++++++++++++++++++++++++++++++++
+Node        : cse1325
+Process     : tsn <23600>
+Thread      : durability 7f09d9da8700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_serviceChangeState/v_service.c/329/0/1541149235.958029332
+========================================================================================
+Report      : INFO
+Date        : Fri Nov 02 04:01:05 CDT 2018
+Description : Exception (signal 6) occurred in process
+Node        : cse1325
+Process     : tsn <23546>
+Thread      : signalHandler 7fa0dccc3700
+Internals   : V6.4.140320OSS/24b1387/24b1387/signalHandlerThread/os_signalHandler.c/447/0/1541149265.570403725
+========================================================================================
+Report      : WARNING
+Date        : Fri Nov 02 04:01:14 CDT 2018
+Description : Missed heartbeat for node - heartbeat id : 730046576. (DCPSPublication state 1)
+Node        : cse1325
+Process     : tsn <23600>
+Thread      : OSPL Garbage Collector 7f09da611700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_spliced/v_spliced.c/2439/0/1541149274.404076789
+========================================================================================
+Report      : INFO
+Date        : Fri Nov 02 04:26:26 CDT 2018
+Description : u_domainNew:Database allocated on heap
+Node        : cse1325
+Process     : tsn <23803>
+Thread      : spliced 7f384d610700
+Internals   : V6.4.140320OSS/24b1387/24b1387/user::u_domain::u_domainNew/u_domain.c/706/0/1541150786.564209537
+========================================================================================
+Report      : INFO
+Date        : Fri Nov 02 04:26:26 CDT 2018
+Description : ---------------------------------------------------------------
+              -- The service is using the following configuration settings --
+              ---------------------------------------------------------------
+              Domain (id)          : ospl_sp_ddsi (0)
+              Storage              : 10240 Kbytes
+              Storage threshold    : 1024 Kbytes
+              Storage address      : Not available
+              Locking              : default
+              Memory mode          : Heap memory
+              Builtin topics       : true
+              Priority inheritance : false
+Node        : cse1325
+Process     : tsn <23803>
+Thread      : spliced 7f384d610700
+Internals   : V6.4.140320OSS/24b1387/24b1387/The OpenSplice domain service/u_domain.c/827/0/1541150786.582375411
+========================================================================================
+Report      : INFO
+Date        : Fri Nov 02 04:26:26 CDT 2018
+Description : ++++++++++++++++++++++++++++++++++++++++++++++++
+              ++ The service 'splicedaemon' is now operational. 
+              ++++++++++++++++++++++++++++++++++++++++++++++++
+Node        : cse1325
+Process     : tsn <23803>
+Thread      : spliced 7f384d610700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_serviceChangeState/v_service.c/329/0/1541150786.584163099
+========================================================================================
+Report      : INFO
+Date        : Fri Nov 02 04:26:26 CDT 2018
+Description : SOAP service is reachable via port 34169
+Node        : cse1325
+Process     : tsn <23803>
+Thread      : cmsoap 7f384af66700
+Internals   : V6.4.140320OSS/24b1387/24b1387/CM SOAP Service/cms_service.c/410/0/1541150786.590939088
+========================================================================================
+Report      : INFO
+Date        : Fri Nov 02 04:26:26 CDT 2018
+Description : ++++++++++++++++++++++++++++++++++++++++++++++++
+              ++ The service 'cmsoap' is now operational. 
+              ++++++++++++++++++++++++++++++++++++++++++++++++
+Node        : cse1325
+Process     : tsn <23803>
+Thread      : cmsoap 7f384af66700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_serviceChangeState/v_service.c/329/0/1541150786.591145024
+========================================================================================
+Report      : INFO
+Date        : Fri Nov 02 04:26:26 CDT 2018
+Description : ++++++++++++++++++++++++++++++++++++++++++++++++
+              ++ The service 'ddsi2' is now operational. 
+              ++++++++++++++++++++++++++++++++++++++++++++++++
+Node        : cse1325
+Process     : tsn <23803>
+Thread      : ddsi2 7f384a897700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_serviceChangeState/v_service.c/329/0/1541150786.614584764
+========================================================================================
+Report      : INFO
+Date        : Fri Nov 02 04:26:26 CDT 2018
+Description : The durability service can by identified by ID: 514828572
+Node        : cse1325
+Process     : tsn <23803>
+Thread      : durability 7f384ac06700
+Internals   : V6.4.140320OSS/24b1387/24b1387/DurabilityService/d_durability.c/476/0/1541150786.631000776
+========================================================================================
+Report      : INFO
+Date        : Fri Nov 02 04:26:31 CDT 2018
+Description : u_domainNew:Database allocated on heap
+Node        : cse1325
+Process     : tsn <23857>
+Thread      : spliced 7f2f42394700
+Internals   : V6.4.140320OSS/24b1387/24b1387/user::u_domain::u_domainNew/u_domain.c/706/0/1541150791.743181810
+========================================================================================
+Report      : INFO
+Date        : Fri Nov 02 04:26:31 CDT 2018
+Description : ---------------------------------------------------------------
+              -- The service is using the following configuration settings --
+              ---------------------------------------------------------------
+              Domain (id)          : ospl_sp_ddsi (0)
+              Storage              : 10240 Kbytes
+              Storage threshold    : 1024 Kbytes
+              Storage address      : Not available
+              Locking              : default
+              Memory mode          : Heap memory
+              Builtin topics       : true
+              Priority inheritance : false
+Node        : cse1325
+Process     : tsn <23857>
+Thread      : spliced 7f2f42394700
+Internals   : V6.4.140320OSS/24b1387/24b1387/The OpenSplice domain service/u_domain.c/827/0/1541150791.762619876
+========================================================================================
+Report      : INFO
+Date        : Fri Nov 02 04:26:31 CDT 2018
+Description : ++++++++++++++++++++++++++++++++++++++++++++++++
+              ++ The service 'splicedaemon' is now operational. 
+              ++++++++++++++++++++++++++++++++++++++++++++++++
+Node        : cse1325
+Process     : tsn <23857>
+Thread      : spliced 7f2f42394700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_serviceChangeState/v_service.c/329/0/1541150791.764139763
+========================================================================================
+Report      : INFO
+Date        : Fri Nov 02 04:26:31 CDT 2018
+Description : SOAP service is reachable via port 43933
+Node        : cse1325
+Process     : tsn <23857>
+Thread      : cmsoap 7f2f40172700
+Internals   : V6.4.140320OSS/24b1387/24b1387/CM SOAP Service/cms_service.c/410/0/1541150791.769304265
+========================================================================================
+Report      : INFO
+Date        : Fri Nov 02 04:26:31 CDT 2018
+Description : ++++++++++++++++++++++++++++++++++++++++++++++++
+              ++ The service 'cmsoap' is now operational. 
+              ++++++++++++++++++++++++++++++++++++++++++++++++
+Node        : cse1325
+Process     : tsn <23857>
+Thread      : cmsoap 7f2f40172700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_serviceChangeState/v_service.c/329/0/1541150791.769478405
+========================================================================================
+Report      : INFO
+Date        : Fri Nov 02 04:26:31 CDT 2018
+Description : ++++++++++++++++++++++++++++++++++++++++++++++++
+              ++ The service 'ddsi2' is now operational. 
+              ++++++++++++++++++++++++++++++++++++++++++++++++
+Node        : cse1325
+Process     : tsn <23857>
+Thread      : ddsi2 7f2f235a9700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_serviceChangeState/v_service.c/329/0/1541150791.795774757
+========================================================================================
+Report      : INFO
+Date        : Fri Nov 02 04:26:31 CDT 2018
+Description : The durability service can by identified by ID: 836584628
+Node        : cse1325
+Process     : tsn <23857>
+Thread      : durability 7f2f23918700
+Internals   : V6.4.140320OSS/24b1387/24b1387/DurabilityService/d_durability.c/476/0/1541150791.836306046
+========================================================================================
+Report      : INFO
+Date        : Fri Nov 02 04:26:39 CDT 2018
+Description : ++++++++++++++++++++++++++++++++++++++++++++++++
+              ++ The service 'durability' is now operational. 
+              ++++++++++++++++++++++++++++++++++++++++++++++++
+Node        : cse1325
+Process     : tsn <23803>
+Thread      : durability 7f384ac06700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_serviceChangeState/v_service.c/329/0/1541150799.263896994
+========================================================================================
+Report      : INFO
+Date        : Fri Nov 02 04:26:41 CDT 2018
+Description : ++++++++++++++++++++++++++++++++++++++++++++++++
+              ++ The service 'durability' is now operational. 
+              ++++++++++++++++++++++++++++++++++++++++++++++++
+Node        : cse1325
+Process     : tsn <23857>
+Thread      : durability 7f2f23918700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_serviceChangeState/v_service.c/329/0/1541150801.763834315
+========================================================================================
+Report      : INFO
+Date        : Fri Nov 02 04:29:09 CDT 2018
+Description : Exception (signal 6) occurred in process
+Node        : cse1325
+Process     : tsn <23803>
+Thread      : signalHandler 7f384ba7d700
+Internals   : V6.4.140320OSS/24b1387/24b1387/signalHandlerThread/os_signalHandler.c/447/0/1541150949.869036243
+========================================================================================
+Report      : WARNING
+Date        : Fri Nov 02 04:29:19 CDT 2018
+Description : Missed heartbeat for node - heartbeat id : 514828572. (DCPSPublication state 1)
+Node        : cse1325
+Process     : tsn <23857>
+Thread      : OSPL Garbage Collector 7f2f401f3700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_spliced/v_spliced.c/2439/0/1541150959.795608634
+========================================================================================
+Report      : INFO
+Date        : Fri Nov 02 04:39:20 CDT 2018
+Description : Termination request (signal 2) received from PID 23857 (self), UID 1000
+Node        : cse1325
+Process     : tsn <23857>
+Thread      : signalHandler 7f2f40801700
+Internals   : V6.4.140320OSS/24b1387/24b1387/signalHandlerThread/os_signalHandler.c/503/0/1541151560.956900329
+========================================================================================
+Report      : INFO
+Date        : Fri Nov 02 04:41:58 CDT 2018
+Description : u_domainNew:Database allocated on heap
+Node        : cse1325
+Process     : tsn <24071>
+Thread      : spliced 7fb66fbce700
+Internals   : V6.4.140320OSS/24b1387/24b1387/user::u_domain::u_domainNew/u_domain.c/706/0/1541151718.717313216
+========================================================================================
+Report      : INFO
+Date        : Fri Nov 02 04:41:58 CDT 2018
+Description : ---------------------------------------------------------------
+              -- The service is using the following configuration settings --
+              ---------------------------------------------------------------
+              Domain (id)          : ospl_sp_ddsi (0)
+              Storage              : 10240 Kbytes
+              Storage threshold    : 1024 Kbytes
+              Storage address      : Not available
+              Locking              : default
+              Memory mode          : Heap memory
+              Builtin topics       : true
+              Priority inheritance : false
+Node        : cse1325
+Process     : tsn <24071>
+Thread      : spliced 7fb66fbce700
+Internals   : V6.4.140320OSS/24b1387/24b1387/The OpenSplice domain service/u_domain.c/827/0/1541151718.738986820
+========================================================================================
+Report      : INFO
+Date        : Fri Nov 02 04:41:58 CDT 2018
+Description : ++++++++++++++++++++++++++++++++++++++++++++++++
+              ++ The service 'splicedaemon' is now operational. 
+              ++++++++++++++++++++++++++++++++++++++++++++++++
+Node        : cse1325
+Process     : tsn <24071>
+Thread      : spliced 7fb66fbce700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_serviceChangeState/v_service.c/329/0/1541151718.741080658
+========================================================================================
+Report      : INFO
+Date        : Fri Nov 02 04:41:58 CDT 2018
+Description : SOAP service is reachable via port 42837
+Node        : cse1325
+Process     : tsn <24071>
+Thread      : cmsoap 7fb66d524700
+Internals   : V6.4.140320OSS/24b1387/24b1387/CM SOAP Service/cms_service.c/410/0/1541151718.748614915
+========================================================================================
+Report      : INFO
+Date        : Fri Nov 02 04:41:58 CDT 2018
+Description : ++++++++++++++++++++++++++++++++++++++++++++++++
+              ++ The service 'cmsoap' is now operational. 
+              ++++++++++++++++++++++++++++++++++++++++++++++++
+Node        : cse1325
+Process     : tsn <24071>
+Thread      : cmsoap 7fb66d524700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_serviceChangeState/v_service.c/329/0/1541151718.748798039
+========================================================================================
+Report      : INFO
+Date        : Fri Nov 02 04:41:58 CDT 2018
+Description : ++++++++++++++++++++++++++++++++++++++++++++++++
+              ++ The service 'ddsi2' is now operational. 
+              ++++++++++++++++++++++++++++++++++++++++++++++++
+Node        : cse1325
+Process     : tsn <24071>
+Thread      : ddsi2 7fb66ce55700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_serviceChangeState/v_service.c/329/0/1541151718.768551713
+========================================================================================
+Report      : INFO
+Date        : Fri Nov 02 04:41:58 CDT 2018
+Description : The durability service can by identified by ID: 1879039508
+Node        : cse1325
+Process     : tsn <24071>
+Thread      : durability 7fb66d1c4700
+Internals   : V6.4.140320OSS/24b1387/24b1387/DurabilityService/d_durability.c/476/0/1541151718.784438138
+========================================================================================
+Report      : INFO
+Date        : Fri Nov 02 04:42:05 CDT 2018
+Description : ++++++++++++++++++++++++++++++++++++++++++++++++
+              ++ The service 'durability' is now operational. 
+              ++++++++++++++++++++++++++++++++++++++++++++++++
+Node        : cse1325
+Process     : tsn <24071>
+Thread      : durability 7fb66d1c4700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_serviceChangeState/v_service.c/329/0/1541151725.800637331
+========================================================================================
+Report      : INFO
+Date        : Fri Nov 02 04:42:12 CDT 2018
+Description : u_domainNew:Database allocated on heap
+Node        : cse1325
+Process     : tsn <24140>
+Thread      : spliced 7febf75d0700
+Internals   : V6.4.140320OSS/24b1387/24b1387/user::u_domain::u_domainNew/u_domain.c/706/0/1541151732.973784237
+========================================================================================
+Report      : INFO
+Date        : Fri Nov 02 04:42:12 CDT 2018
+Description : ---------------------------------------------------------------
+              -- The service is using the following configuration settings --
+              ---------------------------------------------------------------
+              Domain (id)          : ospl_sp_ddsi (0)
+              Storage              : 10240 Kbytes
+              Storage threshold    : 1024 Kbytes
+              Storage address      : Not available
+              Locking              : default
+              Memory mode          : Heap memory
+              Builtin topics       : true
+              Priority inheritance : false
+Node        : cse1325
+Process     : tsn <24140>
+Thread      : spliced 7febf75d0700
+Internals   : V6.4.140320OSS/24b1387/24b1387/The OpenSplice domain service/u_domain.c/827/0/1541151732.991473066
+========================================================================================
+Report      : INFO
+Date        : Fri Nov 02 04:42:12 CDT 2018
+Description : ++++++++++++++++++++++++++++++++++++++++++++++++
+              ++ The service 'splicedaemon' is now operational. 
+              ++++++++++++++++++++++++++++++++++++++++++++++++
+Node        : cse1325
+Process     : tsn <24140>
+Thread      : spliced 7febf75d0700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_serviceChangeState/v_service.c/329/0/1541151732.992995162
+========================================================================================
+Report      : INFO
+Date        : Fri Nov 02 04:42:12 CDT 2018
+Description : SOAP service is reachable via port 38429
+Node        : cse1325
+Process     : tsn <24140>
+Thread      : cmsoap 7febf4f26700
+Internals   : V6.4.140320OSS/24b1387/24b1387/CM SOAP Service/cms_service.c/410/0/1541151732.998672913
+========================================================================================
+Report      : INFO
+Date        : Fri Nov 02 04:42:12 CDT 2018
+Description : ++++++++++++++++++++++++++++++++++++++++++++++++
+              ++ The service 'cmsoap' is now operational. 
+              ++++++++++++++++++++++++++++++++++++++++++++++++
+Node        : cse1325
+Process     : tsn <24140>
+Thread      : cmsoap 7febf4f26700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_serviceChangeState/v_service.c/329/0/1541151732.998921686
+========================================================================================
+Report      : INFO
+Date        : Fri Nov 02 04:42:13 CDT 2018
+Description : ++++++++++++++++++++++++++++++++++++++++++++++++
+              ++ The service 'ddsi2' is now operational. 
+              ++++++++++++++++++++++++++++++++++++++++++++++++
+Node        : cse1325
+Process     : tsn <24140>
+Thread      : ddsi2 7febf4857700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_serviceChangeState/v_service.c/329/0/1541151733.024795839
+========================================================================================
+Report      : INFO
+Date        : Fri Nov 02 04:42:13 CDT 2018
+Description : The durability service can by identified by ID: 1355893573
+Node        : cse1325
+Process     : tsn <24140>
+Thread      : durability 7febf4bc6700
+Internals   : V6.4.140320OSS/24b1387/24b1387/DurabilityService/d_durability.c/476/0/1541151733.063657843
+========================================================================================
+Report      : INFO
+Date        : Fri Nov 02 04:42:20 CDT 2018
+Description : ++++++++++++++++++++++++++++++++++++++++++++++++
+              ++ The service 'durability' is now operational. 
+              ++++++++++++++++++++++++++++++++++++++++++++++++
+Node        : cse1325
+Process     : tsn <24140>
+Thread      : durability 7febf4bc6700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_serviceChangeState/v_service.c/329/0/1541151740.582082266
+========================================================================================
+Report      : INFO
+Date        : Fri Nov 02 04:42:38 CDT 2018
+Description : Exception (signal 6) occurred in process
+Node        : cse1325
+Process     : tsn <24071>
+Thread      : signalHandler 7fb66e03b700
+Internals   : V6.4.140320OSS/24b1387/24b1387/signalHandlerThread/os_signalHandler.c/447/0/1541151758.298703729
+========================================================================================
+Report      : WARNING
+Date        : Fri Nov 02 04:42:47 CDT 2018
+Description : Missed heartbeat for node - heartbeat id : 1879039508. (DCPSPublication state 1)
+Node        : cse1325
+Process     : tsn <24140>
+Thread      : OSPL Garbage Collector 7febf542f700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_spliced/v_spliced.c/2439/0/1541151767.004701740
+========================================================================================
+Report      : INFO
+Date        : Fri Nov 02 04:48:53 CDT 2018
+Description : Termination request (signal 1) received from PID 13146, UID 1000
+Node        : cse1325
+Process     : tsn <24140>
+Thread      : signalHandler 7febf5a3d700
+Internals   : V6.4.140320OSS/24b1387/24b1387/signalHandlerThread/os_signalHandler.c/503/0/1541152133.049140194
