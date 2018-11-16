@@ -24,7 +24,9 @@ user::user(std::string fname, std::string lname, long dob, char *id, std::vector
     strcpy(uuid, id);
     interests = i;
     posts = p;
+
     highest_pnum = hp;
+
 }
 
 void user::add_post(post p)
@@ -32,6 +34,7 @@ void user::add_post(post p)
     posts.push_back(p);
     highest_pnum++;
 }
+
 
 unsigned long long user::get_highest_pnum()
 {
@@ -48,6 +51,7 @@ user &user::operator=(const user &rhs)
     interests = rhs.interests;
     posts = rhs.posts;
     highest_pnum = rhs.highest_pnum;
+
 
     return *this;
 }

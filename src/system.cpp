@@ -23,7 +23,7 @@ tsn_system::tsn_system(user& cu)
 void tsn_system::user_publisher()
 {
   //initializing data publisher and writer
- 
+
   TSN::user_informationTypeSupport_var mt = new TSN::user_informationTypeSupport();
   manager.registerType(mt.in());
 
@@ -36,7 +36,7 @@ void tsn_system::user_publisher()
 
   DDS::DataWriter_var dw = manager.getWriter();
   TSN::user_informationDataWriter_var userinfoWriter = TSN::user_informationDataWriter::_narrow(dw.in());
-  
+
  while(true)
   {
   TSN::user_information userinfoInstance;
@@ -74,7 +74,7 @@ void tsn_system::user_publisher()
 }
 void tsn_system::request_listener()
 {
- 
+
   //initializing the data readers and subscribers
   TSN::requestSeq requestList;
   DDS::SampleInfoSeq infoSeq;
@@ -96,7 +96,7 @@ void tsn_system::request_listener()
   checkHandle(requestReader.in(), "requestDataReader::_narrow");
 
   ReturnCode_t request_status = -1;
-  
+
   //while loop constantly listens for any requests sent over the network
   while(true)
   {
@@ -113,8 +113,8 @@ void tsn_system::request_listener()
           {
             publish_response(requestList[j]);
           }
-      }  
-    } 
+      }
+    }
     request_status = requestReader->return_loan(requestList, infoSeq);
     checkStatus(request_status, "requestDataReader::return_loan");
     sleep(1);
@@ -150,13 +150,13 @@ void tsn_system::response_listener()
   checkHandle(responseReader.in(), "responseDataReader::_narrow");
 
   ReturnCode_t response_status = -1;
-  
+
   //while loop constantly listens for any responses sent over the network
   while(true)
   {
     response_status = responseReader->take(responseList, infoSeq, LENGTH_UNLIMITED, ANY_SAMPLE_STATE, ANY_VIEW_STATE, ANY_INSTANCE_STATE);
     checkStatus(response_status, "responseDataReader::take");
-    
+
     for (DDS::ULong j = 0; j < responseList.length(); j++)
      {
        //ignore the response if it's sent from the current user
@@ -205,7 +205,7 @@ void tsn_system::user_listener()
   userinfo_mgr.registerType(uits.in());
 
   char user_topic[] = "user_information";
-	
+
   userinfo_mgr.createTopic(user_topic);
   userinfo_mgr.createSubscriber();
   userinfo_mgr.createReader();
@@ -215,13 +215,13 @@ void tsn_system::user_listener()
   checkHandle(userReader.in(), "user_informationDataReader::_narrow");
 
   ReturnCode_t userinfo_status = -1;
-  
+
   //while loop constantly listens for any user information sent over the network
   while(1)
   {
     userinfo_status = userReader->take(userinfoList, infoSeq, LENGTH_UNLIMITED, ANY_SAMPLE_STATE, ANY_VIEW_STATE, ANY_INSTANCE_STATE);
     checkStatus(userinfo_status, "user_informationDataReader::take");
-    
+
      for (DDS::ULong j = 0; j < userinfoList.length(); j++)
      {
        if(strcmp(userinfoList[j].uuid, current_user.uuid) != 0)
@@ -238,13 +238,15 @@ void tsn_system::user_listener()
          }
          std::vector<post> posts;
 
+
          string fname = DDS::string_dup(userinfoList[j].first_name);
          string lname = DDS::string_dup(userinfoList[j].last_name);
          long date = userinfoList[j].date_of_birth;
          unsigned long long hp = userinfoList[j].number_of_highest_post;
 
+
          user new_user = user(fname, lname, date, uuid, interests, posts, hp);
-         
+
          //if user is already known, delete the old record in vector and add the new one
          std::vector<user>::iterator it;
          for(it = online_users.begin(); it != online_users.end(); it++)
@@ -267,7 +269,7 @@ void tsn_system::user_listener()
          }
          all_users.push_back(new_user);
          std::string home = getenv("HOME"); //.tsn is always stored in home directory
-         std::string path = home + "/.tsnusers";
+         std::string path = "/.tsnusers";
          std::ofstream out (path);
          for(it = all_users.begin(); it != all_users.end(); it++)
          {
@@ -279,7 +281,7 @@ void tsn_system::user_listener()
 		}
     userinfo_status = userReader->return_loan(userinfoList, infoSeq);
     checkStatus(userinfo_status, "user_informationDataReader::return_loan");
-    sleep(1);	
+    sleep(1);
   }
   //clean up
   userinfo_mgr.deleteReader();
@@ -317,13 +319,13 @@ long tsn_system::publish_request()
   {
     TSN::node_request nodeReqInstance;
     std::vector<TSN::serial_number> requested_p;
-    
+
     char myuuid[TSN::UUID_SIZE] = {};
 
-    
+
     n = 0;
     std::cout << std::endl;
-    
+
     std::vector<user>::iterator user_it;
     TSN::serial_number requested_hpnum;
     int on_list_size = static_cast<int> (online_users.size());
@@ -331,10 +333,14 @@ long tsn_system::publish_request()
     //prints out a list of online users that can be sent a request to
     if(on_list_size > 0)
     {
-      std::cout << "==========ONLINE USERS==========" << std::endl;
+      cout << string(50, '\n');
+      std::cout << "\033[1;31m\t\t=============================\033[0m\n";
+      std::cout << " " << std::endl;
+      std::cout << "\033[1;32m\t\t   ONLINE USERS\033[0m\n" << std::endl;
+      std::cout << "\033[1;31m\t\t=============================\033[0m\n";
       for(user_it = online_users.begin(); user_it != online_users.end(); user_it++, n++)
       {
-        std::cout << "(" << n << ") " << user_it->first_name << " " << user_it->last_name << std::endl;
+        std::cout << "(" << n+1 << ") " << user_it->first_name << " " << user_it->last_name << std::endl;
       }
       std::cout << "\nChoose which user to request from: " << std::endl;
 
@@ -384,7 +390,7 @@ long tsn_system::publish_request()
           requested_p.push_back(get_input);
       }
     }
-    
+
     strcpy(nodeReqInstance.fulfiller_uuid, myuuid);
     post_seq_length = static_cast<int> (requested_p.size());
     nodeReqInstance.requested_posts.length(post_seq_length);
@@ -414,11 +420,11 @@ long tsn_system::publish_request()
 
       break;
     }
-  }  
+  }
 
   strcpy(requestInstance.uuid, current_user.uuid);
   std::cout << "\n=== [Publisher] publishing your request on the TSN network :";
- 
+
   ReturnCode_t status = requestWriter->write(requestInstance, DDS::HANDLE_NIL);
   checkStatus(status, "requestDataWriter::write");
   std::cout << " success" << std::endl;
@@ -436,8 +442,9 @@ long tsn_system::publish_request()
   sleep(n);
 
   //we return the time the request is published to adhere to the 1 request per minute rule
-  return date; 
+  return date;
 }
+
 
 void tsn_system::publish_response(TSN::request r)
 {
@@ -465,7 +472,7 @@ void tsn_system::publish_response(TSN::request r)
     //finding the node request that is meant for the current user
     if(strcmp(r.user_requests[j].fulfiller_uuid, current_user.uuid) == 0)
       my_node_req = r.user_requests[j];
-  
+
     //creating a response for each post serial number within the node request
     for(DDS::ULong j = 0; j < my_node_req.requested_posts.length(); j++)
     {
@@ -505,8 +512,8 @@ void tsn_system::publish_response(TSN::request r)
 
 void tsn_system::load_user_data()
 {
-  std::string home = getenv("HOME"); //.tsn and .tsnusers is always stored in home directory
-  std::string path = home + "/.tsnusers";
+  //std::string home = getenv("HOME"); //.tsn and .tsnusers is always stored in home directory
+  std::string path = "/.tsnusers";
   std::ifstream in(path);
 
   std::string first_name;
@@ -515,12 +522,12 @@ void tsn_system::load_user_data()
   std::vector<post> posts;
   std::vector<std::string> interests;
 
-  std::string temp; 
+  std::string temp;
 
   //loading info about known nodes from .tsnusers if it exsits
   if(in)
   {
-    while(getline(in, temp)) 
+    while(getline(in, temp))
     {
       strcpy(myuuid, temp.c_str());
       in >> first_name;
@@ -536,22 +543,23 @@ void tsn_system::load_user_data()
       ss.str(temp);
       ss.clear();
       ss >> highest_pnum;
-      
+
+
       while(getline(in, temp))
       {
         if(temp == "END INTERESTS")
           break;
-            
-        interests.push_back(temp);    
+
+        interests.push_back(temp);
       }
 
       all_users.push_back(user(first_name, last_name, date, myuuid, interests, posts, highest_pnum));
     }
   }
   in.close();
-  
+
   //now attempting to load info of the current user/node from .tsn
-  path = home + "/.tsn";
+  path = "/.tsn";
   in.open(path);
 
   //the .tsn file does not exist so obtain data directly from user
@@ -580,14 +588,15 @@ void tsn_system::load_user_data()
   ss.str(temp);
   ss.clear();
   ss >> highest_pnum;
-  
+
+
   //retrieving current user's interests
   while(getline(in, temp))
   {
     if(temp == "END INTERESTS")
       break;
-				
-    interests.push_back(temp);    
+
+    interests.push_back(temp);
   }
 
   long doc;
@@ -599,7 +608,7 @@ void tsn_system::load_user_data()
   {
     if(temp == "END POSTS")
       break;
-    
+
     //read serial number
     ss.str(temp);
     ss.clear();
@@ -617,6 +626,7 @@ void tsn_system::load_user_data()
 
     posts.push_back(post(sn, body, doc));
   }
+
   in.close();
 
   //initializing current_user with a user object with all the data from .tsn
@@ -669,6 +679,7 @@ user tsn_system::create_new_user(std::string path)
   }
   out << "END INTERESTS" << std::endl;
   out.close();
+  cout << string(50, '\n');
   return user(first_name, last_name, date, myuuid, interests, posts, 0);
 }
 
@@ -725,6 +736,8 @@ void tsn_system::request_all_posts(user requested_user)
   request_mgr.deleteParticipant();
 }
 
+
+
 void tsn_system::write_user_data(user user_to_save, std::ofstream& out, bool write_posts)
 {
   //writing personal information of the specified user to the output file stream
@@ -753,12 +766,14 @@ void tsn_system::write_user_data(user user_to_save, std::ofstream& out, bool wri
     }
     out << "END POSTS" << std::endl;
   }
+
+
 }
 
 void tsn_system::resync()
 {
   std::string home = getenv("HOME");
-  std::string path = home + "/.tsnusers";
+  std::string path = "/.tsnusers";
   std::remove(path.c_str());
 
   online_users.clear();
@@ -769,7 +784,7 @@ void tsn_system::resync()
 
 void tsn_system::create_post()
 {
-  //calculating the new post serial number 
+  //calculating the new post serial number
   TSN::serial_number sn = (TSN::serial_number) current_user.get_highest_pnum()+1;
 
   std::string message;
@@ -787,7 +802,7 @@ void tsn_system::create_post()
 
   //writing the new post to .tsn file
   std::string home = getenv("HOME");
-  std::string path = home + "/.tsn";
+  std::string path = "/.tsn";
   std::ofstream out (path);
 
   write_user_data(current_user, out, true);
@@ -795,11 +810,18 @@ void tsn_system::create_post()
 
 }
 
+
+void tsn_system::send_msg()
+{
+ std::cout << "send msg"<<std::endl;
+
+}
+
 void tsn_system::edit_user()
 {
   int choice = 0;
   cin >> choice;
-  
+
   if(choice == 1)
   {
     std::string name;
@@ -833,7 +855,7 @@ void tsn_system::edit_user()
 
   //writing edited information to .tsn file
   std::string home = getenv("HOME");
-  std::string path = home + "/.tsn";
+  std::string path = "/.tsn";
   std::ofstream out (path);
 
   write_user_data(current_user, out, true);

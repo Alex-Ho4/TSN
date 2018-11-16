@@ -13,10 +13,10 @@ void controller::execute_cmd()
     if(state == 0) //exit
     {
       exit(0);
-    }		
+    }
     if(state == 1) //create post
     {
-      sys.create_post(); 
+      sys.create_post();
     }
     if(state == 2) //publish a request
     {
@@ -30,6 +30,7 @@ void controller::execute_cmd()
       if(last_request_time == 0 || current_time - last_request_time > 60)
       {
         ret_value = sys.publish_request();
+        //sys.publish_msgrequest();
         if(ret_value > 0)
           last_request_time = ret_value;
       }
@@ -57,12 +58,25 @@ void controller::execute_cmd()
     {
       viewer.show_stats();
     }
-    
+    if(state == 8) //about
+    {
+      viewer.about();
+    }
+    if(state == 9) //Send pvt msg
+    {
+      sys.send_msg();
+    }
+    if(state == 10) //show user
+    {
+      viewer.show_message();
+    }
+
+
 }
 void controller::background()
-{ 
+{
   //all listener methods, user publisher, and online list refresher runs in the background
-  std::thread UP (&tsn_system::user_publisher, &sys);  
+  std::thread UP (&tsn_system::user_publisher, &sys);
   std::thread UL (&tsn_system::user_listener, &sys);
   std::thread ROL (&tsn_system::refresh_online_list, &sys);
   std::thread ReqL(&tsn_system::request_listener, &sys);

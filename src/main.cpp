@@ -1,11 +1,14 @@
 #include <thread>
 #include <iostream>
-
 #include "controller.h"
 
 int main()
 {
-  std::cout << "Welcome to The Social Network." << std::endl;
+  cout << string(50, '\n');
+  std::cout << "\033[1;31m\t\t===============================\033[0m\n";
+	std::cout << " " << std::endl;
+ 	std::cout << "\033[1;32m\t\tWelcome to The Social Network.\033[0m\n" << std::endl;
+	std::cout << "\033[1;31m\t\t===============================\033[0m\n";
 
   user current_user; //user instance to construct a tsn_system
   tsn_system sys = tsn_system(current_user); //tsn_system instance for view constructor

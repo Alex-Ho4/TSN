@@ -10,7 +10,7 @@ class user
 {
   private:
     TSN::serial_number highest_pnum;
-    
+
   public:
     std::string first_name;
     std::string last_name;
@@ -18,7 +18,7 @@ class user
     char uuid[TSN::UUID_SIZE];
     std::vector<std::string> interests;
     std::vector<post> posts;
-    
+
     user(); //default constructor
     user(std::string fname, std::string lname, long dob, char *id, std::vector<std::string>& i,
         std::vector<post>& p, unsigned long long hp);

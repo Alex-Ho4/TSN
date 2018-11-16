@@ -14,7 +14,9 @@ class view
   void print_edit_menu();
   void print_online(); //prints names of nodes on the network
   void show_user(); //prints user information and posts of a selected user
+  void show_message();
   void show_stats(); //shows stats about other known nodes and post content on the network
+  void about(); //shows program info
 
 };
 #endif
