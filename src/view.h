@@ -17,6 +17,7 @@ class view
   void show_message();
   void show_stats(); //shows stats about other known nodes and post content on the network
   void about(); //shows program info
+  void search_posts();
 
 };
 #endif

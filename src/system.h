@@ -43,6 +43,8 @@ class tsn_system
     //prompts current user for info and publishes a request on the network
     long publish_request();
 
+    long search_request();
+
     //takes a request as a parameter and publishes a response to that request if needed
     void publish_response(TSN::request r);
 

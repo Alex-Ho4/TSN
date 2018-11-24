@@ -269,7 +269,7 @@ void tsn_system::user_listener()
          }
          all_users.push_back(new_user);
          std::string home = getenv("HOME"); //.tsn is always stored in home directory
-         std::string path = "/.tsnusers";
+         std::string path = "~/tsnusers";
          std::ofstream out (path);
          for(it = all_users.begin(); it != all_users.end(); it++)
          {
@@ -290,6 +290,161 @@ void tsn_system::user_listener()
   userinfo_mgr.deleteSubscriber();
 }
 
+long tsn_system::search_request()
+{
+  //initializing data publisher and writer
+  DDSEntityManager request_mgr;
+
+  request_mgr.createParticipant("TSN");
+  TSN::requestTypeSupport_var mt = new TSN::requestTypeSupport();
+  request_mgr.registerType(mt.in());
+
+  char request_topic[] = "request";
+  request_mgr.createTopic(request_topic);
+
+  request_mgr.createPublisher();
+  request_mgr.createWriter(false);
+
+  DDS::DataWriter_var dw = request_mgr.getWriter();
+  TSN::requestDataWriter_var requestWriter = TSN::requestDataWriter::_narrow(dw.in());
+  TSN::request requestInstance;
+  std::vector<TSN::node_request> requests;
+
+  int post_seq_length = 0;
+  int n;
+
+  //getting information for the individual node requests from the user
+  while(true)
+  {
+    TSN::node_request nodeReqInstance;
+    std::vector<TSN::serial_number> requested_p;
+
+    char myuuid[TSN::UUID_SIZE] = {};
+
+
+    n = 0;
+    std::cout << std::endl;
+
+    std::vector<user>::iterator user_it;
+    TSN::serial_number requested_hpnum;
+    int on_list_size = static_cast<int> (online_users.size());
+
+    //prints out a list of online users that can be sent a request to
+    if(on_list_size > 0)
+    {
+      cout << string(50, '\n');
+  //    std::cout << "\033[1;31m\t\t=============================\033[0m\n";
+  //    std::cout << " " << std::endl;
+  //    std::cout << "\033[1;32m\t\t   ONLINE USERS\033[0m\n" << std::endl;
+  //    std::cout << "\033[1;31m\t\t=============================\033[0m\n";
+  //    for(user_it = online_users.begin(); user_it != online_users.end(); user_it++, n++)
+  //    {
+  //      std::cout << "(" << n+1 << ") " << user_it->first_name << " " << user_it->last_name << std::endl;
+  //    }
+  //    std::cout << "\nChoose which user to request from: " << std::endl;
+
+      n = 0;
+  //    int choice;
+  //    std::cin >> choice;
+
+      //retrieving the UUID and highest post number of chosen user
+    //  for(user_it = online_users.begin(); n < choice+1 ; user_it++, n++)
+      for(user_it = online_users.begin(); user_it != online_users.end(); user_it++, n++)
+      {
+    //    if(n == choice)
+    //      {
+            strcpy(myuuid, user_it->uuid);
+            requested_hpnum = user_it->get_highest_pnum();
+      //    }
+      }
+    }
+    else
+    {
+      std::cout << "\nThere are no users online to publish a request to." << std::endl;
+      return -1;
+    }
+
+    if(requested_hpnum == 0)
+    {
+      std::cout << "This user has no posts to request for." << std::endl;
+      return -1;
+    }
+
+    //getting serial numbers of desired posts from that user
+  //  std::cout << "Enter 0" << std::endl;
+    std::cout << "Enter 1 to "<<requested_hpnum<<" in separate line. Then enter 0 to stop."<<endl;
+    TSN::serial_number get_input;
+    while(true)
+    {
+      std::cin >> get_input;
+      if(get_input == 0)
+      {
+        break;
+      }
+      else
+      {
+        if(get_input > requested_hpnum)
+        {
+          std::cout << "The user doesn't have a post with that serial number. Please re-enter." << std::endl;
+        }
+        else
+          requested_p.push_back(get_input);
+      }
+    }
+
+    strcpy(nodeReqInstance.fulfiller_uuid, myuuid);
+    post_seq_length = static_cast<int> (requested_p.size());
+    nodeReqInstance.requested_posts.length(post_seq_length);
+
+    n = 0;
+    std::vector<TSN::serial_number>::iterator sn_it;
+    for(sn_it = requested_p.begin(); sn_it != requested_p.end(); sn_it++, n++)
+    {
+      nodeReqInstance.requested_posts[n] = *sn_it;
+    }
+    requests.push_back(nodeReqInstance);
+
+    int choice;
+    std::cout << "Press 0 ";
+    std::cin >> choice;
+
+    //adding all the individual node requests into one request instance
+    if(choice == 0)
+    {
+      int req_seq_length = static_cast<int> (requests.size());
+      requestInstance.user_requests.length(req_seq_length);
+
+      int n = 0;
+      std::vector<TSN::node_request>::iterator it;
+      for(it = requests.begin(); it != requests.end(); it++, n++)
+        requestInstance.user_requests[n] = *it;
+
+      break;
+    }
+  }
+
+  strcpy(requestInstance.uuid, current_user.uuid);
+  std::cout << "\n=== [Publisher] publishing your request on the TSN network :";
+
+  ReturnCode_t status = requestWriter->write(requestInstance, DDS::HANDLE_NIL);
+  checkStatus(status, "requestDataWriter::write");
+  std::cout << " success" << std::endl;
+
+  struct timeval tp;
+  gettimeofday(&tp, NULL);
+  long date = tp.tv_sec;
+
+  //clean up
+  request_mgr.deleteWriter();
+  request_mgr.deletePublisher();
+  request_mgr.deleteTopic();
+  request_mgr.deleteParticipant();
+
+  sleep(n);
+
+  //we return the time the request is published to adhere to the 1 request per minute rule
+  return date;
+}
 
 long tsn_system::publish_request()
 {
@@ -513,7 +668,7 @@ void tsn_system::publish_response(TSN::request r)
 void tsn_system::load_user_data()
 {
   //std::string home = getenv("HOME"); //.tsn and .tsnusers is always stored in home directory
-  std::string path = "/.tsnusers";
+  std::string path = "~/tsnusers";
   std::ifstream in(path);
 
   std::string first_name;
@@ -559,7 +714,7 @@ void tsn_system::load_user_data()
   in.close();
 
   //now attempting to load info of the current user/node from .tsn
-  path = "/.tsn";
+  path = "~/tsn";
   in.open(path);
 
   //the .tsn file does not exist so obtain data directly from user
@@ -773,7 +928,7 @@ void tsn_system::write_user_data(user user_to_save, std::ofstream& out, bool wri
 void tsn_system::resync()
 {
   std::string home = getenv("HOME");
-  std::string path = "/.tsnusers";
+  std::string path = "~/tsnusers";
   std::remove(path.c_str());
 
   online_users.clear();
@@ -802,7 +957,7 @@ void tsn_system::create_post()
 
   //writing the new post to .tsn file
   std::string home = getenv("HOME");
-  std::string path = "/.tsn";
+  std::string path = "~/tsn";
   std::ofstream out (path);
 
   write_user_data(current_user, out, true);
@@ -855,7 +1010,7 @@ void tsn_system::edit_user()
 
   //writing edited information to .tsn file
   std::string home = getenv("HOME");
-  std::string path = "/.tsn";
+  std::string path = "~/tsn";
   std::ofstream out (path);
 
   write_user_data(current_user, out, true);

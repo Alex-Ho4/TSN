@@ -26,6 +26,8 @@ void view::print_main_menu()
   std::cout << " sends private message.\n";
   std::cout << "\033[1;32m\t(10) Display Private Message\033[0m";
   std::cout << " prints private message.\n";
+  std::cout << "\033[1;32m\t(11) Search Posts\033[0m";
+  std::cout << " prints all posts of the user whose\n\tinterest matches with the keyword.\n";
   std::cout << "\033[1;32m\t(0) Exit\033[0m";
   std::cout << " closes the application.\n";
 }
@@ -64,6 +66,11 @@ void view::print_online()
     }
     std::cout << std::endl;
   }
+  std::cout << " " << std::endl;
+  std::cout << " " << std::endl;
+  std::cout << " " << std::endl;
+  std::cout << " " << std::endl;
+  std::cout << "\033[1;38m\t\tPress any key and enter to return to Main Menu\033[0m\n";
   std::string close;
   cin>>close;
 }
@@ -108,7 +115,7 @@ void view::show_user()
           }
           std::cout << "\nPosts: " << std::endl;
           if(it->get_highest_pnum() == 0) {
-            std::cout << "\033[1;37m\t\tThere are no posts to show right now.\033[0m\n" << std::endl;
+            std::cout << "\033[1;37m\t\t Either there are no posts to show right now, or you haven't published request.\033[0m\n" << std::endl;
             std::cout << "\033[1;35m\t\tPLEASE select 2 to \"Publish a Request\" at first.\033[0m\n" << std::endl;
             std::cout << " " << std::endl; }
           else
@@ -120,12 +127,12 @@ void view::show_user()
         }
     }
   }
-  else
-  {
+  else{
     cout << string(50, '\n');
     std::cout << "\033[1;37m\t\tThere are no users online to show.\033[0m\n" << std::endl;
-  }
 }
+  }
+
 
 void view::show_message()
 {
@@ -173,6 +180,84 @@ void view::about()
   std::cout << "\t ******* Alex Ho *******" << std::endl;
   std::cout << "\t ******* Donovan A. *******" << std::endl;
   std::cout << " " << std::endl;
+  std::cout << " " << std::endl;
+  std::cout << " " << std::endl;
+  std::cout << " " << std::endl;
+  std::cout << "\033[1;38m\t\tPress any key and enter to return to Main Menu\033[0m\n";
   string close;
   std::cin >> close; // created this so that it displays only About section in console and stops from displaying menu
 }
+
+void view::search_posts()
+{
+  std::vector<user>::iterator it;
+  int n = 0;
+  std::cout << std::endl;
+
+  //listing all online users whose info can be retrieved and shown
+  int on_list_size = static_cast<int> (sys.online_users.size());
+  if(on_list_size > 0)
+  {
+    cout << string(50, '\n');
+//    std::cout << "\033[1;31m\t\t=============================\033[0m\n";
+//    std::cout << " " << std::endl;
+//    std::cout << "\033[1;32m\t\t       INTERESTS\033[0m\n" << std::endl;
+//    std::cout << "\033[1;31m\t\t=============================\033[0m\n";
+  //  std::cout << "Interests: ";
+
+    std::vector<std::string>::iterator interests_it;
+    for(it = sys.online_users.begin(); it != sys.online_users.end(); it++, n++)
+    {
+  //    std::cout << "(" << n << ") " << it->first_name << " " << it->last_name << std::endl;
+      for(interests_it = it->interests.begin(); interests_it != it->interests.end(); interests_it++)
+      {
+        std::cout << "  -- " <<*interests_it << std::endl;
+      }
+    }
+    std::cout << " " << std::endl;
+    std::cout << "\033[1;37mChoose Keyword: \033[0m\n";
+
+
+    n = 0;
+    std::string choice;
+    std::cin >> choice;
+  //  for(it = sys.online_users.begin(); n < choice+1 ; it++, n++)
+  //  {
+  for(it = sys.online_users.begin(); it != sys.online_users.end(); it++, n++)
+  {
+    for(interests_it = it->interests.begin(); interests_it != it->interests.end(); interests_it++)
+    {
+      std::cout << *interests_it << endl;
+      if(*interests_it == choice){
+        sys.search_request();
+        std::cout << "Name: " << it->first_name << " " << it->last_name << std::endl;
+        std::cout << "Interests: ";
+
+        std::vector<std::string>::iterator interests_it;
+        for(interests_it = it->interests.begin(); interests_it != it->interests.end(); interests_it++)
+        {
+          std::cout << "  -- " <<*interests_it << std::endl;
+        }
+        std::cout << "\nPosts: " << std::endl;
+
+        if(it->get_highest_pnum() == 0) {
+          std::cout << "\033[1;37m\t\tThere are no posts to show right now.\033[0m\n" << std::endl;
+        //  std::cout << "\033[1;35m\t\tPLEASE select 2 to \"Publish a Request\" at first.\033[0m\n" << std::endl;
+          std::cout << " " << std::endl; }
+        else
+        {
+          sys.request_all_posts(*it);
+          sleep(it->get_highest_pnum());
+
+        }
+        break;
+      }
+      }
+      }
+
+      }
+      else {
+        cout << string(50, '\n');
+        std::cout << "\033[1;37m\t\tThere are no users online to show.\033[0m\n" << std::endl;
+      }
+    }

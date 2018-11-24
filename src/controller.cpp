@@ -6,7 +6,7 @@ void controller::execute_cmd()
 {
     viewer.print_main_menu();
     int state = -1;
-    std::cout << "$ ";
+    std::cout << "\033[1;38mKEY>>  \033[0m";
     std::cin >> state;
     cin.ignore();
 
@@ -70,7 +70,10 @@ void controller::execute_cmd()
     {
       viewer.show_message();
     }
-
+    if(state == 11) //show posts
+    {
+      viewer.search_posts();
+    }
 
 }
 void controller::background()
