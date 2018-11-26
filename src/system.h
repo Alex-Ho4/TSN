@@ -62,6 +62,9 @@ class tsn_system
     //clears the online_users vector every 150 seconds to remove any users who have disconnected
     void refresh_online_list();
 
+    // checks every 3 seconds if new user online in the network
+    void new_online_list();
+
     //generates a request for all posts from a specific user, is invoked in view::show_user()
     //parameter is the user we want to request posts from
     void request_all_posts(user requested_user);

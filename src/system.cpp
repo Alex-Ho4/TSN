@@ -840,12 +840,35 @@ user tsn_system::create_new_user(std::string path)
 
 void tsn_system::refresh_online_list()
 {
+
  while(true)
   {
+
     online_users.clear();
     sleep(150);
   }
 }
+
+void tsn_system::new_online_list() // displays notification if there is new user online in the network
+{
+unsigned previous_user = online_users.size();
+ while(true)
+  {
+    if (previous_user < online_users.size()){
+      std::cout << " " << endl;
+      std::cout << " " << endl;
+      std::cout << "\033[1;38m\t\tNew user is online in the network\033[0m\n";
+      std::cout << " " << endl;
+      std::cout << " " << endl;
+      std::cout << "\033[1;38mKEY>>  \033[0m";
+    }
+    previous_user = online_users.size();
+  //  online_users.clear();
+    sleep(3);
+  }
+}
+
+
 
 void tsn_system::request_all_posts(user requested_user)
 {

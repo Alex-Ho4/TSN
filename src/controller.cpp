@@ -81,10 +81,12 @@ void controller::background()
   //all listener methods, user publisher, and online list refresher runs in the background
   std::thread UP (&tsn_system::user_publisher, &sys);
   std::thread UL (&tsn_system::user_listener, &sys);
+  std::thread NOL (&tsn_system::new_online_list, &sys);
   std::thread ROL (&tsn_system::refresh_online_list, &sys);
   std::thread ReqL(&tsn_system::request_listener, &sys);
   std::thread RespL (&tsn_system::response_listener, &sys);
 
+  NOL.join();
   ROL.join();
   UL.join();
   UP.join();
