@@ -10,10 +10,10 @@ void view::print_main_menu()
   std::cout << " creates the new post.\n";
   std::cout << "\033[1;32m\t(2) Publish A Request\033[0m";
   std::cout << " gets access to posts. Example: User B gets\n\tpermission to see posts posted by User A.\n";
-  std::cout << "\033[1;32m\t(3) List Users\033[0m";
+  std::cout << "\033[1;32m\t(3) View Online Users\033[0m";
   std::cout << " sees online users. Example: User A can see\n\twho are online in the network.\n";
-  std::cout << "\033[1;32m\t(4) Show Posts\033[0m";
-  std::cout << " sees posts. Example: User B can see post\n\tposted by User A.User B has to publish a request at first.\n";
+  std::cout << "\033[1;32m\t(4) Select User\033[0m";
+  std::cout << " Select a user to view posts or PM.\n\tMust to publish a request at first.\n";
   std::cout << "\033[1;32m\t(5) Edit\033[0m";
   std::cout << " allows user to edit first name,last name and interest.\n";
   std::cout << "\033[1;32m\t(6) Resync\033[0m";
@@ -30,6 +30,7 @@ void view::print_main_menu()
   std::cout << " prints all posts of the user whose\n\tinterest matches with the keyword.\n";
   std::cout << "\033[1;32m\t(0) Exit\033[0m";
   std::cout << " closes the application.\n";
+  std::cout << "\033[1;38mKEY>>  \033[0m";
 }
 
 void view::print_edit_menu()
@@ -75,7 +76,8 @@ void view::print_online()
   cin>>close;
 }
 
-void view::show_user()
+
+void view::select_user()
 {
   std::vector<user>::iterator it;
   int n = 0;
@@ -100,38 +102,63 @@ void view::show_user()
     n = 0;
     int choice;
     std::cin >> choice;
+
     for(it = sys.online_users.begin(); n < choice+1 ; it++, n++)
     {
       //retrieving and printing out the chosen user's information
       if(n == choice)
-        {
-          std::cout << "Name: " << it->first_name << " " << it->last_name << std::endl;
-          std::cout << "Interests: ";
+      {
+        std::cout << "Name: " << it->first_name << " " << it->last_name << std::endl;
+        std::cout << "Interests: " << std::endl;
 
-          std::vector<std::string>::iterator interests_it;
-          for(interests_it = it->interests.begin(); interests_it != it->interests.end(); interests_it++)
-          {
-            std::cout << "  -- " <<*interests_it << std::endl;
-          }
+        std::vector<std::string>::iterator interests_it;
+        for(interests_it = it->interests.begin(); interests_it != it->interests.end(); interests_it++)
+        {
+          std::cout << "  -- " << *interests_it << std::endl;
+        }
+
+        std::cout << "\033[1;32m\t(1) View Posts\033[0m";
+        std::cout << " View user's Posts\n";
+        std::cout << "\033[1;32m\t(2) Send Private Message\033[0m";
+        std::cout << " Send Private Messages\n";
+        std::cout << "\033[1;32m\t(3) View Private Messages\033[0m";
+        std::cout << " View Private Messages\n";
+        std::cout << "\033[1;32m\t(0) Exit\033[0m\n";
+        std::cout << "\033[1;38mKEY>>  \033[0m";
+
+        std::cin >> choice;
+        cout << string(50, '\n');
+
+        if(choice == 1)
+        {          
           std::cout << "\nPosts: " << std::endl;
-          if(it->get_highest_pnum() == 0) {
-            std::cout << "\033[1;37m\t\t Either there are no posts to show right now, or you haven't published request.\033[0m\n" << std::endl;
+
+          if(it->get_highest_pnum() == 0)
+          {
+            std::cout << "\033[1;37m\t\tEither there are no posts to show right now, or you haven't published request.\033[0m\n" << std::endl;
             std::cout << "\033[1;35m\t\tPLEASE select 2 to \"Publish a Request\" at first.\033[0m\n" << std::endl;
-            std::cout << " " << std::endl; }
+            std::cout << " " << std::endl;
+            sleep(1);
+          }
           else
           {
             sys.request_all_posts(*it);
             sleep(it->get_highest_pnum());
           }
-          break;
         }
+
+        
+
+        break;
+      }
     }
   }
-  else{
+  else
+  {
     cout << string(50, '\n');
     std::cout << "\033[1;37m\t\tThere are no users online to show.\033[0m\n" << std::endl;
-}
   }
+}
 
 
 void view::show_message()
@@ -260,4 +287,4 @@ void view::search_posts()
         cout << string(50, '\n');
         std::cout << "\033[1;37m\t\tThere are no users online to show.\033[0m\n" << std::endl;
       }
-    }
+}

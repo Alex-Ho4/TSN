@@ -37,38 +37,37 @@ void tsn_system::user_publisher()
   DDS::DataWriter_var dw = manager.getWriter();
   TSN::user_informationDataWriter_var userinfoWriter = TSN::user_informationDataWriter::_narrow(dw.in());
 
- while(true)
+  while(true)
   {
-  TSN::user_information userinfoInstance;
+    TSN::user_information userinfoInstance;
 
+    //initialize a user_information instance with info from current_user
+    userinfoInstance.first_name = DDS::string_dup((current_user.first_name).c_str());
+    userinfoInstance.last_name = DDS::string_dup((current_user.last_name).c_str());
+    strcpy(userinfoInstance.uuid, current_user.uuid);
+    userinfoInstance.number_of_highest_post = current_user.get_highest_pnum();
+    userinfoInstance.date_of_birth = current_user.date_of_birth;
 
-  //initialize a user_information instance with info from current_user
-  userinfoInstance.first_name = DDS::string_dup((current_user.first_name).c_str());
-  userinfoInstance.last_name = DDS::string_dup((current_user.last_name).c_str());
-  strcpy(userinfoInstance.uuid, current_user.uuid);
-  userinfoInstance.number_of_highest_post = current_user.get_highest_pnum();
-  userinfoInstance.date_of_birth = current_user.date_of_birth;
+    //get length of the interests vector so we can set the sequence length of user_information
+    int n = 0;
+    std::vector<std::string>::iterator it;
+    for(it = current_user.interests.begin(); it != current_user.interests.end(); it++)
+    {
+      n++;
+    }
+    userinfoInstance.interests.length(n);
 
-  //get length of the interests vector so we can set the sequence length of user_information
-  int n = 0;
-  std::vector<std::string>::iterator it;
-  for(it = current_user.interests.begin(); it != current_user.interests.end(); it++)
-  {
-    n++;
-  }
-  userinfoInstance.interests.length(n);
+    //store current user's interests in the sequence
+    n = 0;
+    for(it = current_user.interests.begin(); it != current_user.interests.end(); it++, n++)
+    {
+      userinfoInstance.interests[n] = DDS::string_dup(it->c_str());
+    }
 
-  //store current user's interests in the sequence
-  n = 0;
-  for(it = current_user.interests.begin(); it != current_user.interests.end(); it++, n++)
-  {
-    userinfoInstance.interests[n] = DDS::string_dup(it->c_str());
-  }
+    ReturnCode_t status = userinfoWriter->write(userinfoInstance, DDS::HANDLE_NIL);
+    checkStatus(status, "user_informationDataWriter::write");
 
-  ReturnCode_t status = userinfoWriter->write(userinfoInstance, DDS::HANDLE_NIL);
-  checkStatus(status, "user_informationDataWriter::write");
-
-  sleep(30);
+    sleep(30);
   }
 
 }
@@ -851,10 +850,12 @@ void tsn_system::refresh_online_list()
 
 void tsn_system::new_online_list() // displays notification if there is new user online in the network
 {
-unsigned previous_user = online_users.size();
- while(true)
+  unsigned previous_user = online_users.size();
+  while(true)
   {
-    if (previous_user < online_users.size()){
+    //TODO: Reprint menu afterwards, fix constant reprinting
+    if (previous_user < online_users.size())
+    {
       std::cout << " " << endl;
       std::cout << " " << endl;
       std::cout << "\033[1;38m\t\tNew user is online in the network\033[0m\n";

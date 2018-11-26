@@ -6,7 +6,6 @@ void controller::execute_cmd()
 {
     viewer.print_main_menu();
     int state = -1;
-    std::cout << "\033[1;38mKEY>>  \033[0m";
     std::cin >> state;
     cin.ignore();
 
@@ -43,7 +42,7 @@ void controller::execute_cmd()
     }
     if(state == 4) //show user
     {
-      viewer.show_user();
+      viewer.select_user();
     }
     if(state == 5) //edit user info
     {
