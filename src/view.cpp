@@ -109,7 +109,7 @@ void view::select_user()
       if(n == choice)
       {
         std::cout << "Name: " << it->first_name << " " << it->last_name << std::endl;
-        std::cout << "Interests: " << std::endl;
+        std::cout << "\nInterests: " << std::endl;
 
         std::vector<std::string>::iterator interests_it;
         for(interests_it = it->interests.begin(); interests_it != it->interests.end(); interests_it++)
@@ -117,13 +117,11 @@ void view::select_user()
           std::cout << "  -- " << *interests_it << std::endl;
         }
 
-        std::cout << "\033[1;32m\t(1) View Posts\033[0m";
+        std::cout << "\n\033[1;32m\t(1) View Posts\033[0m";
         std::cout << " View user's Posts\n";
         std::cout << "\033[1;32m\t(2) Send Private Message\033[0m";
         std::cout << " Send Private Messages\n";
-        std::cout << "\033[1;32m\t(3) View Private Messages\033[0m";
-        std::cout << " View Private Messages\n";
-        std::cout << "\033[1;32m\t(0) Exit\033[0m\n";
+        std::cout << "\033[1;32m\t(0) Exit\033[0m\n\n";
         std::cout << "\033[1;38mKEY>>  \033[0m";
 
         std::cin >> choice;
@@ -145,6 +143,11 @@ void view::select_user()
             sys.request_all_posts(*it);
             sleep(it->get_highest_pnum());
           }
+        }
+
+        if(choice == 2)
+        {
+          sys.send_pm(it->uuid);
         }
 
         

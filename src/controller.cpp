@@ -6,6 +6,7 @@ void controller::execute_cmd()
 {
     viewer.print_main_menu();
     int state = -1;
+    std::cin.clear();
     std::cin >> state;
     cin.ignore();
 
@@ -63,7 +64,9 @@ void controller::execute_cmd()
     }
     if(state == 9) //Send pvt msg
     {
-      sys.send_msg();
+      //TODO: Remove
+      //sys.send_pm();
+      viewer.select_user();
     }
     if(state == 10) //show user
     {
@@ -84,6 +87,7 @@ void controller::background()
   std::thread ROL (&tsn_system::refresh_online_list, &sys);
   std::thread ReqL(&tsn_system::request_listener, &sys);
   std::thread RespL (&tsn_system::response_listener, &sys);
+  std::thread pmL (&tsn_system::pm_listener, &sys);
 
   NOL.join();
   ROL.join();
@@ -91,4 +95,5 @@ void controller::background()
   UP.join();
   ReqL.join();
   RespL.join();
+  pmL.join();
 }
