@@ -6,7 +6,7 @@ void controller::execute_cmd()
 {
     viewer.print_main_menu();
     int state = -1;
-    std::cout << "\033[1;38mKEY>>  \033[0m";
+    std::cin.clear();
     std::cin >> state;
     cin.ignore();
 
@@ -43,7 +43,7 @@ void controller::execute_cmd()
     }
     if(state == 4) //show user
     {
-      viewer.show_user();
+      viewer.select_user();
     }
     if(state == 5) //edit user info
     {
@@ -64,7 +64,9 @@ void controller::execute_cmd()
     }
     if(state == 9) //Send pvt msg
     {
-      sys.send_msg();
+      //TODO: Remove
+      //sys.send_pm();
+      viewer.select_user();
     }
     if(state == 10) //show user
     {
@@ -73,6 +75,20 @@ void controller::execute_cmd()
     if(state == 11) //show posts
     {
       viewer.search_posts();
+    }
+    if(state == 100) //show main Menu
+    {
+      cout << string(50, '\n');
+    }
+    if(state >= 12 && state <=99) //show error
+    {
+      cout << " " << endl;
+      cout << " " << endl;
+      std::cout << "\033[1;31m***** ERROR 580 !!! *****\033[0m\n";
+      cout << "Please check your selection before pressing \"ENTER\" button";
+      cout << " " << endl;
+      cout << " " << endl;
+      cout << " " << endl;
     }
 
 }
@@ -85,6 +101,7 @@ void controller::background()
   std::thread ROL (&tsn_system::refresh_online_list, &sys);
   std::thread ReqL(&tsn_system::request_listener, &sys);
   std::thread RespL (&tsn_system::response_listener, &sys);
+  std::thread pmL (&tsn_system::pm_listener, &sys);
 
   NOL.join();
   ROL.join();
@@ -92,4 +109,5 @@ void controller::background()
   UP.join();
   ReqL.join();
   RespL.join();
+  pmL.join();
 }

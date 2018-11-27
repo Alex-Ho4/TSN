@@ -37,38 +37,37 @@ void tsn_system::user_publisher()
   DDS::DataWriter_var dw = manager.getWriter();
   TSN::user_informationDataWriter_var userinfoWriter = TSN::user_informationDataWriter::_narrow(dw.in());
 
- while(true)
+  while(true)
   {
-  TSN::user_information userinfoInstance;
+    TSN::user_information userinfoInstance;
 
+    //initialize a user_information instance with info from current_user
+    userinfoInstance.first_name = DDS::string_dup((current_user.first_name).c_str());
+    userinfoInstance.last_name = DDS::string_dup((current_user.last_name).c_str());
+    strcpy(userinfoInstance.uuid, current_user.uuid);
+    userinfoInstance.number_of_highest_post = current_user.get_highest_pnum();
+    userinfoInstance.date_of_birth = current_user.date_of_birth;
 
-  //initialize a user_information instance with info from current_user
-  userinfoInstance.first_name = DDS::string_dup((current_user.first_name).c_str());
-  userinfoInstance.last_name = DDS::string_dup((current_user.last_name).c_str());
-  strcpy(userinfoInstance.uuid, current_user.uuid);
-  userinfoInstance.number_of_highest_post = current_user.get_highest_pnum();
-  userinfoInstance.date_of_birth = current_user.date_of_birth;
+    //get length of the interests vector so we can set the sequence length of user_information
+    int n = 0;
+    std::vector<std::string>::iterator it;
+    for(it = current_user.interests.begin(); it != current_user.interests.end(); it++)
+    {
+      n++;
+    }
+    userinfoInstance.interests.length(n);
 
-  //get length of the interests vector so we can set the sequence length of user_information
-  int n = 0;
-  std::vector<std::string>::iterator it;
-  for(it = current_user.interests.begin(); it != current_user.interests.end(); it++)
-  {
-    n++;
-  }
-  userinfoInstance.interests.length(n);
+    //store current user's interests in the sequence
+    n = 0;
+    for(it = current_user.interests.begin(); it != current_user.interests.end(); it++, n++)
+    {
+      userinfoInstance.interests[n] = DDS::string_dup(it->c_str());
+    }
 
-  //store current user's interests in the sequence
-  n = 0;
-  for(it = current_user.interests.begin(); it != current_user.interests.end(); it++, n++)
-  {
-    userinfoInstance.interests[n] = DDS::string_dup(it->c_str());
-  }
+    ReturnCode_t status = userinfoWriter->write(userinfoInstance, DDS::HANDLE_NIL);
+    checkStatus(status, "user_informationDataWriter::write");
 
-  ReturnCode_t status = userinfoWriter->write(userinfoInstance, DDS::HANDLE_NIL);
-  checkStatus(status, "user_informationDataWriter::write");
-
-  sleep(30);
+    sleep(30);
   }
 
 }
@@ -158,7 +157,7 @@ void tsn_system::response_listener()
     checkStatus(response_status, "responseDataReader::take");
 
     for (DDS::ULong j = 0; j < responseList.length(); j++)
-     {
+    {
        //ignore the response if it's sent from the current user
        if((strcmp(responseList[j].uuid, current_user.uuid) != 0) && responseList[j].post_id != 0)
        {
@@ -189,6 +188,87 @@ void tsn_system::response_listener()
   resp_mgr.deleteTopic();
   resp_mgr.deleteParticipant();
   resp_mgr.deleteSubscriber();
+
+}
+
+void tsn_system::pm_listener()
+{
+
+  //initializing data readers and subscribers
+  TSN::private_messageSeq pmList;
+  DDS::SampleInfoSeq infoSeq;
+
+  DDSEntityManager pm_mgr;
+  pm_mgr.createParticipant("TSN");
+
+  TSN::private_messageTypeSupport_var pms = new TSN::private_messageTypeSupport();
+  pm_mgr.registerType(pms.in());
+
+  char pm_topic[] = "pm";
+
+  pm_mgr.createTopic(pm_topic);
+  pm_mgr.createSubscriber();
+  pm_mgr.createReader();
+
+  DDS::DataReader_var pm_data =  pm_mgr.getReader();
+  TSN::private_messageDataReader_var pmReader = TSN::private_messageDataReader::_narrow(pm_data.in());
+  checkHandle(pmReader.in(), "private_messageDataReader::_narrow");
+
+  ReturnCode_t pm_status = -1;
+
+  //while loop constantly listens for any private messages sent over the network
+  while(true)
+  {
+    pm_status = pmReader->take(pmList, infoSeq, LENGTH_UNLIMITED, ANY_SAMPLE_STATE, ANY_VIEW_STATE, ANY_INSTANCE_STATE);
+    checkStatus(pm_status, "private_messageDataReader::take");
+
+    for (DDS::ULong j = 0; j < pmList.length(); j++)
+    {
+       //only grab pm if the receiver uuid matches
+       if(strcmp(pmList[j].receiver_uuid, current_user.uuid) == 0 && pmList[j].date_of_creation != 0)
+       {
+         //retrieving the corresponding name to the private message's sender uuid; name is initialized in case the
+         //online list was refreshed and the sender's user info hasn't been re-published yet
+         std::vector<user>::iterator it;
+         std::string name = "unable to retrieve name " + to_string(j);
+         for(it = online_users.begin(); it != online_users.end(); it++)
+         {
+           if(strcmp(it->uuid, pmList[j].sender_uuid) == 0)
+           {
+             name = it->first_name + " " + it->last_name;
+             break;
+           }
+         }
+         cout << string(50, '\n');
+         std::cout << "\033[1;31m\t\t===============================\033[0m\n";
+         std::cout << " " << std::endl;
+         std::cout << "\033[1;32m\t\t             NEW MESSAGE\033[0m\n" << std::endl;
+         std::cout << "\033[1;31m\t\t===============================\033[0m\n";
+         std::cout << " " << std::endl;
+         std::cout << "\033[1;33m\t ⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇\033[0m\n";
+         std::cout << " " << std::endl;
+         std::cout << "\n    Name  : " << name << std::endl;
+         std::cout << "    Date of Creation: " << pmList[j].date_of_creation << std::endl;
+         std::cout << "    Message: " << pmList[j].message_body << std::endl;
+         std::cout << " " << std::endl;
+         std::cout << " " << std::endl;
+         std::cout << " " << std::endl;
+         std::cout << " " << std::endl;
+         std::cout << "\033[1;38m\t\tPress 4 to reply to message.\033[0m\n";
+         std::cout << "\033[1;38m\t\tPress 100 to see the Main menu.\033[0m\n";
+       }
+		}
+
+    pm_status = pmReader->return_loan(pmList, infoSeq);
+    checkStatus(pm_status, "private_message_informationDataReader::return_loan");
+
+    sleep(1);
+  }
+
+  pm_mgr.deleteReader();
+  pm_mgr.deleteTopic();
+  pm_mgr.deleteParticipant();
+  pm_mgr.deleteSubscriber();
 
 }
 
@@ -851,10 +931,13 @@ void tsn_system::refresh_online_list()
 
 void tsn_system::new_online_list() // displays notification if there is new user online in the network
 {
-unsigned previous_user = online_users.size();
- while(true)
+  unsigned previous_user = online_users.size();
+  while(true)
   {
-    if (previous_user < online_users.size()){
+    //TODO: Reprint menu afterwards, fix constant reprinting
+    if (online_users.size() != 0){ // when we refresh online list every 3 minutes , online user size becomes 0
+    if (previous_user < online_users.size())
+    {
       std::cout << " " << endl;
       std::cout << " " << endl;
       std::cout << "\033[1;38m\t\tNew user is online in the network\033[0m\n";
@@ -863,6 +946,7 @@ unsigned previous_user = online_users.size();
       std::cout << "\033[1;38mKEY>>  \033[0m";
     }
     previous_user = online_users.size();
+  }
   //  online_users.clear();
     sleep(3);
   }
@@ -989,10 +1073,57 @@ void tsn_system::create_post()
 }
 
 
-void tsn_system::send_msg()
+void tsn_system::send_pm(char *receiver_uuid)
 {
- std::cout << "send msg"<<std::endl;
+  std::cout << "Enter a message for your PM: " << std::endl;
+  std::string message;
+  std::cin.ignore();
+  std::cin.clear();
+  std::cin.sync();
+  //std::cin >> message;
+  getline(cin, message);
 
+  //getting epoch time in seconds
+  struct timeval tp;
+  gettimeofday(&tp, NULL);
+  long date = tp.tv_sec;
+
+  //initializing data publisher and writer
+  DDSEntityManager pm_mgr;
+  pm_mgr.createParticipant("TSN");
+
+  TSN::private_messageTypeSupport_var mt = new TSN::private_messageTypeSupport();
+  pm_mgr.registerType(mt.in());
+
+  char pm_topic[] = "pm";
+  pm_mgr.createTopic(pm_topic);
+
+  pm_mgr.createPublisher();
+  pm_mgr.createWriter(false);
+
+  DDS::DataWriter_var dw = pm_mgr.getWriter();
+  TSN::private_messageDataWriter_var pmWriter = TSN::private_messageDataWriter::_narrow(dw.in());
+
+  TSN::node_request my_node_req;
+
+  TSN::private_message pmInstance;
+
+  strcpy(pmInstance.sender_uuid, current_user.uuid);
+  strcpy(pmInstance.receiver_uuid, receiver_uuid);
+  pmInstance.message_body = DDS::string_dup(message.c_str());
+  pmInstance.date_of_creation = date;
+
+  ReturnCode_t status = pmWriter->write(pmInstance, DDS::HANDLE_NIL);
+  checkStatus(status, "pmDataWriter::write");
+
+//  cout << "Sent Message:\n" << message << endl;
+
+  sleep(2);
+
+  pm_mgr.deleteWriter();
+  pm_mgr.deletePublisher();
+  pm_mgr.deleteTopic();
+  pm_mgr.deleteParticipant();
 }
 
 void tsn_system::edit_user()

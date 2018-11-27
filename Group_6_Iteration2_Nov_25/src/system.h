@@ -37,6 +37,9 @@ class tsn_system
     //creates a subscriber/reader and listens for responses
     void response_listener();
 
+    //creates a subscriber/reader and listens for private messages
+    void pm_listener();
+
     //creates a subscriber/reader and listens for user information
     void user_listener();
 
@@ -78,7 +81,7 @@ class tsn_system
     void create_post();
 
     //prompts the user for a pvt message
-    void send_msg();
+    void send_pm(char *receiver_uuid);
 
     //prompts the user to either change their first name, last name, or interests
     void edit_user();
