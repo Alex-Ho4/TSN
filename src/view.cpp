@@ -128,12 +128,12 @@ void view::select_user()
         cout << string(50, '\n');
 
         if(choice == 1)
-        {          
+        {
           std::cout << "\nPosts: " << std::endl;
 
           if(it->get_highest_pnum() == 0)
           {
-            std::cout << "\033[1;37m\t\tEither there are no posts to show right now, or you haven't published request.\033[0m\n" << std::endl;
+            std::cout << "\033[1;37mEither there are no posts to show right now, or you haven't published request.\033[0m\n" << std::endl;
             std::cout << "\033[1;35m\t\tPLEASE select 2 to \"Publish a Request\" at first.\033[0m\n" << std::endl;
             std::cout << " " << std::endl;
             sleep(1);
@@ -150,7 +150,7 @@ void view::select_user()
           sys.send_pm(it->uuid);
         }
 
-        
+
 
         break;
       }

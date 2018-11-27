@@ -157,7 +157,7 @@ void tsn_system::response_listener()
     checkStatus(response_status, "responseDataReader::take");
 
     for (DDS::ULong j = 0; j < responseList.length(); j++)
-    {        
+    {
        //ignore the response if it's sent from the current user
        if((strcmp(responseList[j].uuid, current_user.uuid) != 0) && responseList[j].post_id != 0)
        {
@@ -223,9 +223,9 @@ void tsn_system::pm_listener()
     checkStatus(pm_status, "private_messageDataReader::take");
 
     for (DDS::ULong j = 0; j < pmList.length(); j++)
-    {        
+    {
        //only grab pm if the receiver uuid matches
-       if(strcmp(pmList[j].receiver_uuid, current_user.uuid) == 0)
+       if(strcmp(pmList[j].receiver_uuid, current_user.uuid) == 0 && pmList[j].date_of_creation != 0)
        {
          //retrieving the corresponding name to the private message's sender uuid; name is initialized in case the
          //online list was refreshed and the sender's user info hasn't been re-published yet
@@ -239,10 +239,24 @@ void tsn_system::pm_listener()
              break;
            }
          }
+         cout << string(50, '\n');
+         std::cout << "\033[1;31m\t\t===============================\033[0m\n";
+         std::cout << " " << std::endl;
+         std::cout << "\033[1;32m\t\t             NEW MESSAGE\033[0m\n" << std::endl;
+         std::cout << "\033[1;31m\t\t===============================\033[0m\n";
+         std::cout << " " << std::endl;
+         std::cout << "\033[1;33m\t ⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇\033[0m\n";
+         std::cout << " " << std::endl;
          std::cout << "\n    Name  : " << name << std::endl;
          std::cout << "    Date of Creation: " << pmList[j].date_of_creation << std::endl;
          std::cout << "    Message: " << pmList[j].message_body << std::endl;
-       }       
+         std::cout << " " << std::endl;
+         std::cout << " " << std::endl;
+         std::cout << " " << std::endl;
+         std::cout << " " << std::endl;
+         std::cout << "\033[1;38m\t\tPress 4 to reply to message.\033[0m\n";
+         std::cout << "\033[1;38m\t\tPress 100 to see the Main menu.\033[0m\n";
+       }
 		}
 
     pm_status = pmReader->return_loan(pmList, infoSeq);
@@ -921,6 +935,7 @@ void tsn_system::new_online_list() // displays notification if there is new user
   while(true)
   {
     //TODO: Reprint menu afterwards, fix constant reprinting
+    if (online_users.size() != 0){ // when we refresh online list every 3 minutes , online user size becomes 0
     if (previous_user < online_users.size())
     {
       std::cout << " " << endl;
@@ -931,6 +946,7 @@ void tsn_system::new_online_list() // displays notification if there is new user
       std::cout << "\033[1;38mKEY>>  \033[0m";
     }
     previous_user = online_users.size();
+  }
   //  online_users.clear();
     sleep(3);
   }
@@ -1089,18 +1105,18 @@ void tsn_system::send_pm(char *receiver_uuid)
   TSN::private_messageDataWriter_var pmWriter = TSN::private_messageDataWriter::_narrow(dw.in());
 
   TSN::node_request my_node_req;
-  
+
   TSN::private_message pmInstance;
 
   strcpy(pmInstance.sender_uuid, current_user.uuid);
   strcpy(pmInstance.receiver_uuid, receiver_uuid);
   pmInstance.message_body = DDS::string_dup(message.c_str());
-  pmInstance.date_of_creation = date;  
+  pmInstance.date_of_creation = date;
 
   ReturnCode_t status = pmWriter->write(pmInstance, DDS::HANDLE_NIL);
   checkStatus(status, "pmDataWriter::write");
 
-  cout << "Sent Message:\n" << message << endl;
+//  cout << "Sent Message:\n" << message << endl;
 
   sleep(2);
 

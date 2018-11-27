@@ -76,6 +76,20 @@ void controller::execute_cmd()
     {
       viewer.search_posts();
     }
+    if(state == 100) //show main Menu
+    {
+      cout << string(50, '\n');
+    }
+    if(state >= 12 && state <=99) //show error
+    {
+      cout << " " << endl;
+      cout << " " << endl;
+      std::cout << "\033[1;31m***** ERROR 580 !!! *****\033[0m\n";
+      cout << "Please check your selection before pressing \"ENTER\" button";
+      cout << " " << endl;
+      cout << " " << endl;
+      cout << " " << endl;
+    }
 
 }
 void controller::background()
