@@ -67,7 +67,7 @@ void tsn_system::user_publisher()
     ReturnCode_t status = userinfoWriter->write(userinfoInstance, DDS::HANDLE_NIL);
     checkStatus(status, "user_informationDataWriter::write");
 
-    sleep(30);
+    sleep(1);
   }
 
 }
