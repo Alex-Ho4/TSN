@@ -334,10 +334,18 @@ void tsn_system::user_listener()
 
          //if user is already known, delete the old record in vector and add the new one
          std::vector<user>::iterator it;
-
+         int n =-1;
+         for(it = all_users.begin(); it != all_users.end(); it++)
+         {
+           // checks if user is already present if yes we increase the value of n
+           if(strcmp(it->uuid, new_user.uuid) == 0){
+             n++;
+           }
+         }
          for(it = online_users.begin(); it != online_users.end(); it++)
          {
 
+           // checks if there is new post in the network
            if(strcmp(it->uuid, new_user.uuid) == 0)
            {
              if (it->get_highest_pnum() < new_user.get_highest_pnum()) {
@@ -353,6 +361,15 @@ void tsn_system::user_listener()
              break;
            }
          }
+         // it means this user is new
+
+           if ( n == -1) {
+             std::cout << "" << endl;
+             std::cout << "\033[1;38m***** " << new_user.first_name<<" "<< new_user.last_name<<" is online. ****\033[0m\n";
+             std::cout << "" << endl;
+           }
+
+
          online_users.push_back(new_user);
 
          for(it = all_users.begin(); it != all_users.end(); it++)
@@ -945,7 +962,7 @@ void tsn_system::refresh_online_list()
   }
 }
 
-void tsn_system::new_online_list() // displays notification if there is new user online in the network
+/*void tsn_system::new_online_list() // displays notification if there is new user online in the network
 {
   unsigned previous_user = online_users.size();
   while(true)
@@ -969,7 +986,7 @@ void tsn_system::new_online_list() // displays notification if there is new user
   }
 }
 
-
+*/
 
 
 void tsn_system::request_all_posts(user requested_user)
