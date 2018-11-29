@@ -22,12 +22,10 @@ void view::print_main_menu()
   std::cout << " prints out the number of all other nodes\n";
   std::cout << "\033[1;32m\t(8) About\033[0m";
   std::cout << " displays About info.\n";
-  std::cout << "\033[1;32m\t(9) Send Private Message\033[0m";
-  std::cout << " sends private message.\n";
-  std::cout << "\033[1;32m\t(10) Display Private Message\033[0m";
-  std::cout << " prints private message.\n";
-  std::cout << "\033[1;32m\t(11) Search Posts\033[0m";
-  std::cout << " prints all posts of the user whose\n\tinterest matches with the keyword.\n";
+  std::cout << "\033[1;32m\t(9) Reply to Private Message\033[0m";
+  std::cout << " Sends PM to sender of last received PM\n";
+  std::cout << "\033[1;32m\t(10) Select INTERESTS\033[0m";
+  std::cout << " displays users matching input interests.\n";
   std::cout << "\033[1;32m\t(0) Exit\033[0m";
   std::cout << " closes the application.\n";
   std::cout << "\033[1;38mKEY>>  \033[0m";
@@ -53,7 +51,7 @@ void view::print_online()
   cout << string(50, '\n');
   std::cout << "\033[1;31m\t\t=============================\033[0m\n";
 	std::cout << " " << std::endl;
-  std::cout << "\033[1;32m\t\t    ONLINE USERS\033[0m\n" << std::endl;
+  std::cout << "\033[1;32m\t\t         ONLINE USERS\033[0m\n" << std::endl;
   std::cout << "\033[1;31m\t\t=============================\033[0m\n";
   for(it = sys.online_users.begin(); it != sys.online_users.end(); it++)
   {
@@ -90,7 +88,7 @@ void view::select_user()
     cout << string(50, '\n');
     std::cout << "\033[1;31m\t\t=============================\033[0m\n";
     std::cout << " " << std::endl;
-    std::cout << "\033[1;32m\t\t   ONLINE USERS\033[0m\n" << std::endl;
+    std::cout << "\033[1;32m\t\t         ONLINE USERS\033[0m\n" << std::endl;
     std::cout << "\033[1;31m\t\t=============================\033[0m\n";
     for(it = sys.online_users.begin(); it != sys.online_users.end(); it++, n++)
     {
@@ -140,17 +138,19 @@ void view::select_user()
           }
           else
           {
+            choice = -1;
+            std::cout << "\n\033[1;32m\t(0) Exit to main menu\033[0m\n";
             sys.request_all_posts(*it);
-            sleep(it->get_highest_pnum());
+            std::cin >> choice;
+            //sleep(it->get_highest_pnum());
           }
         }
 
         if(choice == 2)
         {
+          std::cin.ignore();
           sys.send_pm(it->uuid);
         }
-
-
 
         break;
       }
@@ -163,10 +163,15 @@ void view::select_user()
   }
 }
 
-
-void view::show_message()
+void view::send_quick_reply()
 {
- std::cout << "show msgs"<<std::endl;
+  if(strcmp(sys.last_pm_sender, "NULL") == 0)
+  {
+    cout << string(50, '\n');
+    std::cout << "\033[1;37m\t\tThere is currently no PM to respond to.\033[0m\n" << std::endl;
+  }
+  else
+    sys.send_pm(sys.last_pm_sender);
 }
 
 void view::show_stats()
@@ -199,7 +204,7 @@ void view::about()
   cout << string(50, '\n');
   std::cout << "\033[1;31m\t\t===============================\033[0m\n";
   std::cout << " " << std::endl;
-  std::cout << "\033[1;32m\t\t             ABOUT\033[0m\n" << std::endl;
+  std::cout << "\033[1;32m\t\t              ABOUT\033[0m\n" << std::endl;
   std::cout << "\033[1;31m\t\t===============================\033[0m\n";
   std::cout << " " << std::endl;
 //  std::cout << " ******* 𝕋𝕙𝕚𝕤 𝕒𝕡𝕡 𝕚𝕤 𝕕𝕖𝕧𝕖𝕝𝕠𝕡𝕖𝕕 𝕓𝕪 'ℤ𝕖𝕣𝕠𝕖𝕕 𝕋𝕖𝕒𝕞 ' *******" << std::endl;
@@ -229,11 +234,11 @@ void view::search_posts()
   if(on_list_size > 0)
   {
     cout << string(50, '\n');
-//    std::cout << "\033[1;31m\t\t=============================\033[0m\n";
-//    std::cout << " " << std::endl;
-//    std::cout << "\033[1;32m\t\t       INTERESTS\033[0m\n" << std::endl;
-//    std::cout << "\033[1;31m\t\t=============================\033[0m\n";
-  //  std::cout << "Interests: ";
+    std::cout << "\033[1;31m\t\t=============================\033[0m\n";
+    std::cout << " " << std::endl;
+    std::cout << "\033[1;32m\t\t       INTERESTS\033[0m\n" << std::endl;
+    std::cout << "\033[1;31m\t\t=============================\033[0m\n";
+    std::cout << "Interests: ";
 
     std::vector<std::string>::iterator interests_it;
     for(it = sys.online_users.begin(); it != sys.online_users.end(); it++, n++)
@@ -248,41 +253,76 @@ void view::search_posts()
     std::cout << "\033[1;37mChoose Keyword: \033[0m\n";
 
 
-    n = 0;
+    n = 100;
     std::string choice;
     std::cin >> choice;
-  //  for(it = sys.online_users.begin(); n < choice+1 ; it++, n++)
-  //  {
+
+    for(it = sys.online_users.begin(); it != sys.online_users.end(); it++, n++)
+    {
+      for(interests_it = it->interests.begin(); interests_it != it->interests.end(); interests_it++)
+      {
+        if(*interests_it == choice){
+        std::cout << " " << endl;
+        std::cout << "(" << n << ") " << it->first_name << " " << it->last_name << std::endl;
+        std::cout << " " << endl;
+      }
+    }
+  }
+
+  n = 100;
+  std::cout << " " << std::endl;
+  std::cout << "\033[1;37mSelect User code number: \033[0m\n";
+  int opt ;
+  std::cin >> opt;
+
   for(it = sys.online_users.begin(); it != sys.online_users.end(); it++, n++)
   {
-    for(interests_it = it->interests.begin(); interests_it != it->interests.end(); interests_it++)
-    {
-      std::cout << *interests_it << endl;
-      if(*interests_it == choice){
-        sys.search_request();
-        std::cout << "Name: " << it->first_name << " " << it->last_name << std::endl;
-        std::cout << "Interests: ";
+  //  for(interests_it = it->interests.begin(); interests_it != it->interests.end(); interests_it++)
+  //  {
 
-        std::vector<std::string>::iterator interests_it;
-        for(interests_it = it->interests.begin(); interests_it != it->interests.end(); interests_it++)
+    //  if(*interests_it == choice){
+      if (n == opt){
+
+        std::cout << "\n\033[1;32m\t(1) View Posts\033[0m";
+        std::cout << " View user's Posts\n";
+        std::cout << "\033[1;32m\t(2) Send Private Message\033[0m";
+        std::cout << " Send Private Messages\n";
+        std::cout << "\033[1;32m\t(0) Exit\033[0m\n\n";
+        std::cout << "\033[1;38mKEY>>  \033[0m";
+        cin.ignore();
+        int selection;
+        std::cin >> selection;
+        cout << string(50, '\n');
+
+        if(selection == 1)
         {
-          std::cout << "  -- " <<*interests_it << std::endl;
-        }
-        std::cout << "\nPosts: " << std::endl;
+          std::cout << "\nPosts: " << std::endl;
 
-        if(it->get_highest_pnum() == 0) {
-          std::cout << "\033[1;37m\t\tThere are no posts to show right now.\033[0m\n" << std::endl;
-        //  std::cout << "\033[1;35m\t\tPLEASE select 2 to \"Publish a Request\" at first.\033[0m\n" << std::endl;
-          std::cout << " " << std::endl; }
-        else
+          if(it->get_highest_pnum() == 0)
+          {
+            std::cout << "\033[1;37mEither there are no posts to show right now, or you haven't published request.\033[0m\n" << std::endl;
+            std::cout << "\033[1;35m\t\tPLEASE select 2 to \"Publish a Request\" at first.\033[0m\n" << std::endl;
+            std::cout << " " << std::endl;
+            sleep(1);
+          }
+          else
+          {
+            choice = -1;
+            std::cout << "\n\033[1;32m\t(0) Exit to main menu\033[0m\n";
+            sys.request_all_posts(*it);
+            std::cin >> choice;
+            //sleep(it->get_highest_pnum());
+          }
+        }
+
+        if(selection == 2)
         {
-          sys.request_all_posts(*it);
-          sleep(it->get_highest_pnum());
-
+          std::cin.ignore();
+          sys.send_pm(it->uuid);
         }
-        break;
+            break;
       }
-      }
+    //  }
       }
 
       }

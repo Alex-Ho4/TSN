@@ -64,15 +64,9 @@ void controller::execute_cmd()
     }
     if(state == 9) //Send pvt msg
     {
-      //TODO: Remove
-      //sys.send_pm();
-      viewer.select_user();
+      viewer.send_quick_reply();
     }
-    if(state == 10) //show user
-    {
-      viewer.show_message();
-    }
-    if(state == 11) //show posts
+    if(state == 10) //show posts
     {
       viewer.search_posts();
     }
