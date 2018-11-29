@@ -10,14 +10,16 @@
 
 tsn_system::tsn_system(user& cu)
 {
-   current_user = cu;
-   std::vector<user> on_vector;
-   online_users = on_vector;
+  current_user = cu;
+  std::vector<user> on_vector;
+  online_users = on_vector;
 
-   manager.createParticipant("TSN");
+  strcpy(last_pm_sender, "NULL");
 
-   std::vector<user> all_vector;
-   all_users = all_vector;
+  manager.createParticipant("TSN");
+
+  std::vector<user> all_vector;
+  all_users = all_vector;
 }
 
 void tsn_system::user_publisher()
@@ -158,27 +160,28 @@ void tsn_system::response_listener()
 
     for (DDS::ULong j = 0; j < responseList.length(); j++)
     {
-       //ignore the response if it's sent from the current user
-       if((strcmp(responseList[j].uuid, current_user.uuid) != 0) && responseList[j].post_id != 0)
-       {
-         //retrieving the corresponding name to the responder's uuid; name is initialized in case the
-         //online list was refreshed and the responding user's info hasn't been re-published yet
-         std::vector<user>::iterator it;
-         std::string name = "unable to retrieve name";
-         for(it = online_users.begin(); it != online_users.end(); it++)
-         {
-           if(strcmp(it->uuid, responseList[j].uuid) == 0)
-           {
-             name = it->first_name + " " + it->last_name;
-             break;
-           }
-         }
-         std::cout << "\n    Name  : " << name << std::endl;
-         std::cout << "    Post ID : " << responseList[j].post_id << std::endl;
-         std::cout << "    Date of Creation: " << responseList[j].date_of_creation << std::endl;
-         std::cout << "    Post Body: " << responseList[j].post_body << std::endl;
-       }
-		 }
+      //ignore the response if it's sent from the current user
+      if((strcmp(responseList[j].uuid, current_user.uuid) != 0) && responseList[j].post_id != 0)
+      {
+        //retrieving the corresponding name to the responder's uuid; name is initialized in case the
+        //online list was refreshed and the responding user's info hasn't been re-published yet
+        std::vector<user>::iterator it;
+        std::string name = "unable to retrieve name";
+        for(it = online_users.begin(); it != online_users.end(); it++)
+        {
+          if(strcmp(it->uuid, responseList[j].uuid) == 0)
+          {
+            name = it->first_name + " " + it->last_name;
+            break;
+          }
+        }
+        std::cout << "\n    Name  : " << name << std::endl;
+        std::cout << "    Post ID : " << responseList[j].post_id << std::endl;
+        std::cout << "    Date of Creation: " << responseList[j].date_of_creation << std::endl;
+        std::cout << "    Post Body: " << responseList[j].post_body << std::endl;
+      }
+		}
+
     response_status = responseReader->return_loan(responseList, infoSeq);
     checkStatus(response_status, "response_informationDataReader::return_loan");
     sleep(1);
@@ -224,39 +227,41 @@ void tsn_system::pm_listener()
 
     for (DDS::ULong j = 0; j < pmList.length(); j++)
     {
-       //only grab pm if the receiver uuid matches
-       if(strcmp(pmList[j].receiver_uuid, current_user.uuid) == 0 && pmList[j].date_of_creation != 0)
-       {
-         //retrieving the corresponding name to the private message's sender uuid; name is initialized in case the
-         //online list was refreshed and the sender's user info hasn't been re-published yet
-         std::vector<user>::iterator it;
-         std::string name = "unable to retrieve name " + to_string(j);
-         for(it = online_users.begin(); it != online_users.end(); it++)
-         {
-           if(strcmp(it->uuid, pmList[j].sender_uuid) == 0)
-           {
-             name = it->first_name + " " + it->last_name;
-             break;
-           }
-         }
-         cout << string(50, '\n');
-         std::cout << "\033[1;31m\t\t===============================\033[0m\n";
-         std::cout << " " << std::endl;
-         std::cout << "\033[1;32m\t\t             NEW MESSAGE\033[0m\n" << std::endl;
-         std::cout << "\033[1;31m\t\t===============================\033[0m\n";
-         std::cout << " " << std::endl;
-         std::cout << "\033[1;33m\t ⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇\033[0m\n";
-         std::cout << " " << std::endl;
-         std::cout << "\n    Name  : " << name << std::endl;
-         std::cout << "    Date of Creation: " << pmList[j].date_of_creation << std::endl;
-         std::cout << "    Message: " << pmList[j].message_body << std::endl;
-         std::cout << " " << std::endl;
-         std::cout << " " << std::endl;
-         std::cout << " " << std::endl;
-         std::cout << " " << std::endl;
-         std::cout << "\033[1;38m\t\tPress 4 to reply to message.\033[0m\n";
-         std::cout << "\033[1;38m\t\tPress 100 to see the Main menu.\033[0m\n";
-       }
+      //only grab pm if the receiver uuid matches
+      if(strcmp(pmList[j].receiver_uuid, current_user.uuid) == 0 && pmList[j].date_of_creation != 0)
+      {
+        //save last pm's sender to quick reply to later
+        strcpy(last_pm_sender, pmList[j].sender_uuid);     
+        //retrieving the corresponding name to the private message's sender uuid; name is initialized in case the
+        //online list was refreshed and the sender's user info hasn't been re-published yet
+        std::vector<user>::iterator it;
+        std::string name = "unable to retrieve name " + to_string(j);
+        for(it = online_users.begin(); it != online_users.end(); it++)
+        {
+          if(strcmp(it->uuid, pmList[j].sender_uuid) == 0)
+          {
+            name = it->first_name + " " + it->last_name;
+            break;
+          }
+        }
+        cout << string(50, '\n');
+        std::cout << "\033[1;31m\t\t===============================\033[0m\n";
+        std::cout << " " << std::endl;
+        std::cout << "\033[1;32m\t\t          NEW MESSAGE\033[0m\n" << std::endl;
+        std::cout << "\033[1;31m\t\t===============================\033[0m\n";
+        std::cout << " " << std::endl;
+        std::cout << "\033[1;33m\t ⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇\033[0m\n";
+        std::cout << " " << std::endl;
+        std::cout << "\n    Name  : " << name << std::endl;
+        std::cout << "    Date of Creation: " << pmList[j].date_of_creation << std::endl;
+        std::cout << "    Message: " << pmList[j].message_body << std::endl;
+        std::cout << " " << std::endl;
+        std::cout << " " << std::endl;
+        std::cout << " " << std::endl;
+        std::cout << " " << std::endl;
+        std::cout << "\033[1;38m\t\tPress 9 to reply to message.\033[0m\n";
+        std::cout << "\033[1;38m\t\tPress 100 to see the Main menu.\033[0m\n";
+      }
 		}
 
     pm_status = pmReader->return_loan(pmList, infoSeq);
@@ -571,7 +576,7 @@ long tsn_system::publish_request()
       cout << string(50, '\n');
       std::cout << "\033[1;31m\t\t=============================\033[0m\n";
       std::cout << " " << std::endl;
-      std::cout << "\033[1;32m\t\t   ONLINE USERS\033[0m\n" << std::endl;
+      std::cout << "\033[1;32m\t\t         ONLINE USERS\033[0m\n" << std::endl;
       std::cout << "\033[1;31m\t\t=============================\033[0m\n";
       for(user_it = online_users.begin(); user_it != online_users.end(); user_it++, n++)
       {
@@ -1072,14 +1077,13 @@ void tsn_system::create_post()
 
 }
 
-
 void tsn_system::send_pm(char *receiver_uuid)
 {
-  std::cout << "Enter a message for your PM: " << std::endl;
+  std::cout << "\nEnter a message for your PM: " << std::endl;
   std::string message;
-  std::cin.ignore();
-  std::cin.clear();
-  std::cin.sync();
+  //std::cin.ignore();
+  //std::cin.clear();
+  //std::cin.sync();
   //std::cin >> message;
   getline(cin, message);
 
@@ -1116,9 +1120,9 @@ void tsn_system::send_pm(char *receiver_uuid)
   ReturnCode_t status = pmWriter->write(pmInstance, DDS::HANDLE_NIL);
   checkStatus(status, "pmDataWriter::write");
 
-//  cout << "Sent Message:\n" << message << endl;
-
+  std::cout << "\nSent Message.\n";
   sleep(2);
+  std::cout << string(50, '\n');  
 
   pm_mgr.deleteWriter();
   pm_mgr.deletePublisher();

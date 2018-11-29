@@ -22,6 +22,9 @@ class tsn_system
     //stores information about all users currently connected to TSN
     std::vector<user> online_users;
 
+    //keeps track of the UUID of the last person to PM
+    char last_pm_sender[TSN::UUID_SIZE];
+
     //manager object to create data publishers/subscribers
     DDSEntityManager manager;
 
@@ -71,7 +74,6 @@ class tsn_system
     //generates a request for all posts from a specific user, is invoked in view::show_user()
     //parameter is the user we want to request posts from
     void request_all_posts(user requested_user);
-
 
     //clears all information currently stored in the all_users and online_users vectors
     //and deletes the current .tsnusers file
