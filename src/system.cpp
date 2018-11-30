@@ -230,7 +230,6 @@ void tsn_system::pm_listener()
       //only grab pm if the receiver uuid matches
       if(strcmp(pmList[j].receiver_uuid, current_user.uuid) == 0 && pmList[j].date_of_creation != 0)
       {
-        //save last pm's sender to quick reply to later
         strcpy(last_pm_sender, pmList[j].sender_uuid);
         //retrieving the corresponding name to the private message's sender uuid; name is initialized in case the
         //online list was refreshed and the sender's user info hasn't been re-published yet
@@ -962,7 +961,8 @@ void tsn_system::refresh_online_list()
   }
 }
 
-/*void tsn_system::new_online_list() // displays notification if there is new user online in the network
+/*
+void tsn_system::new_online_list() // displays notification if there is new user online in the network
 {
   unsigned previous_user = online_users.size();
   while(true)
@@ -977,7 +977,6 @@ void tsn_system::refresh_online_list()
       std::cout << " " << endl;
       std::cout << "\033[1;38mKEY>>  \033[0m";
       std::cout << " " << endl;
-
     }
     previous_user = online_users.size();
   }
@@ -985,9 +984,7 @@ void tsn_system::refresh_online_list()
     sleep(3);
   }
 }
-
 */
-
 
 void tsn_system::request_all_posts(user requested_user)
 {

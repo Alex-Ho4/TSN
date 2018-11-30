@@ -252,7 +252,6 @@ void view::search_posts()
     std::cout << " " << std::endl;
     std::cout << "\033[1;37mChoose Keyword: \033[0m\n";
 
-
     n = 100;
     std::string choice;
     std::cin >> choice;
