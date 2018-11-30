@@ -69,7 +69,8 @@ class tsn_system
     void refresh_online_list();
 
     // checks every 3 seconds if new user online in the network
-    void new_online_list();
+    //void new_online_list();
+
 
     //generates a request for all posts from a specific user, is invoked in view::show_user()
     //parameter is the user we want to request posts from

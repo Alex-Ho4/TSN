@@ -231,7 +231,7 @@ void tsn_system::pm_listener()
       if(strcmp(pmList[j].receiver_uuid, current_user.uuid) == 0 && pmList[j].date_of_creation != 0)
       {
         //save last pm's sender to quick reply to later
-        strcpy(last_pm_sender, pmList[j].sender_uuid);     
+        strcpy(last_pm_sender, pmList[j].sender_uuid);
         //retrieving the corresponding name to the private message's sender uuid; name is initialized in case the
         //online list was refreshed and the sender's user info hasn't been re-published yet
         std::vector<user>::iterator it;
@@ -334,14 +334,42 @@ void tsn_system::user_listener()
 
          //if user is already known, delete the old record in vector and add the new one
          std::vector<user>::iterator it;
+         int n =-1;
+         for(it = all_users.begin(); it != all_users.end(); it++)
+         {
+           // checks if user is already present if yes we increase the value of n
+           if(strcmp(it->uuid, new_user.uuid) == 0){
+             n++;
+           }
+         }
          for(it = online_users.begin(); it != online_users.end(); it++)
          {
+
+           // checks if there is new post in the network
            if(strcmp(it->uuid, new_user.uuid) == 0)
            {
+             if (it->get_highest_pnum() < new_user.get_highest_pnum()) {
+               std::cout << " " << endl;
+               std::cout << " " << endl;
+               std::cout << "\033[1;38m***** " << it->first_name<<" "<< it->last_name<<" has posted a new post recently. ****\033[0m\n";
+               std::cout << " " << endl;
+               std::cout << "\033[1;38mKEY>>  \033[0m";
+               std::cout << " " << endl;
+             }
+
              online_users.erase(it);
              break;
            }
          }
+         // it means this user is new
+
+           if ( n == -1) {
+             std::cout << "" << endl;
+             std::cout << "\033[1;38m***** " << new_user.first_name<<" "<< new_user.last_name<<" is online. ****\033[0m\n";
+             std::cout << "" << endl;
+           }
+
+
          online_users.push_back(new_user);
 
          for(it = all_users.begin(); it != all_users.end(); it++)
@@ -934,7 +962,7 @@ void tsn_system::refresh_online_list()
   }
 }
 
-void tsn_system::new_online_list() // displays notification if there is new user online in the network
+/*void tsn_system::new_online_list() // displays notification if there is new user online in the network
 {
   unsigned previous_user = online_users.size();
   while(true)
@@ -945,10 +973,11 @@ void tsn_system::new_online_list() // displays notification if there is new user
     {
       std::cout << " " << endl;
       std::cout << " " << endl;
-      std::cout << "\033[1;38m\t\tNew user is online in the network\033[0m\n";
-      std::cout << " " << endl;
+      std::cout << "\033[1;38m**** New user is online in the network. ****\033[0m\n";
       std::cout << " " << endl;
       std::cout << "\033[1;38mKEY>>  \033[0m";
+      std::cout << " " << endl;
+
     }
     previous_user = online_users.size();
   }
@@ -957,6 +986,7 @@ void tsn_system::new_online_list() // displays notification if there is new user
   }
 }
 
+*/
 
 
 void tsn_system::request_all_posts(user requested_user)
@@ -1058,6 +1088,12 @@ void tsn_system::create_post()
   std::cout << "Enter a message for your post: " << std::endl;
   getline(cin, message);
 
+  //std::vector<user>::iterator it;
+
+  //for(it = sys.online_users.begin(); it != sys.online_users.end(); it++)
+//  {
+
+  //  }
   //getting epoch time in seconds
   struct timeval tp;
   gettimeofday(&tp, NULL);
@@ -1122,7 +1158,7 @@ void tsn_system::send_pm(char *receiver_uuid)
 
   std::cout << "\nSent Message.\n";
   sleep(2);
-  std::cout << string(50, '\n');  
+  std::cout << string(50, '\n');
 
   pm_mgr.deleteWriter();
   pm_mgr.deletePublisher();
