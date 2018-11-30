@@ -27,7 +27,6 @@ module TSN
 
         sequence<string> interests;     
         unsigned long long number_of_highest_post;
-	unsigned long long number_of_highest_message;
     };
     #pragma keylist user_information uuid
     #pragma cats user_information uuid
@@ -40,7 +39,6 @@ module TSN
     {
         char fulfiller_uuid[UUID_SIZE];  // the owner of the posts
         sequence<serial_number> requested_posts;
-	sequence<serial_number> requested_messages;
     };
 
     // A request for posts. When this is recieved, each node must iterate through the 

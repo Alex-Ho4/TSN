@@ -4,7 +4,6 @@
 #include "DDSEntityManager.h"
 #include "ccpp_tsn.h"
 #include "user.h"
-#include "message.h"
 
 #include <cstring>
 #include <string>
@@ -23,6 +22,9 @@ class tsn_system
     //stores information about all users currently connected to TSN
     std::vector<user> online_users;
 
+    //keeps track of the UUID of the last person to PM
+    char last_pm_sender[TSN::UUID_SIZE];
+
     //manager object to create data publishers/subscribers
     DDSEntityManager manager;
 
@@ -38,12 +40,16 @@ class tsn_system
     //creates a subscriber/reader and listens for responses
     void response_listener();
 
+    //creates a subscriber/reader and listens for private messages
+    void pm_listener();
+
     //creates a subscriber/reader and listens for user information
     void user_listener();
 
     //prompts current user for info and publishes a request on the network
     long publish_request();
-    long publish_msgrequest();
+
+    long search_request();
 
     //takes a request as a parameter and publishes a response to that request if needed
     void publish_response(TSN::request r);
@@ -57,15 +63,18 @@ class tsn_system
     //writes user data to a file, parameters are the user whose data we want to write, the
     //file stream to the file to write to, and a boolean indicating if we also want to
     //write all the user's post data or not
-    void write_user_data(user user_to_save, std::ofstream& out, bool write_posts , bool write_messages);
+    void write_user_data(user user_to_save, std::ofstream& out, bool write_posts);
 
     //clears the online_users vector every 150 seconds to remove any users who have disconnected
     void refresh_online_list();
 
+    // checks every 3 seconds if new user online in the network
+    //void new_online_list();
+
+
     //generates a request for all posts from a specific user, is invoked in view::show_user()
     //parameter is the user we want to request posts from
     void request_all_posts(user requested_user);
-    void request_all_messages(user requested_user);
 
     //clears all information currently stored in the all_users and online_users vectors
     //and deletes the current .tsnusers file
@@ -75,7 +84,7 @@ class tsn_system
     void create_post();
 
     //prompts the user for a pvt message
-    void send_msg();
+    void send_pm(char *receiver_uuid);
 
     //prompts the user to either change their first name, last name, or interests
     void edit_user();

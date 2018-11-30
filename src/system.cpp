@@ -10,14 +10,16 @@
 
 tsn_system::tsn_system(user& cu)
 {
-   current_user = cu;
-   std::vector<user> on_vector;
-   online_users = on_vector;
+  current_user = cu;
+  std::vector<user> on_vector;
+  online_users = on_vector;
 
-   manager.createParticipant("TSN");
+  strcpy(last_pm_sender, "NULL");
 
-   std::vector<user> all_vector;
-   all_users = all_vector;
+  manager.createParticipant("TSN");
+
+  std::vector<user> all_vector;
+  all_users = all_vector;
 }
 
 void tsn_system::user_publisher()
@@ -37,38 +39,37 @@ void tsn_system::user_publisher()
   DDS::DataWriter_var dw = manager.getWriter();
   TSN::user_informationDataWriter_var userinfoWriter = TSN::user_informationDataWriter::_narrow(dw.in());
 
- while(true)
+  while(true)
   {
-  TSN::user_information userinfoInstance;
+    TSN::user_information userinfoInstance;
 
+    //initialize a user_information instance with info from current_user
+    userinfoInstance.first_name = DDS::string_dup((current_user.first_name).c_str());
+    userinfoInstance.last_name = DDS::string_dup((current_user.last_name).c_str());
+    strcpy(userinfoInstance.uuid, current_user.uuid);
+    userinfoInstance.number_of_highest_post = current_user.get_highest_pnum();
+    userinfoInstance.date_of_birth = current_user.date_of_birth;
 
-  //initialize a user_information instance with info from current_user
-  userinfoInstance.first_name = DDS::string_dup((current_user.first_name).c_str());
-  userinfoInstance.last_name = DDS::string_dup((current_user.last_name).c_str());
-  strcpy(userinfoInstance.uuid, current_user.uuid);
-  userinfoInstance.number_of_highest_post = current_user.get_highest_pnum();
-  userinfoInstance.date_of_birth = current_user.date_of_birth;
+    //get length of the interests vector so we can set the sequence length of user_information
+    int n = 0;
+    std::vector<std::string>::iterator it;
+    for(it = current_user.interests.begin(); it != current_user.interests.end(); it++)
+    {
+      n++;
+    }
+    userinfoInstance.interests.length(n);
 
-  //get length of the interests vector so we can set the sequence length of user_information
-  int n = 0;
-  std::vector<std::string>::iterator it;
-  for(it = current_user.interests.begin(); it != current_user.interests.end(); it++)
-  {
-    n++;
-  }
-  userinfoInstance.interests.length(n);
+    //store current user's interests in the sequence
+    n = 0;
+    for(it = current_user.interests.begin(); it != current_user.interests.end(); it++, n++)
+    {
+      userinfoInstance.interests[n] = DDS::string_dup(it->c_str());
+    }
 
-  //store current user's interests in the sequence
-  n = 0;
-  for(it = current_user.interests.begin(); it != current_user.interests.end(); it++, n++)
-  {
-    userinfoInstance.interests[n] = DDS::string_dup(it->c_str());
-  }
+    ReturnCode_t status = userinfoWriter->write(userinfoInstance, DDS::HANDLE_NIL);
+    checkStatus(status, "user_informationDataWriter::write");
 
-  ReturnCode_t status = userinfoWriter->write(userinfoInstance, DDS::HANDLE_NIL);
-  checkStatus(status, "user_informationDataWriter::write");
-
-  sleep(30);
+    sleep(1);
   }
 
 }
@@ -158,28 +159,29 @@ void tsn_system::response_listener()
     checkStatus(response_status, "responseDataReader::take");
 
     for (DDS::ULong j = 0; j < responseList.length(); j++)
-     {
-       //ignore the response if it's sent from the current user
-       if((strcmp(responseList[j].uuid, current_user.uuid) != 0) && responseList[j].post_id != 0)
-       {
-         //retrieving the corresponding name to the responder's uuid; name is initialized in case the
-         //online list was refreshed and the responding user's info hasn't been re-published yet
-         std::vector<user>::iterator it;
-         std::string name = "unable to retrieve name";
-         for(it = online_users.begin(); it != online_users.end(); it++)
-         {
-           if(strcmp(it->uuid, responseList[j].uuid) == 0)
-           {
-             name = it->first_name + " " + it->last_name;
-             break;
-           }
-         }
-         std::cout << "\n    Name  : " << name << std::endl;
-         std::cout << "    Post ID : " << responseList[j].post_id << std::endl;
-         std::cout << "    Date of Creation: " << responseList[j].date_of_creation << std::endl;
-         std::cout << "    Post Body: " << responseList[j].post_body << std::endl;
-       }
-		 }
+    {
+      //ignore the response if it's sent from the current user
+      if((strcmp(responseList[j].uuid, current_user.uuid) != 0) && responseList[j].post_id != 0)
+      {
+        //retrieving the corresponding name to the responder's uuid; name is initialized in case the
+        //online list was refreshed and the responding user's info hasn't been re-published yet
+        std::vector<user>::iterator it;
+        std::string name = "unable to retrieve name";
+        for(it = online_users.begin(); it != online_users.end(); it++)
+        {
+          if(strcmp(it->uuid, responseList[j].uuid) == 0)
+          {
+            name = it->first_name + " " + it->last_name;
+            break;
+          }
+        }
+        std::cout << "\n    Name  : " << name << std::endl;
+        std::cout << "    Post ID : " << responseList[j].post_id << std::endl;
+        std::cout << "    Date of Creation: " << responseList[j].date_of_creation << std::endl;
+        std::cout << "    Post Body: " << responseList[j].post_body << std::endl;
+      }
+		}
+
     response_status = responseReader->return_loan(responseList, infoSeq);
     checkStatus(response_status, "response_informationDataReader::return_loan");
     sleep(1);
@@ -189,6 +191,89 @@ void tsn_system::response_listener()
   resp_mgr.deleteTopic();
   resp_mgr.deleteParticipant();
   resp_mgr.deleteSubscriber();
+
+}
+
+void tsn_system::pm_listener()
+{
+
+  //initializing data readers and subscribers
+  TSN::private_messageSeq pmList;
+  DDS::SampleInfoSeq infoSeq;
+
+  DDSEntityManager pm_mgr;
+  pm_mgr.createParticipant("TSN");
+
+  TSN::private_messageTypeSupport_var pms = new TSN::private_messageTypeSupport();
+  pm_mgr.registerType(pms.in());
+
+  char pm_topic[] = "pm";
+
+  pm_mgr.createTopic(pm_topic);
+  pm_mgr.createSubscriber();
+  pm_mgr.createReader();
+
+  DDS::DataReader_var pm_data =  pm_mgr.getReader();
+  TSN::private_messageDataReader_var pmReader = TSN::private_messageDataReader::_narrow(pm_data.in());
+  checkHandle(pmReader.in(), "private_messageDataReader::_narrow");
+
+  ReturnCode_t pm_status = -1;
+
+  //while loop constantly listens for any private messages sent over the network
+  while(true)
+  {
+    pm_status = pmReader->take(pmList, infoSeq, LENGTH_UNLIMITED, ANY_SAMPLE_STATE, ANY_VIEW_STATE, ANY_INSTANCE_STATE);
+    checkStatus(pm_status, "private_messageDataReader::take");
+
+    for (DDS::ULong j = 0; j < pmList.length(); j++)
+    {
+      //only grab pm if the receiver uuid matches
+      if(strcmp(pmList[j].receiver_uuid, current_user.uuid) == 0 && pmList[j].date_of_creation != 0)
+      {
+        //save last pm's sender to quick reply to later
+        strcpy(last_pm_sender, pmList[j].sender_uuid);
+        //retrieving the corresponding name to the private message's sender uuid; name is initialized in case the
+        //online list was refreshed and the sender's user info hasn't been re-published yet
+        std::vector<user>::iterator it;
+        std::string name = "unable to retrieve name " + to_string(j);
+        for(it = online_users.begin(); it != online_users.end(); it++)
+        {
+          if(strcmp(it->uuid, pmList[j].sender_uuid) == 0)
+          {
+            name = it->first_name + " " + it->last_name;
+            break;
+          }
+        }
+        cout << string(50, '\n');
+        std::cout << "\033[1;31m\t\t===============================\033[0m\n";
+        std::cout << " " << std::endl;
+        std::cout << "\033[1;32m\t\t          NEW MESSAGE\033[0m\n" << std::endl;
+        std::cout << "\033[1;31m\t\t===============================\033[0m\n";
+        std::cout << " " << std::endl;
+        std::cout << "\033[1;33m\t ⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇\033[0m\n";
+        std::cout << " " << std::endl;
+        std::cout << "\n    Name  : " << name << std::endl;
+        std::cout << "    Date of Creation: " << pmList[j].date_of_creation << std::endl;
+        std::cout << "    Message: " << pmList[j].message_body << std::endl;
+        std::cout << " " << std::endl;
+        std::cout << " " << std::endl;
+        std::cout << " " << std::endl;
+        std::cout << " " << std::endl;
+        std::cout << "\033[1;38m\t\tPress 9 to reply to message.\033[0m\n";
+        std::cout << "\033[1;38m\t\tPress 100 to see the Main menu.\033[0m\n";
+      }
+		}
+
+    pm_status = pmReader->return_loan(pmList, infoSeq);
+    checkStatus(pm_status, "private_message_informationDataReader::return_loan");
+
+    sleep(1);
+  }
+
+  pm_mgr.deleteReader();
+  pm_mgr.deleteTopic();
+  pm_mgr.deleteParticipant();
+  pm_mgr.deleteSubscriber();
 
 }
 
@@ -237,26 +322,54 @@ void tsn_system::user_listener()
            interests.push_back(interest);
          }
          std::vector<post> posts;
-         std::vector<message> messages;
+
 
          string fname = DDS::string_dup(userinfoList[j].first_name);
          string lname = DDS::string_dup(userinfoList[j].last_name);
          long date = userinfoList[j].date_of_birth;
          unsigned long long hp = userinfoList[j].number_of_highest_post;
-         unsigned long long hm = userinfoList[j].number_of_highest_message;
 
-         user new_user = user(fname, lname, date, uuid, interests, posts, messages, hm, hp);
+
+         user new_user = user(fname, lname, date, uuid, interests, posts, hp);
 
          //if user is already known, delete the old record in vector and add the new one
          std::vector<user>::iterator it;
+         int n =-1;
+         for(it = all_users.begin(); it != all_users.end(); it++)
+         {
+           // checks if user is already present if yes we increase the value of n
+           if(strcmp(it->uuid, new_user.uuid) == 0){
+             n++;
+           }
+         }
          for(it = online_users.begin(); it != online_users.end(); it++)
          {
+
+           // checks if there is new post in the network
            if(strcmp(it->uuid, new_user.uuid) == 0)
            {
+             if (it->get_highest_pnum() < new_user.get_highest_pnum()) {
+               std::cout << " " << endl;
+               std::cout << " " << endl;
+               std::cout << "\033[1;38m***** " << it->first_name<<" "<< it->last_name<<" has posted a new post recently. ****\033[0m\n";
+               std::cout << " " << endl;
+               std::cout << "\033[1;38mKEY>>  \033[0m";
+               std::cout << " " << endl;
+             }
+
              online_users.erase(it);
              break;
            }
          }
+         // it means this user is new
+
+           if ( n == -1) {
+             std::cout << "" << endl;
+             std::cout << "\033[1;38m***** " << new_user.first_name<<" "<< new_user.last_name<<" is online. ****\033[0m\n";
+             std::cout << "" << endl;
+           }
+
+
          online_users.push_back(new_user);
 
          for(it = all_users.begin(); it != all_users.end(); it++)
@@ -269,11 +382,11 @@ void tsn_system::user_listener()
          }
          all_users.push_back(new_user);
          std::string home = getenv("HOME"); //.tsn is always stored in home directory
-         std::string path = "/.tsnusers";
+         std::string path = "~/tsnusers";
          std::ofstream out (path);
          for(it = all_users.begin(); it != all_users.end(); it++)
          {
-           write_user_data(*it, out, false, false);
+           write_user_data(*it, out, false);
          }
          out.close();
 
@@ -290,6 +403,161 @@ void tsn_system::user_listener()
   userinfo_mgr.deleteSubscriber();
 }
 
+long tsn_system::search_request()
+{
+  //initializing data publisher and writer
+  DDSEntityManager request_mgr;
+
+  request_mgr.createParticipant("TSN");
+  TSN::requestTypeSupport_var mt = new TSN::requestTypeSupport();
+  request_mgr.registerType(mt.in());
+
+  char request_topic[] = "request";
+  request_mgr.createTopic(request_topic);
+
+  request_mgr.createPublisher();
+  request_mgr.createWriter(false);
+
+  DDS::DataWriter_var dw = request_mgr.getWriter();
+  TSN::requestDataWriter_var requestWriter = TSN::requestDataWriter::_narrow(dw.in());
+  TSN::request requestInstance;
+  std::vector<TSN::node_request> requests;
+
+  int post_seq_length = 0;
+  int n;
+
+  //getting information for the individual node requests from the user
+  while(true)
+  {
+    TSN::node_request nodeReqInstance;
+    std::vector<TSN::serial_number> requested_p;
+
+    char myuuid[TSN::UUID_SIZE] = {};
+
+
+    n = 0;
+    std::cout << std::endl;
+
+    std::vector<user>::iterator user_it;
+    TSN::serial_number requested_hpnum;
+    int on_list_size = static_cast<int> (online_users.size());
+
+    //prints out a list of online users that can be sent a request to
+    if(on_list_size > 0)
+    {
+      cout << string(50, '\n');
+  //    std::cout << "\033[1;31m\t\t=============================\033[0m\n";
+  //    std::cout << " " << std::endl;
+  //    std::cout << "\033[1;32m\t\t   ONLINE USERS\033[0m\n" << std::endl;
+  //    std::cout << "\033[1;31m\t\t=============================\033[0m\n";
+  //    for(user_it = online_users.begin(); user_it != online_users.end(); user_it++, n++)
+  //    {
+  //      std::cout << "(" << n+1 << ") " << user_it->first_name << " " << user_it->last_name << std::endl;
+  //    }
+  //    std::cout << "\nChoose which user to request from: " << std::endl;
+
+      n = 0;
+  //    int choice;
+  //    std::cin >> choice;
+
+      //retrieving the UUID and highest post number of chosen user
+    //  for(user_it = online_users.begin(); n < choice+1 ; user_it++, n++)
+      for(user_it = online_users.begin(); user_it != online_users.end(); user_it++, n++)
+      {
+    //    if(n == choice)
+    //      {
+            strcpy(myuuid, user_it->uuid);
+            requested_hpnum = user_it->get_highest_pnum();
+      //    }
+      }
+    }
+    else
+    {
+      std::cout << "\nThere are no users online to publish a request to." << std::endl;
+      return -1;
+    }
+
+    if(requested_hpnum == 0)
+    {
+      std::cout << "This user has no posts to request for." << std::endl;
+      return -1;
+    }
+
+    //getting serial numbers of desired posts from that user
+  //  std::cout << "Enter 0" << std::endl;
+    std::cout << "Enter 1 to "<<requested_hpnum<<" in separate line. Then enter 0 to stop."<<endl;
+    TSN::serial_number get_input;
+    while(true)
+    {
+      std::cin >> get_input;
+      if(get_input == 0)
+      {
+        break;
+      }
+      else
+      {
+        if(get_input > requested_hpnum)
+        {
+          std::cout << "The user doesn't have a post with that serial number. Please re-enter." << std::endl;
+        }
+        else
+          requested_p.push_back(get_input);
+      }
+    }
+
+    strcpy(nodeReqInstance.fulfiller_uuid, myuuid);
+    post_seq_length = static_cast<int> (requested_p.size());
+    nodeReqInstance.requested_posts.length(post_seq_length);
+
+    n = 0;
+    std::vector<TSN::serial_number>::iterator sn_it;
+    for(sn_it = requested_p.begin(); sn_it != requested_p.end(); sn_it++, n++)
+    {
+      nodeReqInstance.requested_posts[n] = *sn_it;
+    }
+    requests.push_back(nodeReqInstance);
+
+    int choice;
+    std::cout << "Press 0 ";
+    std::cin >> choice;
+
+    //adding all the individual node requests into one request instance
+    if(choice == 0)
+    {
+      int req_seq_length = static_cast<int> (requests.size());
+      requestInstance.user_requests.length(req_seq_length);
+
+      int n = 0;
+      std::vector<TSN::node_request>::iterator it;
+      for(it = requests.begin(); it != requests.end(); it++, n++)
+        requestInstance.user_requests[n] = *it;
+
+      break;
+    }
+  }
+
+  strcpy(requestInstance.uuid, current_user.uuid);
+  std::cout << "\n=== [Publisher] publishing your request on the TSN network :";
+
+  ReturnCode_t status = requestWriter->write(requestInstance, DDS::HANDLE_NIL);
+  checkStatus(status, "requestDataWriter::write");
+  std::cout << " success" << std::endl;
+
+  struct timeval tp;
+  gettimeofday(&tp, NULL);
+  long date = tp.tv_sec;
+
+  //clean up
+  request_mgr.deleteWriter();
+  request_mgr.deletePublisher();
+  request_mgr.deleteTopic();
+  request_mgr.deleteParticipant();
+
+  sleep(n);
+
+  //we return the time the request is published to adhere to the 1 request per minute rule
+  return date;
+}
 
 long tsn_system::publish_request()
 {
@@ -336,7 +604,7 @@ long tsn_system::publish_request()
       cout << string(50, '\n');
       std::cout << "\033[1;31m\t\t=============================\033[0m\n";
       std::cout << " " << std::endl;
-      std::cout << "\033[1;32m\t\t   ONLINE USERS\033[0m\n" << std::endl;
+      std::cout << "\033[1;32m\t\t         ONLINE USERS\033[0m\n" << std::endl;
       std::cout << "\033[1;31m\t\t=============================\033[0m\n";
       for(user_it = online_users.begin(); user_it != online_users.end(); user_it++, n++)
       {
@@ -445,159 +713,6 @@ long tsn_system::publish_request()
   return date;
 }
 
-long tsn_system::publish_msgrequest()
-{
-  //initializing data publisher and writer
-  DDSEntityManager request_mgr;
-
-  request_mgr.createParticipant("TSN");
-  TSN::requestTypeSupport_var mt = new TSN::requestTypeSupport();
-  request_mgr.registerType(mt.in());
-
-  char request_topic[] = "request";
-  request_mgr.createTopic(request_topic);
-
-  request_mgr.createPublisher();
-  request_mgr.createWriter(false);
-
-  DDS::DataWriter_var dw = request_mgr.getWriter();
-  TSN::requestDataWriter_var requestWriter = TSN::requestDataWriter::_narrow(dw.in());
-  TSN::request requestInstance;
-  std::vector<TSN::node_request> requests;
-
-  int message_seq_length = 0;
-  int n;
-
-  //getting information for the individual node requests from the user
-  while(true)
-  {
-    TSN::node_request nodeReqInstance;
-    std::vector<TSN::serial_number> requested_m;
-
-    char myuuid[TSN::UUID_SIZE] = {};
-
-
-    n = 0;
-    std::cout << std::endl;
-
-    std::vector<user>::iterator user_it;
-    TSN::serial_number requested_hmnum;
-    int on_list_size = static_cast<int> (online_users.size());
-
-    //prints out a list of online users that can be sent a request to
-    if(on_list_size > 0)
-    {
-      cout << string(50, '\n');
-      std::cout << "\033[1;31m\t\t=============================\033[0m\n";
-      std::cout << " " << std::endl;
-      std::cout << "\033[1;32m\t\t   ONLINE USERS\033[0m\n" << std::endl;
-      std::cout << "\033[1;31m\t\t=============================\033[0m\n";
-      for(user_it = online_users.begin(); user_it != online_users.end(); user_it++, n++)
-      {
-        std::cout << "(" << n+1 << ") " << user_it->first_name << " " << user_it->last_name << std::endl;
-      }
-      std::cout << "\nChoose which user to request from: " << std::endl;
-
-      n = 0;
-      int choice;
-      std::cin >> choice;
-
-      //retrieving the UUID and highest post number of chosen user
-      for(user_it = online_users.begin(); n < choice+1 ; user_it++, n++)
-      {
-        if(n == choice)
-          {
-            strcpy(myuuid, user_it->uuid);
-            requested_hmnum = user_it->get_highest_mnum();
-          }
-      }
-    }
-    else
-    {
-      std::cout << "\nThere are no users online to publish a request to." << std::endl;
-      return -1;
-    }
-
-    if(requested_hmnum == 0)
-    {
-      std::cout << "This user has no posts to request for." << std::endl;
-      return -1;
-    }
-
-    //getting serial numbers of desired posts from that user
-    std::cout << "Enter the serial numbers of the posts you want from that user on a separate line, enter 0 to stop:" << std::endl;
-    TSN::serial_number get_input;
-    while(true)
-    {
-      std::cin >> get_input;
-      if(get_input == 0)
-      {
-        break;
-      }
-      else
-      {
-        if(get_input > requested_hmnum)
-        {
-          std::cout << "The user doesn't have a post with that serial number. Please re-enter." << std::endl;
-        }
-        else
-          requested_m.push_back(get_input);
-      }
-    }
-
-    strcpy(nodeReqInstance.fulfiller_uuid, myuuid);
-    message_seq_length = static_cast<int> (requested_m.size());
-    nodeReqInstance.requested_messages.length(message_seq_length);
-
-    n = 0;
-    std::vector<TSN::serial_number>::iterator sn_it;
-    for(sn_it = requested_m.begin(); sn_it != requested_m.end(); sn_it++, n++)
-    {
-      nodeReqInstance.requested_posts[n] = *sn_it;
-    }
-    requests.push_back(nodeReqInstance);
-
-    int choice;
-    std::cout << "Would you like to request from another user? Enter 1 for Yes or 0 for No: ";
-    std::cin >> choice;
-
-    //adding all the individual node requests into one request instance
-    if(choice == 0)
-    {
-      int req_seq_length = static_cast<int> (requests.size());
-      requestInstance.user_requests.length(req_seq_length);
-
-      int n = 0;
-      std::vector<TSN::node_request>::iterator it;
-      for(it = requests.begin(); it != requests.end(); it++, n++)
-        requestInstance.user_requests[n] = *it;
-
-      break;
-    }
-  }
-
-  strcpy(requestInstance.uuid, current_user.uuid);
-  std::cout << "\n=== [Publisher] publishing your request on the TSN network :";
-
-  ReturnCode_t status = requestWriter->write(requestInstance, DDS::HANDLE_NIL);
-  checkStatus(status, "requestDataWriter::write");
-  std::cout << " success" << std::endl;
-
-  struct timeval tp;
-  gettimeofday(&tp, NULL);
-  long date = tp.tv_sec;
-
-  //clean up
-  request_mgr.deleteWriter();
-  request_mgr.deletePublisher();
-  request_mgr.deleteTopic();
-  request_mgr.deleteParticipant();
-
-  sleep(n);
-
-  //we return the time the request is published to adhere to the 1 request per minute rule
-  return date;
-}
 
 void tsn_system::publish_response(TSN::request r)
 {
@@ -666,18 +781,16 @@ void tsn_system::publish_response(TSN::request r)
 void tsn_system::load_user_data()
 {
   //std::string home = getenv("HOME"); //.tsn and .tsnusers is always stored in home directory
-  std::string path = "/.tsnusers";
+  std::string path = "~/tsnusers";
   std::ifstream in(path);
 
   std::string first_name;
   std::string last_name;
   char myuuid[TSN::UUID_SIZE] = {};
   std::vector<post> posts;
-  std::vector<message> messages;
   std::vector<std::string> interests;
 
   std::string temp;
-  std::string temp1;
 
   //loading info about known nodes from .tsnusers if it exsits
   if(in)
@@ -699,11 +812,6 @@ void tsn_system::load_user_data()
       ss.clear();
       ss >> highest_pnum;
 
-      unsigned long long highest_mnum;
-      in >> temp1;
-      ss.str(temp1);
-      ss.clear();
-      ss >> highest_mnum;
 
       while(getline(in, temp))
       {
@@ -713,13 +821,13 @@ void tsn_system::load_user_data()
         interests.push_back(temp);
       }
 
-      all_users.push_back(user(first_name, last_name, date, myuuid, interests, posts, messages,highest_mnum, highest_pnum));
+      all_users.push_back(user(first_name, last_name, date, myuuid, interests, posts, highest_pnum));
     }
   }
   in.close();
 
   //now attempting to load info of the current user/node from .tsn
-  path = "/.tsn";
+  path = "~/tsn";
   in.open(path);
 
   //the .tsn file does not exist so obtain data directly from user
@@ -749,11 +857,6 @@ void tsn_system::load_user_data()
   ss.clear();
   ss >> highest_pnum;
 
-  unsigned long long highest_mnum;
-  in >> temp1;
-  ss.str(temp1);
-  ss.clear();
-  ss >> highest_mnum;
 
   //retrieving current user's interests
   while(getline(in, temp))
@@ -792,33 +895,10 @@ void tsn_system::load_user_data()
     posts.push_back(post(sn, body, doc));
   }
 
-  //retrieving current user's messages
-  while(getline(in, temp1))
-  {
-    if(temp == "END POSTS")
-      break;
-
-    //read serial number
-    ss.str(temp1);
-    ss.clear();
-    ss >> sn;
-
-    //read post body
-    getline(in, temp1);
-    body = temp;
-
-    //read date of creation
-    getline(in, temp1);
-    ss.str(temp1);
-    ss.clear();
-    ss >> doc;
-
-    messages.push_back(message(sn, body, doc));
-  }
   in.close();
 
   //initializing current_user with a user object with all the data from .tsn
-  current_user = user(first_name, last_name, date, myuuid, interests, posts,messages,highest_mnum, highest_pnum);
+  current_user = user(first_name, last_name, date, myuuid, interests, posts, highest_pnum);
 }
 
 user tsn_system::create_new_user(std::string path)
@@ -826,7 +906,6 @@ user tsn_system::create_new_user(std::string path)
   std::string first_name;
   std::string last_name;
   std::vector<post> posts;
-  std::vector<message> messages;
   std::vector<std::string> interests;
 
   std::ofstream out(path);
@@ -869,17 +948,46 @@ user tsn_system::create_new_user(std::string path)
   out << "END INTERESTS" << std::endl;
   out.close();
   cout << string(50, '\n');
-  return user(first_name, last_name, date, myuuid, interests, posts,messages,0, 0);
+  return user(first_name, last_name, date, myuuid, interests, posts, 0);
 }
 
 void tsn_system::refresh_online_list()
 {
+
  while(true)
   {
+
     online_users.clear();
     sleep(150);
   }
 }
+
+/*void tsn_system::new_online_list() // displays notification if there is new user online in the network
+{
+  unsigned previous_user = online_users.size();
+  while(true)
+  {
+    //TODO: Reprint menu afterwards, fix constant reprinting
+    if (online_users.size() != 0){ // when we refresh online list every 3 minutes , online user size becomes 0
+    if (previous_user < online_users.size())
+    {
+      std::cout << " " << endl;
+      std::cout << " " << endl;
+      std::cout << "\033[1;38m**** New user is online in the network. ****\033[0m\n";
+      std::cout << " " << endl;
+      std::cout << "\033[1;38mKEY>>  \033[0m";
+      std::cout << " " << endl;
+
+    }
+    previous_user = online_users.size();
+  }
+  //  online_users.clear();
+    sleep(3);
+  }
+}
+
+*/
+
 
 void tsn_system::request_all_posts(user requested_user)
 {
@@ -925,52 +1033,9 @@ void tsn_system::request_all_posts(user requested_user)
   request_mgr.deleteParticipant();
 }
 
-void tsn_system::request_all_messages(user requested_user)
-{
-  //initializing data publisher and writer
-  DDSEntityManager request_mgr;
-
-  request_mgr.createParticipant("TSN");
-  TSN::requestTypeSupport_var mt = new TSN::requestTypeSupport();
-  request_mgr.registerType(mt.in());
-
-  char request_topic[] = "request";
-  request_mgr.createTopic(request_topic);
-
-  request_mgr.createPublisher();
-  request_mgr.createWriter(false);
-
-  DDS::DataWriter_var dw = request_mgr.getWriter();
-  TSN::requestDataWriter_var requestWriter = TSN::requestDataWriter::_narrow(dw.in());
-
-  //creating a request for the specified user
-  TSN::request requestInstance1;
-  TSN::node_request nodeReqInstance1;
-  strcpy(nodeReqInstance1.fulfiller_uuid, requested_user.uuid);
-  nodeReqInstance1.requested_messages.length(requested_user.get_highest_mnum());
-  std::cout << "i am here" <<endl;
-  std::vector<TSN::serial_number> requested_m;
-
-  //requesting for post serial numbers 1 to highest post number
-  for(unsigned long long n = 0; n < requested_user.get_highest_mnum(); n++)
-  {
-    nodeReqInstance1.requested_messages[n] = n+1;
-  }
-  strcpy(requestInstance1.uuid, current_user.uuid);
-  requestInstance1.user_requests.length(1);
-  requestInstance1.user_requests[0] = nodeReqInstance1;
-
-  ReturnCode_t status = requestWriter->write(requestInstance1, DDS::HANDLE_NIL);
-  checkStatus(status, "requestDataWriter::write");
-
-  request_mgr.deleteWriter();
-  request_mgr.deletePublisher();
-  request_mgr.deleteTopic();
-  request_mgr.deleteParticipant();
-}
 
 
-void tsn_system::write_user_data(user user_to_save, std::ofstream& out, bool write_posts, bool write_messages)
+void tsn_system::write_user_data(user user_to_save, std::ofstream& out, bool write_posts)
 {
   //writing personal information of the specified user to the output file stream
   out << user_to_save.uuid << std::endl;
@@ -999,25 +1064,13 @@ void tsn_system::write_user_data(user user_to_save, std::ofstream& out, bool wri
     out << "END POSTS" << std::endl;
   }
 
-  //if we also want the user's msgs to be written then do so
-  if(write_messages)
-  {
-    std::vector<message>::iterator messages_it;
-    for(messages_it = user_to_save.messages.begin(); messages_it != user_to_save.messages.end(); messages_it++)
-    {
-      out << messages_it->get_sn() << std::endl;
-      out << messages_it->get_body() << std::endl;
-      out << messages_it->get_doc() << std::endl;
-    }
-    out << "END POSTS" << std::endl;
-  }
 
 }
 
 void tsn_system::resync()
 {
   std::string home = getenv("HOME");
-  std::string path = "/.tsnusers";
+  std::string path = "~/tsnusers";
   std::remove(path.c_str());
 
   online_users.clear();
@@ -1035,6 +1088,12 @@ void tsn_system::create_post()
   std::cout << "Enter a message for your post: " << std::endl;
   getline(cin, message);
 
+  //std::vector<user>::iterator it;
+
+  //for(it = sys.online_users.begin(); it != sys.online_users.end(); it++)
+//  {
+
+  //  }
   //getting epoch time in seconds
   struct timeval tp;
   gettimeofday(&tp, NULL);
@@ -1046,72 +1105,65 @@ void tsn_system::create_post()
 
   //writing the new post to .tsn file
   std::string home = getenv("HOME");
-  std::string path = "/.tsn";
+  std::string path = "~/tsn";
   std::ofstream out (path);
 
-  write_user_data(current_user, out, true, false);
+  write_user_data(current_user, out, true);
   out.close();
 
 }
 
-
-void tsn_system::send_msg()
+void tsn_system::send_pm(char *receiver_uuid)
 {
+  std::cout << "\nEnter a message for your PM: " << std::endl;
+  std::string message;
+  //std::cin.ignore();
+  //std::cin.clear();
+  //std::cin.sync();
+  //std::cin >> message;
+  getline(cin, message);
 
-  int n=0;
+  //getting epoch time in seconds
+  struct timeval tp;
+  gettimeofday(&tp, NULL);
+  long date = tp.tv_sec;
 
-  std::vector<user>::iterator it;
-  int on_list_size = static_cast<int> (online_users.size());
+  //initializing data publisher and writer
+  DDSEntityManager pm_mgr;
+  pm_mgr.createParticipant("TSN");
 
-  //prints out a list of online users that can be sent a request to
-  if(on_list_size > 0)
-  {
-    cout << string(50, '\n');
-    std::cout << "\033[1;31m\t\t=============================\033[0m\n";
-    std::cout << " " << std::endl;
-    std::cout << "\033[1;32m\t\t        ONLINE USERS\033[0m\n" << std::endl;
-    std::cout << "\033[1;31m\t\t=============================\033[0m\n";
-    for(it = online_users.begin(); it != online_users.end(); it++, n++)
-    {
-      std::cout << "(" << n << ") " << it->first_name << " " << it->last_name << std::endl;
-    }
-    std::cout << "\nChoose which user you want to send pvt message: " << std::endl;
+  TSN::private_messageTypeSupport_var mt = new TSN::private_messageTypeSupport();
+  pm_mgr.registerType(mt.in());
 
-    n = 0;
-    int choice;
-    std::cin >> choice;
+  char pm_topic[] = "pm";
+  pm_mgr.createTopic(pm_topic);
 
-    //calculating the new post serial number
-    TSN::serial_number sn = (TSN::serial_number) current_user.get_highest_mnum()+1;
+  pm_mgr.createPublisher();
+  pm_mgr.createWriter(false);
 
-    std::string msg;
-    std::cout << "Enter your private message " << std::endl;
-    getchar();
-    getline(cin, msg);
+  DDS::DataWriter_var dw = pm_mgr.getWriter();
+  TSN::private_messageDataWriter_var pmWriter = TSN::private_messageDataWriter::_narrow(dw.in());
 
-    //getting epoch time in seconds
-    struct timeval tp;
-    gettimeofday(&tp, NULL);
-    long date = tp.tv_sec;
+  TSN::node_request my_node_req;
 
-    //saving the post in the current_user object
-    message m = message(sn, msg, date);
-    current_user.add_message(m);
+  TSN::private_message pmInstance;
 
-    //writing the new post to .tsn file
-    std::string home = getenv("HOME");
-    std::string path = "/.tsn";
-    std::ofstream out (path);
-    if (n==choice) {
-    write_user_data(current_user, out, false, true);
-  }
-    out.close();
+  strcpy(pmInstance.sender_uuid, current_user.uuid);
+  strcpy(pmInstance.receiver_uuid, receiver_uuid);
+  pmInstance.message_body = DDS::string_dup(message.c_str());
+  pmInstance.date_of_creation = date;
 
-  }
-  else {
-    cout << string(50, '\n');
-    std::cout << "\033[1;37m\t\tNo user is currently online.\033[0m\n";
-  }
+  ReturnCode_t status = pmWriter->write(pmInstance, DDS::HANDLE_NIL);
+  checkStatus(status, "pmDataWriter::write");
+
+  std::cout << "\nSent Message.\n";
+  sleep(2);
+  std::cout << string(50, '\n');
+
+  pm_mgr.deleteWriter();
+  pm_mgr.deletePublisher();
+  pm_mgr.deleteTopic();
+  pm_mgr.deleteParticipant();
 }
 
 void tsn_system::edit_user()
@@ -1152,9 +1204,9 @@ void tsn_system::edit_user()
 
   //writing edited information to .tsn file
   std::string home = getenv("HOME");
-  std::string path = "/.tsn";
+  std::string path = "~/tsn";
   std::ofstream out (path);
 
-  write_user_data(current_user, out, true,true);
+  write_user_data(current_user, out, true);
   out.close();
 }
